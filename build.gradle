@@ -1,0 +1,87 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.jetbrains.kotlin.jvm' version '1.4.30'
+    id "com.github.ben-manes.versions" version '0.36.0'
+    id 'com.github.johnrengelman.shadow' version '6.1.0'
+}
+
+// These are for the uber target
+def mainName = "ExampleKt"
+def appName = 'kslides'
+
+// This is for ./gradlew run
+application {
+    mainClassName = mainName
+}
+
+group 'com.github.username'
+version '1.0.0'
+
+repositories {
+    maven { url = 'https://kotlin.bintray.com/ktor' }
+    maven { url = 'https://kotlin.bintray.com/kotlinx' }
+    jcenter()
+    mavenCentral()
+    maven { url = 'https://jitpack.io' }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib"
+
+    implementation "org.jetbrains:kotlin-css:$css_version"
+    implementation "org.jetbrains:kotlin-css-jvm:$css_version"
+
+    implementation "io.ktor:ktor-server-cio:$ktor_version"
+    implementation "io.ktor:ktor-server-core:$ktor_version"
+
+    implementation "io.ktor:ktor-server-sessions:$ktor_version"
+    implementation "io.ktor:ktor-html-builder:$ktor_version"
+
+    implementation "com.github.pambrose:kslides:$kslides_version"
+
+    implementation "com.github.pambrose.common-utils:core-utils:$utils_version"
+    implementation "com.github.pambrose.common-utils:ktor-server-utils:$utils_version"
+
+    implementation "io.github.microutils:kotlin-logging:$logging_version"
+    implementation "ch.qos.logback:logback-classic:$logback_version"
+}
+
+task stage(dependsOn: ['uberjar', 'build', 'clean'])
+build.mustRunAfter clean
+
+shadowJar {
+    zip64 true
+    mergeServiceFiles()
+    exclude "META-INF/*.SF"
+    exclude 'META-INF/*.DSA'
+    exclude 'META-INF/*.RSA'
+    exclude "LICENSE*"
+}
+
+task uberjar(type: Jar, dependsOn: shadowJar) {
+    zip64 true
+    archiveFileName = 'kslides.jar'
+    manifest {
+        attributes('Implementation-Title': appName)
+        attributes('Implementation-Version': version)
+        attributes('Built-Date': new Date())
+        attributes('Built-JDK': System.getProperty('java.version'))
+        attributes('Main-Class': mainName)
+    }
+    from zipTree(shadowJar.archiveFile)
+}
+
+compileKotlin {
+    kotlinOptions {
+        useIR = true
+        jvmTarget = '1.8'
+    }
+}
+
+compileTestKotlin {
+    kotlinOptions {
+        useIR = true
+        jvmTarget = '1.8'
+    }
+}
