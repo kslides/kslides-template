@@ -7,7 +7,7 @@ plugins {
 }
 
 // These are for the uber target
-def mainName = "ExampleKt"
+def mainName = "SlidesKt"
 def appName = 'kslides'
 
 // This is for ./gradlew run

@@ -1,12 +1,13 @@
 # kslides Template
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/pambrose/kslides-template)
-[![Deploy on Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/pambrose/kslides-template)
-[![Run on Repl.it](https://repl.it/badge/github/pambrose/kslides-template)](https://repl.it/github/pambrose/kslides-template)
-
 A [template repo](https://github.com/pambrose/kslides-template/generate) for building
 a [kslides](https://github.com/pambrose/kslides) presentation.
 
+## Deploy to Heroku
+
+1) Create a new Heroku app with: `heroku create slideshow_name`
+2) Push the repo to Heroku with: `git push heroku master`
+3) Open the app in a browser with: `heroku open`
 
 
 
