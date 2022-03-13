@@ -1,5 +1,5 @@
 import com.kslides.*
-import com.kslides.Presentation.Companion.output
+import com.kslides.Presentation.Companion.outputPresentations
 import com.kslides.SlideConfig.Companion.slideConfig
 import kotlinx.html.*
 
@@ -33,7 +33,7 @@ fun main() {
     markdownSlide(slideConfig { backgroundColor = "#4370A5" }) {
       """
         # Code Highlights    
-        ```kotlin [1|2,5|3-4]
+        ```kotlin [1,6|2,5|3-4]
         fun main() {
             repeat(10) {
                 println("Hello")
@@ -43,7 +43,7 @@ fun main() {
         ```
         produced with:
         ````
-        ```kotlin [1|2,5|3-4]
+        ```kotlin [1,6|2,5|3-4]
         fun main() {
             repeat(10) {
                 println("Hello")
@@ -56,26 +56,31 @@ fun main() {
     }
   }
 
-  presentation("demo1") {
+  presentation("subdir1") {
     htmlSlide {
-      +"Demo1 Slide 1"
-    }
-
-    htmlSlide {
-      +"Demo1 Slide 2"
+      h1 { +"Subdir1/index.html Slides" }
     }
   }
 
-  presentation("demo2.html") {
+  presentation("subdir1/other.html") {
     htmlSlide {
-      +"Demo2 Slide 1"
-    }
-
-    htmlSlide {
-      +"Demo2 Slide 2"
+      h1 { +"Subdir1/other.html Slides" }
     }
   }
 
-  //present()
-  output()
+  presentation("subdir1/subdir2") {
+    htmlSlide {
+      h1 { +"Subdir2/index.html Slides" }
+    }
+  }
+
+  presentation("other.html") {
+    htmlSlide {
+      +"other.html Slides"
+    }
+  }
+
+  // Uncomment this to run locally or on Heroku
+  //servePresentations()
+  outputPresentations()
 }
