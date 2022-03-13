@@ -56,7 +56,26 @@ fun main() {
     }
   }
 
+  presentation("demo1") {
+    htmlSlide {
+      +"Demo1 Slide 1"
+    }
+
+    htmlSlide {
+      +"Demo1 Slide 2"
+    }
+  }
+
+  presentation("demo2.html") {
+    htmlSlide {
+      +"Demo2 Slide 1"
+    }
+
+    htmlSlide {
+      +"Demo2 Slide 2"
+    }
+  }
+
   //present()
-  output(dir = "docs/", srcPrefix = "revealjs/")
-  //output(dir = "docs/", srcPrefix = "/kslides-template/revealjs/")
+  output()
 }
