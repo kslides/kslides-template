@@ -58,5 +58,5 @@ fun main() {
 
   //present()
   //output(dir = "public/slides", srcPrefix = "/../../revealjs/")
-  output(dir = "docs/slides", srcPrefix = "/revealjs/")
+  output(dir = "docs/slides", srcPrefix = "/kslides-template/revealjs/")
 }
