@@ -5,6 +5,12 @@ a [kslides](https://github.com/pambrose/kslides) presentation.
 
 
 
+// Must be logged in to see "Use this template" button
+// Clone code to local machine from your repo
+// Open src dir
+// Give it a chance to finish indexing... 
+
+
 ## Deploy to Github Pages
 
 ## Deploy to Netlify
