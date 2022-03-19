@@ -1,17 +1,26 @@
 import com.kslides.*
-import com.kslides.Presentation.Companion.outputPresentations
-import com.kslides.SlideConfig.Companion.slideConfig
+import com.kslides.Presentation.Companion.servePresentations
 import kotlinx.html.*
 
 fun main() {
+
+  presentationDefaults {
+    history = true
+    transition = Transition.SLIDE
+    transitionSpeed = Speed.SLOW
+  }
+
   presentation {
 
-    markdownSlide(slideConfig { transition(Transition.Zoom, Speed.Slow) }) {
+    markdownSlide {
       """
       # Markdown Slide
       ## 🍒   
       Press ESC to see presentation overview.
-      """.trimIndent()
+      """
+    }.config {
+      transition = Transition.ZOOM
+      transitionSpeed = Speed.SLOW
     }
 
     htmlSlide {
@@ -30,7 +39,7 @@ fun main() {
       """
     }
 
-    markdownSlide(slideConfig { backgroundColor = "#4370A5" }) {
+    markdownSlide {
       """
         # Code Highlights    
         ```kotlin [1,6|2,5|3-4]
@@ -52,7 +61,9 @@ fun main() {
         }
         ```
         ````
-      """.trimIndent()
+      """
+    }.config {
+      backgroundColor = "#4370A5"
     }
   }
 
@@ -81,6 +92,8 @@ fun main() {
   }
 
   // Uncomment this to run locally or on Heroku
-  //servePresentations()
-  outputPresentations()
+  servePresentations()
+
+  // Write the presentations to files in /docs for Github Pages or netlify.com
+  //outputPresentations()
 }
