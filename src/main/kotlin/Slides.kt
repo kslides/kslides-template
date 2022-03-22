@@ -4,7 +4,7 @@ import kotlinx.html.*
 
 fun main() {
 
-  presentationDefaults {
+  presentationsDefaults {
     history = true
     transition = Transition.SLIDE
     transitionSpeed = Speed.SLOW
@@ -13,24 +13,28 @@ fun main() {
   presentation {
 
     markdownSlide {
+      config {
+        transition = Transition.ZOOM
+        transitionSpeed = Speed.SLOW
+      }
+
       """
       # Markdown Slide
       ## 🍒   
       Press ESC to see presentation overview.
       """
-    }.config {
-      transition = Transition.ZOOM
-      transitionSpeed = Speed.SLOW
+    }
+
+    dslSlide {
+      content {
+        h1 { +"HTML Slide 🐦" }
+        h2 { +"HTML Slide 🐦" }
+        h3 { +"HTML Slide 🐦" }
+        p { +"This is a test" }
+      }
     }
 
     htmlSlide {
-      h1 { +"HTML Slide 🐦" }
-      h2 { +"HTML Slide 🐦" }
-      h3 { +"HTML Slide 🐦" }
-      p { +"This is a test" }
-    }
-
-    rawHtmlSlide {
       """
       <h1>Raw HTML Slide 🐦</h1>
       <h2>HTML Slide 🐦</h2>
@@ -40,6 +44,10 @@ fun main() {
     }
 
     markdownSlide {
+      config {
+        backgroundColor = "#4370A5"
+      }
+
       """
         # Code Highlights    
         ```kotlin [1,6|2,5|3-4]
@@ -62,32 +70,38 @@ fun main() {
         ```
         ````
       """
-    }.config {
-      backgroundColor = "#4370A5"
     }
   }
 
   presentation("subdir1") {
-    htmlSlide {
-      h1 { +"Subdir1/index.html Slides" }
+    dslSlide {
+      content {
+        h1 { +"Subdir1/index.html Slides" }
+      }
     }
   }
 
   presentation("subdir1/other.html") {
-    htmlSlide {
-      h1 { +"Subdir1/other.html Slides" }
+    dslSlide {
+      content {
+        h1 { +"Subdir1/other.html Slides" }
+      }
     }
   }
 
   presentation("subdir1/subdir2") {
-    htmlSlide {
-      h1 { +"Subdir2/index.html Slides" }
+    dslSlide {
+      content {
+        h1 { +"Subdir2/index.html Slides" }
+      }
     }
   }
 
   presentation("other.html") {
-    htmlSlide {
-      +"other.html Slides"
+    dslSlide {
+      content {
+        +"other.html Slides"
+      }
     }
   }
 
