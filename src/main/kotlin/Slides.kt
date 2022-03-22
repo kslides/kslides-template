@@ -4,34 +4,62 @@ import kotlinx.html.*
 
 fun main() {
 
-  presentationsDefaults {
+  globalConfig {
     history = true
     transition = Transition.SLIDE
     transitionSpeed = Speed.SLOW
+
+    slides {
+      backgroundColor = "blue"
+    }
   }
 
   presentation {
 
-    config {
+    presentationConfig {
+      transition = Transition.CONCAVE
 
       slides {
         backgroundColor = "red"
       }
     }
+
     markdownSlide {
-      config {
+      slideConfig {
         transition = Transition.ZOOM
         transitionSpeed = Speed.SLOW
       }
 
-      """
-      # Markdown Slide
-      ## 🍒   
-      Press ESC to see presentation overview.
-      """
+      content {
+        """
+        # Markdown Slide
+        ## 🍒   
+        Press ESC to see presentation overview.
+        """
+      }
+    }
+
+    htmlSlide {
+      slideConfig {
+        backgroundColor = "green"
+      }
+
+      content {
+        """
+        <h1>Raw HTML Slide 🐦</h1>
+        <h2>HTML Slide 🐦</h2>
+        <h3>HTML Slide 🐦</h3>
+        <p>This is a test</p>
+        """
+      }
     }
 
     dslSlide {
+
+      slideConfig {
+        backgroundColor = "black"
+      }
+
       content {
         h1 { +"HTML Slide 🐦" }
         h2 { +"HTML Slide 🐦" }
@@ -40,25 +68,14 @@ fun main() {
       }
     }
 
-    htmlSlide {
-      config {
-        backgroundColor = "green"
-      }
-
-      """
-      <h1>Raw HTML Slide 🐦</h1>
-      <h2>HTML Slide 🐦</h2>
-      <h3>HTML Slide 🐦</h3>
-      <p>This is a test</p>
-      """
-    }
 
     markdownSlide {
-      config {
+      slideConfig {
         backgroundColor = "#4370A5"
       }
 
-      """
+      content {
+        """
         # Code Highlights    
         ```kotlin [1,6|2,5|3-4]
         fun main() {
@@ -79,7 +96,8 @@ fun main() {
         }
         ```
         ````
-      """
+        """
+      }
     }
   }
 
