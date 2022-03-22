@@ -12,6 +12,12 @@ fun main() {
 
   presentation {
 
+    config {
+
+      slides {
+        backgroundColor = "red"
+      }
+    }
     markdownSlide {
       config {
         transition = Transition.ZOOM
@@ -35,6 +41,10 @@ fun main() {
     }
 
     htmlSlide {
+      config {
+        backgroundColor = "green"
+      }
+
       """
       <h1>Raw HTML Slide 🐦</h1>
       <h2>HTML Slide 🐦</h2>
