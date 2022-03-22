@@ -1,5 +1,5 @@
 import com.kslides.*
-import com.kslides.Presentation.Companion.servePresentations
+import com.kslides.Presentation.Companion.outputPresentations
 import kotlinx.html.*
 
 fun main() {
@@ -106,8 +106,8 @@ fun main() {
   }
 
   // Uncomment this to run locally or on Heroku
-  servePresentations()
+  //servePresentations()
 
   // Write the presentations to files in /docs for Github Pages or netlify.com
-  //outputPresentations()
+  outputPresentations()
 }
