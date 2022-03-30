@@ -1,6 +1,4 @@
-VERSION=0.1.0
-
-default: build-all
+default: versioncheck
 
 build-all: clean stage
 
@@ -20,9 +18,6 @@ uber: uberjar
 
 dist:
 	./gradlew installDist
-
-script: dist
-	build/install/battlesnake-examples/bin/snake
 
 stage:
 	./gradlew stage
