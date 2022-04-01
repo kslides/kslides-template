@@ -6,15 +6,15 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
-// These are for the uber target
+// These apply if you are hosting your slides via HTTP
+// Change mainName to the name of Kotlin file that has the presentation you want to serve
 def mainName = "SlidesKt"
-def appName = 'kslides'
 
-// This is for ./gradlew run
 application {
     mainClassName = mainName
 }
 
+// Change this to your group name
 group 'com.github.username'
 version '1.0.0'
 
@@ -29,14 +29,14 @@ repositories {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-    implementation "org.jetbrains.kotlin-wrappers:kotlin-css:$css_version"
+    implementation "com.github.pambrose.kslides:kslides-core:$kslides_version"
 
     implementation "io.ktor:ktor-server:$ktor_version"
     implementation "io.ktor:ktor-server-cio:$ktor_version"
     implementation "io.ktor:ktor-server-sessions:$ktor_version"
     implementation "io.ktor:ktor-server-html-builder:$ktor_version"
 
-    implementation "com.github.pambrose:kslides:$kslides_version"
+    implementation "org.jetbrains.kotlin-wrappers:kotlin-css:$css_version"
 
     implementation "com.github.pambrose.common-utils:core-utils:$utils_version"
     implementation "com.github.pambrose.common-utils:ktor-server-utils:$utils_version"
@@ -61,7 +61,7 @@ task uberjar(type: Jar, dependsOn: shadowJar) {
     zip64 true
     archiveFileName = 'kslides.jar'
     manifest {
-        attributes('Implementation-Title': appName)
+        attributes('Implementation-Title': 'kslides')
         attributes('Implementation-Version': version)
         attributes('Built-Date': new Date())
         attributes('Built-JDK': System.getProperty('java.version'))

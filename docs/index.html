@@ -15,8 +15,6 @@
   <body>
     <div class="reveal">
       <div class="slides">
-        <section data-background-color="red" data-markdown="markdown.md"></section>
-        
         <section data-background-color="red" data-markdown="" data-transition="zoom" data-transition-speed="slow">
           <script type="text/template">
 # Markdown Slide
@@ -46,9 +44,7 @@ Press ESC to see presentation overview.
         <section data-background-color="#4370A5" data-markdown="">
           <script type="text/template">
 ## Code Presentation    
-```kotlin [3,7|4,6|5]
-package com.examples
-
+```kotlin [1,5|2,4|3]
 fun main() {
   for (i in (0..5)) {
     println("Hello World $i")
@@ -58,9 +54,11 @@ fun main() {
 produced with:
 ```` []
 markdownSlide {
-  ```kotlin [3,7|4,6|5]
-  ${includeUrl("https://raw.githubusercontent.com/pambrose/kslides/master/src/test/kotlin/examples/HelloWorldK.kt")}
-  ```
+  content {
+    ```kotlin [1,5|2,4|3]
+    ${includeUrl(githubRawUrl("pambrose","kslides","kslides-examples/src/main/kotlin/examples/HelloWorldK.kt", "3-7"))}
+    ```
+  }
 }
 ````
 </script>

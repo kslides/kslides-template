@@ -19,8 +19,8 @@ fun main() {
       // Write the presentation html files to /docs for Github Pages or netlify.com
       enableFileSystem = true
 
-      // Uncomment this to run locally or on Heroku
-      enableHttp = true
+      // Assign to true to run locally or on Heroku
+      enableHttp = false
     }
 
     presentation {
@@ -87,15 +87,17 @@ fun main() {
         content {
           """
           ## Code Presentation    
-          ```kotlin [3,7|4,6|5]
-          ${includeUrl("https://raw.githubusercontent.com/pambrose/kslides/master/src/test/kotlin/examples/HelloWorldK.kt")}
+          ```kotlin [1,5|2,4|3]
+          ${includeUrl(githubRawUrl("pambrose","kslides","kslides-examples/src/main/kotlin/examples/HelloWorldK.kt"), "3-7")}
           ```
           produced with:
           ```` []
           markdownSlide {
-            ```kotlin [3,7|4,6|5]
-            ${"$"}{includeUrl("https://raw.githubusercontent.com/pambrose/kslides/master/src/test/kotlin/examples/HelloWorldK.kt")}
-            ```
+            content {
+              ```kotlin [1,5|2,4|3]
+              ${"$"}{includeUrl(githubRawUrl("pambrose","kslides","kslides-examples/src/main/kotlin/examples/HelloWorldK.kt", "3-7"))}
+              ```
+            }
           }
           ````
           """
