@@ -19,8 +19,8 @@ fun main() {
       // Write the presentation html files to /docs for Github Pages or netlify.com
       enableFileSystem = true
 
-      // Assign to true to run locally or on Heroku
-      enableHttp = false
+      // Run locally or on Heroku
+      enableHttp = true
     }
 
     presentation {
