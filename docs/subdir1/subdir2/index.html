@@ -11,6 +11,7 @@
     <link href="../../revealjs/dist/theme/black.css" id="theme" rel="stylesheet">
     <link href="../../revealjs/plugin/highlight/monokai.css" id="highlight-theme" rel="stylesheet">
     <link href="../../revealjs/plugin/copycode/copycode.css" rel="stylesheet">
+    <link href="../../revealjs/css/custom.css" rel="stylesheet">
   </head>
   <body>
     <div class="reveal">
@@ -23,14 +24,12 @@
     </div>
     	
 	<script src="../../revealjs/dist/reveal.js"></script>
-	<script src="../../revealjs/plugin/notes/notes.js"></script>
 	<script src="../../revealjs/plugin/zoom/zoom.js"></script>
 	<script src="../../revealjs/plugin/search/search.js"></script>
 	<script src="../../revealjs/plugin/markdown/markdown.js"></script>
 	<script src="../../revealjs/plugin/highlight/highlight.js"></script>
 	<script src="../../revealjs/plugin/copycode/copycode.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
-	<script src="../../revealjs/plugin/menu/menu.js"></script>
 
 	<script>
 		Reveal.initialize({
@@ -38,7 +37,7 @@
 			transition: 'slide',
 			transitionSpeed: 'slow',
 
-			plugins: [ RevealNotes, RevealZoom, RevealSearch, RevealMarkdown, RevealHighlight, RevealMenu, CopyCode ]
+			plugins: [ RevealZoom, RevealSearch, RevealMarkdown, RevealHighlight, CopyCode ]
 		});
 
 </script>
