@@ -9,9 +9,14 @@ fun main() {
       history = true
       transition = Transition.SLIDE
       transitionSpeed = Speed.SLOW
+      githubCornerHref = "https://github.com/kslides/kslides-template/"
+      githubCornerTitle = "View presentation source on Github"
+      enableMenu = true
+      theme = Theme.SOLARIZED
 
       slideConfig {
-        backgroundColor = "blue"
+        // Assign slide config defaults for all presentations here
+        // backgroundColor = "blue"
       }
     }
 
@@ -24,12 +29,16 @@ fun main() {
     }
 
     presentation {
+      css += """
+        #githubCorner path { fill: #258BD2; }
+      """
 
       presentationConfig {
         transition = Transition.CONCAVE
 
         slideConfig {
-          backgroundColor = "red"
+          // Assign slide config defaults for all slides in this presntation here
+          //backgroundColor = "red"
         }
       }
 
@@ -37,7 +46,6 @@ fun main() {
 
         slideConfig {
           transition = Transition.ZOOM
-          transitionSpeed = Speed.SLOW
         }
 
         content {
@@ -50,103 +58,107 @@ fun main() {
       }
 
       htmlSlide {
-        slideConfig {
-          backgroundColor = "green"
-        }
-
         content {
           """
-          <h1>Raw HTML Slide 🐦</h1>
-          <h2>HTML Slide 🐦</h2>
-          <h3>HTML Slide 🐦</h3>
-          <p>This is a test</p>
+          <h1>An HTML Slide 🐦</h1>
+          <p>This is some text</p>
           """
         }
       }
 
       dslSlide {
-
-        slideConfig {
-          backgroundColor = "black"
-        }
-
         content {
-          h1 { +"HTML Slide 🐦" }
-          h2 { +"HTML Slide 🐦" }
-          h3 { +"HTML Slide 🐦" }
-          p { +"This is a test" }
+          h1 { +"A DSL Slide 🐦" }
+          p { +"This is some text" }
         }
       }
 
 
-      markdownSlide {
-        slideConfig {
-          backgroundColor = "#4370A5"
-        }
-
-        content {
-          """
-          ## Code Presentation    
-          ```kotlin [1,5|2,4|3]
-          ${includeUrl(githubRawUrl("kslides","kslides","kslides-examples/src/main/kotlin/examples/HelloWorldK.kt"), "3-7")}
-          ```
-          produced with:
-          ```` []
-          markdownSlide {
-            content {
-              ```kotlin [1,5|2,4|3]
-              ${"$"}{includeUrl(githubRawUrl("kslides","kslides","kslides-examples/src/main/kotlin/examples/HelloWorldK.kt", "[3-7]"))}
-              ```
-            }
+      verticalSlides {
+        // code begin
+        markdownSlide {
+          slideConfig {
+            // backgroundColor = "#4370A5"
           }
-          ````
-          """
+
+          val src = "kslides-examples/src/main/kotlin/examples/HelloWorldK.kt"
+          content {
+            """
+            ## Code Presentation    
+            ```kotlin [1,5|2,4|3]
+            ${includeUrl(githubRawUrl("kslides", "kslides", src), "[3-7]")}
+            ```
+            """
+          }
+        }
+        // code end
+
+        markdownSlide {
+          content {
+            """            
+            ## Slide Description    
+            ```kotlin []
+            ${includeFile("src/main/kotlin/Slides.kt", beginToken = "code begin", endToken = "code end")}
+            """
+          }
+        }
+      }
+
+      verticalSlides {
+        markdownSlide {
+          content {
+            """
+            ## Other Presentations    
+            * [greattalk1/ Slides](/greattalk1)
+            * [greattalk1/other.html Slides](/greattalk1/other.html)
+            * [greattalk2.html Slides](/greattalk2.html)
+            """
+          }
+        }
+
+        markdownSlide {
+          content {
+            """
+            ## Other Presentations Description    
+            ```kotlin []
+            ${includeFile("src/main/kotlin/Slides.kt", beginToken = "others begin", endToken = "others end")}
+            ```
+            """
+          }
+        }
+      }
+    }
+
+    // others begin
+    presentation {
+      path = "greattalk1"
+
+      dslSlide {
+        content {
+          h2 { +"greattalk1/index.html Slides" }
         }
       }
     }
 
     presentation {
-      path = "subdir1"
+      path = "greattalk1/other.html"
 
       dslSlide {
         content {
-          h1 { +"Subdir1/index.html Slides" }
+          h2 { +"greattalk1/other.html slides" }
         }
       }
     }
 
     presentation {
-      path = "subdir1/other.html"
+      path = "greattalk2.html"
 
       dslSlide {
         content {
-          h1 { +"Subdir1/other.html Slides" }
+          h2 { +"greattalk2.html slides" }
         }
       }
     }
-
-    presentation {
-      path = "subdir1/subdir2"
-
-      dslSlide {
-        content {
-          h1 { +"Subdir2/index.html Slides" }
-        }
-      }
-    }
-
-    presentation {
-      path = "other.html"
-
-      dslSlide {
-        content {
-          +"other.html Slides"
-        }
-      }
-
-      markdownSlide {
-        filename = "markdown.md"
-      }
-    }
+    // others end
   }
 }
