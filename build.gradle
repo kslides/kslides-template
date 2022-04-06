@@ -29,7 +29,7 @@ repositories {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-    implementation "com.github.pambrose.kslides:kslides-core:$kslides_version"
+    implementation "com.github.kslides.kslides:kslides-core:$kslides_version"
 
     implementation "io.ktor:ktor-server:$ktor_version"
     implementation "io.ktor:ktor-server-cio:$ktor_version"

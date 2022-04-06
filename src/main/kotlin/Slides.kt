@@ -88,14 +88,14 @@ fun main() {
           """
           ## Code Presentation    
           ```kotlin [1,5|2,4|3]
-          ${includeUrl(githubRawUrl("pambrose","kslides","kslides-examples/src/main/kotlin/examples/HelloWorldK.kt"), "3-7")}
+          ${includeUrl(githubRawUrl("kslides","kslides","kslides-examples/src/main/kotlin/examples/HelloWorldK.kt"), "3-7")}
           ```
           produced with:
           ```` []
           markdownSlide {
             content {
               ```kotlin [1,5|2,4|3]
-              ${"$"}{includeUrl(githubRawUrl("pambrose","kslides","kslides-examples/src/main/kotlin/examples/HelloWorldK.kt", "[3-7]"))}
+              ${"$"}{includeUrl(githubRawUrl("kslides","kslides","kslides-examples/src/main/kotlin/examples/HelloWorldK.kt", "[3-7]"))}
               ```
             }
           }

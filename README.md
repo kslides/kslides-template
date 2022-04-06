@@ -1,10 +1,10 @@
 # kslides Template
 
-[![Build Status](https://app.travis-ci.com/pambrose/kslides-template.svg?branch=master)](https://app.travis-ci.com/pambrose/kslides-template)
+[![Build Status](https://app.travis-ci.com/kslides/kslides-template.svg?branch=master)](https://app.travis-ci.com/kslides/kslides-template)
 [![Kotlin version](https://img.shields.io/badge/kotlin-1.6.20-red?logo=kotlin)](http://kotlinlang.org)
 
-A [template repo](https://github.com/pambrose/kslides-template/generate) for building
-a [kslides](https://github.com/pambrose/kslides) presentation.
+A [template repo](https://github.com/kslides/kslides-template/generate) for building
+a [kslides](https://github.com/kslides/kslides) presentation.
 
 
 
