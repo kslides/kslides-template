@@ -109,9 +109,14 @@ fun main() {
           content {
             """
             ## Other Presentations    
-            * [greattalk1/ Slides](/greattalk1)
-            * [greattalk1/other.html Slides](/greattalk1/other.html)
-            * [greattalk2.html Slides](/greattalk2.html)
+            <span style="text-align: left; text-indent: 25%;">
+
+            [🐦 greattalk1/ Slides](/greattalk1) ${fragment(Effect.FADE_UP)}
+
+            [🐦 greattalk1/other.html Slides](/greattalk1/other.html) ${fragment(Effect.FADE_UP)}
+
+            [🐦 greattalk2.html Slides](/greattalk2.html) ${fragment(Effect.FADE_UP)}
+            </span>
             """
           }
         }
@@ -120,7 +125,7 @@ fun main() {
           content {
             """
             ## Other Presentations Description    
-            ```kotlin []
+            ```kotlin
             ${includeFile("src/main/kotlin/Slides.kt", beginToken = "others begin", endToken = "others end")}
             ```
             """
