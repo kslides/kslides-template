@@ -1,13 +1,11 @@
 # kslides Template
 
+[![Build Status](https://app.travis-ci.com/pambrose/kslides-template.svg?branch=master)](https://app.travis-ci.com/pambrose/kslides-template)
+[![Kotlin version](https://img.shields.io/badge/kotlin-1.6.20-red?logo=kotlin)](http://kotlinlang.org)
+
 A [template repo](https://github.com/pambrose/kslides-template/generate) for building
 a [kslides](https://github.com/pambrose/kslides) presentation.
 
-
-
-// Clone code to local machine from your repo
-// Open src dir
-// Give it a chance to finish indexing... 
 
 
 ## Deploy to Github Pages
