@@ -5,6 +5,12 @@ fun main() {
 
   kslides {
 
+    // CSS values assigned here are applied to all the presentations
+    css +=
+      """
+      #githubCorner path { fill: #258BD2; }
+      """
+
     presentationDefault {
       history = true
       transition = Transition.SLIDE
@@ -29,9 +35,6 @@ fun main() {
     }
 
     presentation {
-      css += """
-        #githubCorner path { fill: #258BD2; }
-      """
 
       presentationConfig {
         transition = Transition.CONCAVE
