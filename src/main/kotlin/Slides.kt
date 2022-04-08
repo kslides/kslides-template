@@ -5,6 +5,14 @@ fun main() {
 
   kslides {
 
+    output {
+      // Write the presentation html files to /docs for Github Pages or netlify.com
+      enableFileSystem = true
+
+      // Run locally or on Heroku
+      enableHttp = true
+    }
+
     // CSS values assigned here are applied to all the presentations
     css +=
       """
@@ -24,14 +32,6 @@ fun main() {
         // Assign slide config defaults for all presentations here
         // backgroundColor = "blue"
       }
-    }
-
-    output {
-      // Write the presentation html files to /docs for Github Pages or netlify.com
-      enableFileSystem = true
-
-      // Run locally or on Heroku
-      enableHttp = true
     }
 
     presentation {
