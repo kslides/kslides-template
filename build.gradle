@@ -1,12 +1,12 @@
 plugins {
     id 'java'
     id 'application'
-    id 'org.jetbrains.kotlin.jvm' version '1.6.20'
+    id 'org.jetbrains.kotlin.jvm' version '1.6.21'
     id "com.github.ben-manes.versions" version '0.42.0'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
-// These apply if you are hosting your slides via HTTP
+// mainName matters only if you are hosting your slides via HTTP
 // Change mainName to the name of Kotlin file that has the presentation you want to serve
 def mainName = "SlidesKt"
 
@@ -19,8 +19,6 @@ group 'com.github.username'
 version '1.1.0'
 
 repositories {
-    maven { url "https://maven.pkg.jetbrains.space/kotlin/p/kotlin/kotlin-js-wrappers" }
-    maven { url "https://maven.pkg.jetbrains.space/public/p/ktor/eap" }
     google()
     mavenCentral()
     maven { url = 'https://jitpack.io' }
