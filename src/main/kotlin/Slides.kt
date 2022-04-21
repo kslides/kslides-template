@@ -113,6 +113,7 @@ fun main() {
       verticalSlides {
         // image begin
         markdownSlide {
+          // Size of image is controlled by css above
           content {
             """
             ## Images    
