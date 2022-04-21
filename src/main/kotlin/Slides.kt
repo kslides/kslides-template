@@ -36,6 +36,13 @@ fun main() {
 
     presentation {
 
+      css +=
+        """
+        img[alt=revealjs-image] { width: 1000px; }
+        """
+
+      val slides = "src/main/kotlin/Slides.kt"
+
       presentationConfig {
         transition = Transition.CONCAVE
 
@@ -76,18 +83,13 @@ fun main() {
         }
       }
 
-
       verticalSlides {
         // code begin
         markdownSlide {
-          slideConfig {
-            // backgroundColor = "#4370A5"
-          }
-
           val src = "kslides-examples/src/main/kotlin/examples/HelloWorldK.kt"
           content {
             """
-            ## Code Presentation    
+            ## Code Slide    
             ```kotlin [1,5|2,4|3]
             ${includeUrl(githubRawUrl("kslides", "kslides", src), "[3-7]")}
             ```
@@ -99,9 +101,33 @@ fun main() {
         markdownSlide {
           content {
             """            
-            ## Slide Description    
+            ## Code Slide Description    
             ```kotlin []
-            ${includeFile("src/main/kotlin/Slides.kt", beginToken = "code begin", endToken = "code end")}
+            ${includeFile(slides, beginToken = "code begin", endToken = "code end")}
+            ```
+            """
+          }
+        }
+      }
+
+      verticalSlides {
+        // image begin
+        markdownSlide {
+          content {
+            """
+            ## Images    
+            ![revealjs-image](images/revealjs.png)
+            """
+          }
+        }
+        // image end
+
+        markdownSlide {
+          content {
+            """            
+            ## Images Slide Description    
+            ```kotlin []
+            ${includeFile(slides, beginToken = "image begin", endToken = "image end")}
             """
           }
         }
@@ -129,7 +155,7 @@ fun main() {
             """
             ## Other Presentations Description    
             ```kotlin
-            ${includeFile("src/main/kotlin/Slides.kt", beginToken = "others begin", endToken = "others end")}
+            ${includeFile(slides, beginToken = "others begin", endToken = "others end")}
             ```
             """
           }

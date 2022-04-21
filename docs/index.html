@@ -16,7 +16,9 @@
     <style media="screen" type="text/css">
       #githubCorner path { fill: #258BD2; }
       
-</style>
+
+        img[alt=revealjs-image] { width: 1000px; }
+        </style>
   </head>
   <body>
     <div class="reveal">
@@ -52,7 +54,7 @@ Press ESC to see presentation overview.
         <section>
           <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
             <script type="text/template">
-## Code Presentation    
+## Code Slide    
 ```kotlin [1,5|2,4|3]
 fun main() {
   for (i in (0..5)) {
@@ -65,20 +67,42 @@ fun main() {
           
           <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
             <script type="text/template">
-## Slide Description    
+## Code Slide Description    
 ```kotlin []
 markdownSlide {
-  slideConfig {
-    // backgroundColor = "#4370A5"
-  }
-
   val src = "kslides-examples/src/main/kotlin/examples/HelloWorldK.kt"
   content {
     """
-    ## Code Presentation    
+    ## Code Slide    
     ```kotlin [1,5|2,4|3]
     ${includeUrl(githubRawUrl("kslides", "kslides", src), "[3-7]")}
     ```
+    """
+  }
+}
+```
+</script>
+          </section>
+          
+        </section>
+        
+        <section>
+          <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
+            <script type="text/template">
+## Images    
+![revealjs-image](images/revealjs.png)
+</script>
+          </section>
+          
+          <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
+            <script type="text/template">
+## Images Slide Description    
+```kotlin []
+markdownSlide {
+  content {
+    """
+    ## Images    
+    ![revealjs-image](images/revealjs.png)
     """
   }
 }
