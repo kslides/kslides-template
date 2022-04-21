@@ -20,7 +20,7 @@
   </head>
   <body>
     <div class="reveal">
-      <a class="github-corner" href="https://github.com/kslides/kslides-template/" target="blank" title="View presentation source on Github">
+      <a class="github-corner" href="https://github.com/pambrose/myslides" target="blank" title="View presentation source on Github">
           
         <svg xmlns="http://www.w3.org/2000/svg" id="githubCorner" viewBox="0 0 55 55">
                       
@@ -29,119 +29,12 @@
         </svg>
                 </a>
       <div class="slides">
-        <section data-markdown="" data-transition="zoom">
+        <section data-markdown="">
           <script type="text/template">
-# Markdown Slide
-## 🍒   
-Press ESC to see presentation overview.
+# Paul's Slides
+
+* [REST](rest.html)
 </script>
-        </section>
-        
-        <section>
-          
-          <h1>An HTML Slide &#128038;</h1>
-          
-          <p>This is some text</p>
-        </section>
-        
-        <section>
-          <h1>A DSL Slide &#128038;</h1>
-          <p>This is some text</p>
-        </section>
-        
-        <section>
-          <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
-            <script type="text/template">
-## Code Presentation    
-```kotlin [1,5|2,4|3]
-fun main() {
-  for (i in (0..5)) {
-    println("Hello World $i")
-  }
-}
-```
-</script>
-          </section>
-          
-          <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
-            <script type="text/template">
-## Slide Description    
-```kotlin []
-markdownSlide {
-  slideConfig {
-    // backgroundColor = "#4370A5"
-  }
-
-  val src = "kslides-examples/src/main/kotlin/examples/HelloWorldK.kt"
-  content {
-    """
-    ## Code Presentation    
-    ```kotlin [1,5|2,4|3]
-    ${includeUrl(githubRawUrl("kslides", "kslides", src), "[3-7]")}
-    ```
-    """
-  }
-}
-</script>
-          </section>
-          
-        </section>
-        
-        <section>
-          <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
-            <script type="text/template">
-## Other Presentations    
-<span style="text-align: left; text-indent: 25%;">
-
-[&#128038; greattalk1/ Slides](/greattalk1) 
-                <!-- .element: class="fragment fade-up" -->
-
-[&#128038; greattalk1/other.html Slides](/greattalk1/other.html) 
-                <!-- .element: class="fragment fade-up" -->
-
-[&#128038; greattalk2.html Slides](/greattalk2.html) 
-                <!-- .element: class="fragment fade-up" -->
-</span>
-</script>
-          </section>
-          
-          <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
-            <script type="text/template">
-## Other Presentations Description    
-```kotlin
-presentation {
-  path = "greattalk1"
-
-  dslSlide {
-    content {
-      h2 { +"greattalk1/index.html Slides" }
-    }
-  }
-}
-
-presentation {
-  path = "greattalk1/other.html"
-
-  dslSlide {
-    content {
-      h2 { +"greattalk1/other.html slides" }
-    }
-  }
-}
-
-presentation {
-  path = "greattalk2.html"
-
-  dslSlide {
-    content {
-      h2 { +"greattalk2.html slides" }
-    }
-  }
-}
-```
-</script>
-          </section>
-          
         </section>
         
       </div>
@@ -159,7 +52,7 @@ presentation {
 	<script>
 		Reveal.initialize({
 			history: true,
-			transition: 'concave',
+			transition: 'slide',
 			transitionSpeed: 'slow',
 
 			plugins: [ RevealZoom, RevealSearch, RevealMarkdown, RevealHighlight, RevealMenu, CopyCode ]
