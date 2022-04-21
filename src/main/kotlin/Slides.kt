@@ -23,177 +23,156 @@ fun main() {
       history = true
       transition = Transition.SLIDE
       transitionSpeed = Speed.SLOW
-      githubCornerHref = "https://github.com/kslides/kslides-template/"
+      githubCornerHref = "https://github.com/pambrose/myslides"
       githubCornerTitle = "View presentation source on Github"
       enableMenu = true
       theme = Theme.SOLARIZED
-
-      slideConfig {
-        // Assign slide config defaults for all presentations here
-        // backgroundColor = "blue"
-      }
     }
 
     presentation {
+      markdownSlide {
+        content {
+          """
+          # Paul's Slides
+          
+          * [REST](rest.html)
+          """
+        }
+      }
+    }
+    presentation {
+      path = "rest.html"
 
-      css +=
-        """
-        img[alt=revealjs-image] { width: 1000px; }
-        """
+      css += """
+        .reveal h2 {
+          color: red;
+        }
+      """
 
-      val slides = "src/main/kotlin/Slides.kt"
+      markdownSlide {
+        classes = "title-slide"
+        content {
+          """
+          ## HTTP and REST   
+          ## Overview  
 
-      presentationConfig {
-        transition = Transition.CONCAVE
-
-        slideConfig {
-          // Assign slide config defaults for all slides in this presntation here
-          //backgroundColor = "red"
+          ![Firehose](images/DrinkFromFirehose.png)
+          """
         }
       }
 
       markdownSlide {
-
-        slideConfig {
-          transition = Transition.ZOOM
-        }
-
         content {
           """
-          # Markdown Slide
-          ## 🍒   
-          Press ESC to see presentation overview.
-          """
-        }
-      }
-
-      htmlSlide {
-        content {
-          """
-          <h1>An HTML Slide 🐦</h1>
-          <p>This is some text</p>
+          ## Network Elements   
+          
+          * IP Address: 192.168.123.12 
+          
+          * Domain Name: www.example.com
+          
+          * Port: 80, 22, 8080 
+                   
+          * Packets: TCP, UDP   
           """
         }
       }
 
       dslSlide {
         content {
-          h1 { +"A DSL Slide 🐦" }
-          p { +"This is some text" }
-        }
-      }
-
-      verticalSlides {
-        // code begin
-        markdownSlide {
-          val src = "kslides-examples/src/main/kotlin/examples/HelloWorldK.kt"
-          content {
-            """
-            ## Code Slide    
-            ```kotlin [1,5|2,4|3]
-            ${includeUrl(githubRawUrl("kslides", "kslides", src), "[3-7]")}
-            ```
-            """
-          }
-        }
-        // code end
-
-        markdownSlide {
-          content {
-            """            
-            ## Code Slide Description    
-            ```kotlin []
-            ${includeFile(slides, beginToken = "code begin", endToken = "code end")}
-            ```
-            """
+          h2 { +"Network Protocols" }
+          table {
+            tr {
+              td { +"TCP" }
+              td { +"UDP" }
+            }
+            tr {
+              td { +"Transmission control protocol" }
+              td { +"User datagram protocol" }
+            }
+            tr {
+              td { +"connection-oriented" }
+              td { +"connectionless" }
+            }
+            tr {
+              td { +"reliable/slow" }
+              td { +"not guaranteed/fast" }
+            }
           }
         }
       }
 
-      verticalSlides {
-        // image begin
-        markdownSlide {
-          // Size of image is controlled by css above
-          content {
-            """
-            ## Images    
-            ![revealjs-image](images/revealjs.png)
-            """
-          }
-        }
-        // image end
-
-        markdownSlide {
-          content {
-            """            
-            ## Images Slide Description    
-            ```kotlin []
-            ${includeFile(slides, beginToken = "image begin", endToken = "image end")}
-            """
-          }
-        }
-      }
-
-      verticalSlides {
-        markdownSlide {
-          content {
-            """
-            ## Other Presentations    
-            <span style="text-align: left; text-indent: 25%;">
-
-            [🐦 greattalk1/ Slides](/greattalk1) ${fragment(Effect.FADE_UP)}
-
-            [🐦 greattalk1/other.html Slides](/greattalk1/other.html) ${fragment(Effect.FADE_UP)}
-
-            [🐦 greattalk2.html Slides](/greattalk2.html) ${fragment(Effect.FADE_UP)}
-            </span>
-            """
-          }
-        }
-
-        markdownSlide {
-          content {
-            """
-            ## Other Presentations Description    
-            ```kotlin
-            ${includeFile(slides, beginToken = "others begin", endToken = "others end")}
-            ```
-            """
-          }
-        }
-      }
-    }
-
-    // others begin
-    presentation {
-      path = "greattalk1"
-
-      dslSlide {
+      markdownSlide {
         content {
-          h2 { +"greattalk1/index.html Slides" }
+          """
+          ## Protocols using UDP  
+                    
+          * Media streaming (lost frames are ok)
+          
+          * Games that don't care if you get every update
+          
+          * Local broadcast mechanisms (different machines "discovering" each other)
+
+          * Tunneling/VPN (lost packets are ok - the tunneled protocol takes care of it)
+          """
         }
       }
-    }
 
-    presentation {
-      path = "greattalk1/other.html"
-
-      dslSlide {
+      markdownSlide {
         content {
-          h2 { +"greattalk1/other.html slides" }
+          """
+          ## Protocols using TCP  
+          
+          * SSH (22), FTP (21), telnet (23)
+          
+          * SMTP (25) -- sending mail
+          
+          * IMAP (143), POP (110) -- receiving mail
+          
+          * HTTP (80), HTTPS (443)
+          """
         }
       }
-    }
 
-    presentation {
-      path = "greattalk2.html"
-
-      dslSlide {
+      markdownSlide {
         content {
-          h2 { +"greattalk2.html slides" }
+          """
+          ## HTTP  
+          
+          * Asymmetric client/server
+
+          * Request/Response
+                   
+          ![Client/Server](images/client-server.png)
+          """
         }
       }
+
+      markdownSlide {
+        content {
+          """
+          ## HTTP Servers
+            
+          * Static Servers: Apache, IIS, Nginx
+          
+          * Dynamic Servers: Kotlin, Java, Node.js, Python, etc.
+          """
+        }
+      }
+
+      markdownSlide {
+        content {
+          """
+          ## HTTP Clients
+                    
+          * Browser Client: Chrome, Firefox, Safari, IE, etc.
+          
+          * Command Client: httpie, curl, wget, etc.
+
+          * Code Client: Kotlin, Java, JS, Python, etc.
+          """
+        }
+      }
+
     }
-    // others end
   }
 }

@@ -16,11 +16,15 @@
     <style media="screen" type="text/css">
       #githubCorner path { fill: #258BD2; }
       
-</style>
+
+        .reveal h2 {
+          color: red;
+        }
+      </style>
   </head>
   <body>
     <div class="reveal">
-      <a class="github-corner" href="https://github.com/kslides/kslides-template/" target="blank" title="View presentation source on Github">
+      <a class="github-corner" href="https://github.com/pambrose/myslides" target="blank" title="View presentation source on Github">
           
         <svg xmlns="http://www.w3.org/2000/svg" id="githubCorner" viewBox="0 0 55 55">
                       
@@ -29,8 +33,107 @@
         </svg>
                 </a>
       <div class="slides">
+        <section class="title-slide" data-markdown="">
+          <script type="text/template">
+## HTTP and REST   
+## Overview  
+
+![Firehose](images/DrinkFromFirehose.png)
+</script>
+        </section>
+        
+        <section data-markdown="">
+          <script type="text/template">
+## Network Elements   
+
+* IP Address: 192.168.123.12 
+
+* Domain Name: www.example.com
+
+* Port: 80, 22, 8080 
+         
+* Packets: TCP, UDP   
+</script>
+        </section>
+        
         <section>
-          <h2>greattalk1/other.html slides</h2>
+          <h2>Network Protocols</h2>
+          <table>
+            <tr>
+              <td>TCP</td><td>UDP</td>
+            </tr>
+            <tr>
+              <td>Transmission control protocol</td><td>User datagram protocol</td>
+            </tr>
+            <tr>
+              <td>connection-oriented</td><td>connectionless</td>
+            </tr>
+            <tr>
+              <td>reliable/slow</td><td>not guaranteed/fast</td>
+            </tr>
+          </table>
+        </section>
+        
+        <section data-markdown="">
+          <script type="text/template">
+## Protocols using UDP  
+          
+* Media streaming (lost frames are ok)
+
+* Games that don't care if you get every update
+
+* Local broadcast mechanisms (different machines "discovering" each other)
+
+* Tunneling/VPN (lost packets are ok - the tunneled protocol takes care of it)
+</script>
+        </section>
+        
+        <section data-markdown="">
+          <script type="text/template">
+## Protocols using TCP  
+
+* SSH (22), FTP (21), telnet (23)
+
+* SMTP (25) -- sending mail
+
+* IMAP (143), POP (110) -- receiving mail
+
+* HTTP (80), HTTPS (443)
+</script>
+        </section>
+        
+        <section data-markdown="">
+          <script type="text/template">
+## HTTP  
+
+* Asymmetric client/server
+
+* Request/Response
+         
+![Client/Server](images/client-server.png)
+</script>
+        </section>
+        
+        <section data-markdown="">
+          <script type="text/template">
+## HTTP Servers
+  
+* Static Servers: Apache, IIS, Nginx
+
+* Dynamic Servers: Kotlin, Java, Node.js, Python, etc.
+</script>
+        </section>
+        
+        <section data-markdown="">
+          <script type="text/template">
+## HTTP Clients
+          
+* Browser Client: Chrome, Firefox, Safari, IE, etc.
+
+* Command Client: httpie, curl, wget, etc.
+
+* Code Client: Kotlin, Java, JS, Python, etc.
+</script>
         </section>
         
       </div>
