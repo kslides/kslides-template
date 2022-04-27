@@ -29,7 +29,7 @@ fun main() {
       theme = Theme.SOLARIZED
 
       slideConfig {
-        // Assign slide config defaults for all presentations here
+        // Assign slide config defaults for all presentations
         // backgroundColor = "blue"
       }
     }
@@ -47,7 +47,7 @@ fun main() {
         transition = Transition.CONCAVE
 
         slideConfig {
-          // Assign slide config defaults for all slides in this presntation here
+          // Assign slide config defaults for all slides in this presentation
           //backgroundColor = "red"
         }
       }
@@ -116,7 +116,8 @@ fun main() {
           // Size of image is controlled by css above
           content {
             """
-            ## Images    
+            ## Images 
+               
             ![revealjs-image](images/revealjs.png)
             """
           }
@@ -129,6 +130,7 @@ fun main() {
             ## Images Slide Description    
             ```kotlin []
             ${includeFile(slides, beginToken = "image begin", endToken = "image end")}
+            ```
             """
           }
         }
