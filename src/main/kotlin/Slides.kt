@@ -23,8 +23,14 @@ fun main() {
       history = true
       transition = Transition.SLIDE
       transitionSpeed = Speed.SLOW
-      githubCornerHref = "https://github.com/kslides/kslides-template/"
-      githubCornerTitle = "View presentation source on Github"
+
+      topLeftHref = "https://github.com/kslides/kslides-template/" // Assign to "" to turn this off
+      topLeftTitle = "View presentation source on Github"
+
+      topRightHref = "/"  // Assign to "" to turn this off
+      topRightTitle = "Go to 1st Slide"
+      topRightText = "🏠"
+
       enableMenu = true
       theme = Theme.SOLARIZED
       slideNumber = "c/t"
