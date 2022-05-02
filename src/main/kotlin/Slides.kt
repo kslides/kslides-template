@@ -108,7 +108,7 @@ fun main() {
         markdownSlide {
           content {
             """            
-            ## Code Slide Description    
+            ## Slide Definition    
             ```kotlin []
             ${includeFile(slides, beginToken = "code begin", endToken = "code end")}
             ```
@@ -134,7 +134,7 @@ fun main() {
         markdownSlide {
           content {
             """            
-            ## Images Slide Description    
+            ## Slide Definition    
             ```kotlin []
             ${includeFile(slides, beginToken = "image begin", endToken = "image end")}
             ```
@@ -147,7 +147,7 @@ fun main() {
         markdownSlide {
           content {
             """
-            ## Other Presentations    
+            ## Other Presentations Defined In Slides.kt   
             <span style="text-align: left; text-indent: 25%;">
 
             [🐦 greattalk1/ Slides](/greattalk1) ${fragment(Effect.FADE_UP)}
@@ -163,7 +163,7 @@ fun main() {
         markdownSlide {
           content {
             """
-            ## Other Presentations Description    
+            ## Slide Definition    
             ```kotlin
             ${includeFile(slides, beginToken = "others begin", endToken = "others end")}
             ```
