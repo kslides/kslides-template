@@ -92,7 +92,7 @@ Press ESC to see presentation overview.
         <section>
           <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
             <script type="text/template">
-## Code Slide    
+## Code with a markdownSlide     
 ```kotlin [1,5|2,4|3]
 fun main() {
   for (i in (0..5)) {
@@ -111,7 +111,7 @@ markdownSlide {
   val src = "kslides-examples/src/main/kotlin/examples/HelloWorldK.kt"
   content {
     """
-    ## Code Slide    
+    ## Code with a markdownSlide     
     ```kotlin [1,5|2,4|3]
     ${includeUrl(githubRawUrl("kslides", "kslides", src), "[3-7]")}
     ```
@@ -120,6 +120,38 @@ markdownSlide {
 }
 ```
 </script>
+          </section>
+          
+        </section>
+        
+        <section>
+          <section>
+            <h2>Code with a dslSlide</h2>
+            <pre data-cc="true">
+              <code class="kotlin" data-line-numbers="[1,5|2,4|3]" data-noescape="" data-trim="">fun main() {
+  for (i in (0..5)) {
+    println("Hello World $i")
+  }
+}</code>
+            </pre>
+          </section>
+          
+          <section>
+            <h2>Slide Definition</h2>
+            <pre data-cc="true">
+              <code class="kotlin" data-line-numbers="" data-noescape="" data-trim="">dslSlide {
+  val src = "kslides-examples/src/main/kotlin/examples/HelloWorldK.kt"
+  val url = githubRawUrl("kslides", "kslides", src)
+  content {
+    h2 { +"Code with a dslSlide" }
+    codeSnippet(
+      "kotlin",
+      includeUrl(url, "[3-7]", indentToken = "", escapeHtml = false),
+      linePattern = "[1,5|2,4|3]",
+    )
+  }
+}</code>
+            </pre>
           </section>
           
         </section>
@@ -154,29 +186,32 @@ markdownSlide {
         </section>
         
         <section>
-          <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
+          <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="" id="otherslides">
             <script type="text/template">
 ## Other Presentations Defined In Slides.kt   
 <span style="text-align: left; text-indent: 25%;">
 
 [&#128038; greattalk1/ Slides](/greattalk1) 
-                <!-- .element: class="fragment fade-up" -->
 
 [&#128038; greattalk1/other.html Slides](/greattalk1/other.html) 
-                <!-- .element: class="fragment fade-up" -->
 
 [&#128038; greattalk2.html Slides](/greattalk2.html) 
-                <!-- .element: class="fragment fade-up" -->
 </span>
 </script>
           </section>
           
           <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
             <script type="text/template">
-## Slide Definition    
+## Other Slide Definitions    
 ```kotlin
 presentation {
   path = "greattalk1"
+
+  presentationConfig {
+    topRightHref = "/#/otherslides"
+    topRightTitle = "Go back to main presentation"
+    topRightText = "🔙"
+  }
 
   dslSlide {
     content {
@@ -188,6 +223,12 @@ presentation {
 presentation {
   path = "greattalk1/other.html"
 
+  presentationConfig {
+    topRightHref = "/#/otherslides"
+    topRightTitle = "Go back to main presentation"
+    topRightText = "🔙"
+  }
+
   dslSlide {
     content {
       h2 { +"greattalk1/other.html slides" }
@@ -197,6 +238,12 @@ presentation {
 
 presentation {
   path = "greattalk2.html"
+
+  presentationConfig {
+    topRightHref = "/#/otherslides"
+    topRightTitle = "Go back to main presentation"
+    topRightText = "🔙"
+  }
 
   dslSlide {
     content {

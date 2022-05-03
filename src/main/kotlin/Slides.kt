@@ -91,28 +91,59 @@ fun main() {
       }
 
       verticalSlides {
-        // code begin
+        // code1 begin
         markdownSlide {
           val src = "kslides-examples/src/main/kotlin/examples/HelloWorldK.kt"
           content {
             """
-            ## Code Slide    
+            ## Code with a markdownSlide     
             ```kotlin [1,5|2,4|3]
             ${includeUrl(githubRawUrl("kslides", "kslides", src), "[3-7]")}
             ```
             """
           }
         }
-        // code end
+        // code1 end
 
         markdownSlide {
           content {
             """            
             ## Slide Definition    
             ```kotlin []
-            ${includeFile(slides, beginToken = "code begin", endToken = "code end")}
+            ${includeFile(slides, beginToken = "code1 begin", endToken = "code1 end")}
             ```
             """
+          }
+        }
+      }
+
+      verticalSlides {
+        // code2 begin
+        dslSlide {
+          val src = "kslides-examples/src/main/kotlin/examples/HelloWorldK.kt"
+          val url = githubRawUrl("kslides", "kslides", src)
+          content {
+            h2 { +"Code with a dslSlide" }
+            codeSnippet(
+              "kotlin",
+              includeUrl(url, "[3-7]", indentToken = "", escapeHtml = false),
+              linePattern = "[1,5|2,4|3]",
+            )
+          }
+        }
+        // code2 end
+
+        dslSlide {
+          content {
+            h2 { +"Slide Definition" }
+            codeSnippet(
+              "kotlin",
+              includeFile(
+                slides, beginToken = "code2 begin", endToken = "code2 end",
+                indentToken = "",
+                escapeHtml = false
+              ),
+            )
           }
         }
       }
@@ -145,16 +176,17 @@ fun main() {
 
       verticalSlides {
         markdownSlide {
+          id = "otherslides"
           content {
             """
             ## Other Presentations Defined In Slides.kt   
             <span style="text-align: left; text-indent: 25%;">
 
-            [🐦 greattalk1/ Slides](/greattalk1) ${fragment(Effect.FADE_UP)}
+            [🐦 greattalk1/ Slides](/greattalk1) 
 
-            [🐦 greattalk1/other.html Slides](/greattalk1/other.html) ${fragment(Effect.FADE_UP)}
+            [🐦 greattalk1/other.html Slides](/greattalk1/other.html) 
 
-            [🐦 greattalk2.html Slides](/greattalk2.html) ${fragment(Effect.FADE_UP)}
+            [🐦 greattalk2.html Slides](/greattalk2.html) 
             </span>
             """
           }
@@ -163,7 +195,7 @@ fun main() {
         markdownSlide {
           content {
             """
-            ## Slide Definition    
+            ## Other Slide Definitions    
             ```kotlin
             ${includeFile(slides, beginToken = "others begin", endToken = "others end")}
             ```
@@ -177,6 +209,12 @@ fun main() {
     presentation {
       path = "greattalk1"
 
+      presentationConfig {
+        topRightHref = "/#/otherslides"
+        topRightTitle = "Go back to main presentation"
+        topRightText = "🔙"
+      }
+
       dslSlide {
         content {
           h2 { +"greattalk1/index.html Slides" }
@@ -187,6 +225,12 @@ fun main() {
     presentation {
       path = "greattalk1/other.html"
 
+      presentationConfig {
+        topRightHref = "/#/otherslides"
+        topRightTitle = "Go back to main presentation"
+        topRightText = "🔙"
+      }
+
       dslSlide {
         content {
           h2 { +"greattalk1/other.html slides" }
@@ -196,6 +240,12 @@ fun main() {
 
     presentation {
       path = "greattalk2.html"
+
+      presentationConfig {
+        topRightHref = "/#/otherslides"
+        topRightTitle = "Go back to main presentation"
+        topRightText = "🔙"
+      }
 
       dslSlide {
         content {
