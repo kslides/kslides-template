@@ -35,6 +35,16 @@ fun main() {
       theme = Theme.SOLARIZED
       slideNumber = "c/t"
 
+      menuConfig {
+        numbers = true
+      }
+
+      copyCodeConfig {
+        timeout = 2000
+        copy = "Copy"
+        copied = "Copied!"
+      }
+
       slideConfig {
         // Assign slide config defaults for all presentations
         // backgroundColor = "blue"
