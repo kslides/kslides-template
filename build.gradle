@@ -16,7 +16,7 @@ application {
 
 // Change this to your group name
 group 'com.github.username'
-version '1.1.4'
+version '1.1.5'
 
 repositories {
     google()
@@ -41,6 +41,8 @@ dependencies {
 
     implementation "io.github.microutils:kotlin-logging:$logging_version"
     implementation "ch.qos.logback:logback-classic:$logback_version"
+
+    implementation "junit:junit:$junit_version" // for junit playgrounds
 }
 
 task stage(dependsOn: ['uberjar', 'build', 'clean'])
@@ -70,16 +72,18 @@ task uberjar(type: Jar, dependsOn: shadowJar) {
 
 compileKotlin {
     kotlinOptions {
-        useIR = true
         jvmTarget = '1.8'
-        freeCompilerArgs += ['-Xbackend-threads=8']
+        freeCompilerArgs += ['-Xbackend-threads=8',
+                             '-Xcontext-receivers',
+        ]
     }
 }
 
 compileTestKotlin {
     kotlinOptions {
-        useIR = true
         jvmTarget = '1.8'
-        freeCompilerArgs += ['-Xbackend-threads=8']
+        freeCompilerArgs += ['-Xbackend-threads=8',
+                             '-Xcontext-receivers',
+        ]
     }
 }
