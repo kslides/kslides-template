@@ -50,6 +50,7 @@
 		</style>
     
     <style media="screen" type="text/css">
+		
       #githubCorner path { fill: #258BD2; }
       
 
@@ -113,7 +114,7 @@ markdownSlide {
     """
     ## Code with a markdownSlide     
     ```kotlin [1,5|2,4|3]
-    ${includeUrl(githubRawUrl("kslides", "kslides", src), "[3-7]")}
+    ${include(githubRawUrl("kslides", "kslides", src), "[3-7]")}
     ```
     """
   }
@@ -127,30 +128,29 @@ markdownSlide {
         <section>
           <section>
             <h2>Code with a dslSlide</h2>
-            <pre data-cc="true">
-              <code class="kotlin" data-line-numbers="[1,5|2,4|3]" data-noescape="" data-trim="">fun main() {
+            <pre><code class="kotlin" data-line-numbers="1,5|2,4|3" data-noescape="" data-trim="">
+fun main() {
   for (i in (0..5)) {
     println("Hello World $i")
   }
-}</code>
+}
+</code>
             </pre>
           </section>
           
           <section>
             <h2>Slide Definition</h2>
-            <pre data-cc="true">
-              <code class="kotlin" data-line-numbers="" data-noescape="" data-trim="">dslSlide {
+            <pre><code class="kotlin" data-line-numbers="" data-noescape="" data-trim="">
+dslSlide {
   val src = "kslides-examples/src/main/kotlin/examples/HelloWorldK.kt"
   val url = githubRawUrl("kslides", "kslides", src)
   content {
     h2 { +"Code with a dslSlide" }
-    codeSnippet(
-      "kotlin",
-      includeUrl(url, "[3-7]", indentToken = "", escapeHtml = false),
-      linePattern = "[1,5|2,4|3]",
-    )
+    // Display lines 3-7 of the url content and highlight lines 1 and 5, 2 and 4, and finally 3
+    codeSnippet("kotlin", include(url, "[3-7]"), "[1,5|2,4|3]")
   }
-}</code>
+}
+</code>
             </pre>
           </section>
           
@@ -170,7 +170,7 @@ markdownSlide {
 ## Slide Definition    
 ```kotlin []
 markdownSlide {
-  // Size of image is controlled by css above
+  // Image size is controlled by css
   content {
     """
     ## Images 
@@ -265,8 +265,8 @@ presentation {
 	<script src="revealjs/plugin/search/search.js"></script>
 	<script src="revealjs/plugin/markdown/markdown.js"></script>
 	<script src="revealjs/plugin/highlight/highlight.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js"></script>
 	<script src="revealjs/plugin/copycode/copycode.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
 	<script src="revealjs/plugin/menu/menu.js"></script>
 
 	<script>
@@ -293,3 +293,4 @@ presentation {
 </script>
   </body>
 </html>
+

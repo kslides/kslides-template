@@ -108,7 +108,7 @@ fun main() {
             """
             ## Code with a markdownSlide     
             ```kotlin [1,5|2,4|3]
-            ${includeUrl(githubRawUrl("kslides", "kslides", src), "[3-7]")}
+            ${include(githubRawUrl("kslides", "kslides", src), "[3-7]")}
             ```
             """
           }
@@ -120,7 +120,7 @@ fun main() {
             """            
             ## Slide Definition    
             ```kotlin []
-            ${includeFile(slides, beginToken = "code1 begin", endToken = "code1 end")}
+            ${include(slides, beginToken = "code1 begin", endToken = "code1 end")}
             ```
             """
           }
@@ -134,11 +134,8 @@ fun main() {
           val url = githubRawUrl("kslides", "kslides", src)
           content {
             h2 { +"Code with a dslSlide" }
-            codeSnippet(
-              "kotlin",
-              includeUrl(url, "[3-7]", indentToken = "", escapeHtml = false),
-              linePattern = "[1,5|2,4|3]",
-            )
+            // Display lines 3-7 of the url content and highlight lines 1 and 5, 2 and 4, and finally 3
+            codeSnippet("kotlin", include(url, "[3-7]"), "[1,5|2,4|3]")
           }
         }
         // code2 end
@@ -146,14 +143,7 @@ fun main() {
         dslSlide {
           content {
             h2 { +"Slide Definition" }
-            codeSnippet(
-              "kotlin",
-              includeFile(
-                slides, beginToken = "code2 begin", endToken = "code2 end",
-                indentToken = "",
-                escapeHtml = false
-              ),
-            )
+            codeSnippet("kotlin", include(slides, beginToken = "code2 begin", endToken = "code2 end"))
           }
         }
       }
@@ -161,7 +151,7 @@ fun main() {
       verticalSlides {
         // image begin
         markdownSlide {
-          // Size of image is controlled by css above
+          // Image size is controlled by css
           content {
             """
             ## Images 
@@ -177,7 +167,7 @@ fun main() {
             """            
             ## Slide Definition    
             ```kotlin []
-            ${includeFile(slides, beginToken = "image begin", endToken = "image end")}
+            ${include(slides, beginToken = "image begin", endToken = "image end")}
             ```
             """
           }
@@ -207,7 +197,7 @@ fun main() {
             """
             ## Other Slide Definitions    
             ```kotlin
-            ${includeFile(slides, beginToken = "others begin", endToken = "others end")}
+            ${include(slides, beginToken = "others begin", endToken = "others end")}
             ```
             """
           }
