@@ -95,7 +95,7 @@ fun main() {
 
       dslSlide {
         content {
-          h1 { +"A DSL Slide 🐦" }
+          h1 { +"An HTML DSL Slide 🐦" }
           p { +"This is some text" }
         }
       }
