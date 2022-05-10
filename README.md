@@ -1,7 +1,7 @@
 # kslides Template
 
 [![Build Status](https://app.travis-ci.com/kslides/kslides-template.svg?branch=master)](https://app.travis-ci.com/kslides/kslides-template)
-[![Kotlin version](https://img.shields.io/badge/kotlin-1.6.21-red?logo=kotlin)](http://kotlinlang.org)
+[![Kotlin version](https://img.shields.io/badge/kotlin-1.7.0-Beta-red?logo=kotlin)](http://kotlinlang.org)
 
 A template repo for authoring [kslides](https://github.com/kslides/kslides) presentation.
 

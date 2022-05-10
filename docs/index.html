@@ -13,7 +13,8 @@
     <link href="revealjs/plugin/highlight/monokai.css" id="highlight-theme" rel="stylesheet">
     <link href="revealjs/plugin/copycode/copycode.css" rel="stylesheet">
     
-    <style media="screen" type="text/css">		/* These CSS settings are embedded directly in the presentation html */
+    <style media="screen" type="text/css">
+		/* These CSS settings are embedded directly in the presentation html */
 		
 		/* This prevents auto-capitalization of headers */
 		.reveal h1,
@@ -50,12 +51,12 @@
 		</style>
     
     <style media="screen" type="text/css">
-		
-      #githubCorner path { fill: #258BD2; }
-      
-
-        img[alt=revealjs-image] { width: 1000px; }
-        </style>
+			#githubCorner path { fill: #258BD2; }
+			
+			img[alt=revealjs-image] { width: 1000px; }
+			
+		</style>
+    
   </head>
   <body>
     <div class="reveal">
@@ -86,7 +87,7 @@ Press ESC to see presentation overview.
         </section>
         
         <section>
-          <h1>An HTML DSL Slide &#128038;</h1>
+          <h1>A DSL Slide &#128038;</h1>
           <p>This is some text</p>
         </section>
         
@@ -147,11 +148,110 @@ dslSlide {
   content {
     h2 { +"Code with a dslSlide" }
     // Display lines 3-7 of the url content and highlight lines 1 and 5, 2 and 4, and finally 3
-    codeSnippet("kotlin", include(url, "[3-7]"), "[1,5|2,4|3]")
+    codeSnippet {
+      language = "kotlin"
+      highlightPattern = "[1,5|2,4|3]"
+      +include(url, "[3-7]")
+    }
   }
 }
 </code>
             </pre>
+          </section>
+          
+        </section>
+        
+        <section>
+          <section data-auto-animate="">
+            <h2>Animated Code</h2>
+            <pre data-id="code-animation"><code class="json" data-line-numbers="" data-ln-start-from="3" data-noescape="" data-trim="">
+{
+  "id":"555",
+  "language":"C++",
+  "author":"Bjarne Stroustrup"
+}
+</code>
+            </pre>
+          </section>
+          
+          <section data-auto-animate="">
+            <h2>Animated Code</h2>
+            <pre data-id="code-animation"><code class="json" data-line-numbers="" data-ln-start-from="3" data-noescape="" data-trim="">
+{
+  "id":"444",
+  "language":"C",
+  "author":"Dennis Ritchie"
+},
+{
+  "id":"555",
+  "language":"C++",
+  "author":"Bjarne Stroustrup"
+}
+</code>
+            </pre>
+          </section>
+          
+          <section data-auto-animate="">
+            <h2>Animated Code</h2>
+            <pre data-id="code-animation"><code class="json" data-line-numbers="" data-ln-start-from="2" data-noescape="" data-trim="">
+"books":[
+  {
+    "id":"444",
+    "language":"C",
+    "author":"Dennis Ritchie"
+  },
+  {
+    "id":"555",
+    "language":"C++",
+    "author":"Bjarne Stroustrup"
+  }
+]
+</code>
+            </pre>
+          </section>
+          
+          <section data-auto-animate="">
+            <h2>Animated Code</h2>
+            <pre data-id="code-animation"><code class="json" data-line-numbers="" data-ln-start-from="1" data-noescape="" data-trim="">
+{
+  "books":[
+    {
+      "id":"444",
+      "language":"C",
+      "author":"Dennis Ritchie"
+    },
+    {
+      "id":"555",
+      "language":"C++",
+      "author":"Bjarne Stroustrup"
+    }
+  ]
+}
+</code>
+            </pre>
+          </section>
+          
+          <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
+            <script type="text/template">
+## Slide Definition    
+```kotlin []
+for (lines in "[8-12|3-12|2-13|]".toLinePatterns().zip(listOf(3, 3, 2, 1))) {
+  dslSlide {
+    autoAnimate = true
+    content {
+      h2 { +"Animated Code" }
+      val file = "src/main/resources/json-example.json"
+      codeSnippet {
+        dataId = "code-animation"
+        language = "json"
+        lineOffSet = lines.second
+        +include(file, linePattern = lines.first)
+      }
+    }
+  }
+}
+```
+</script>
           </section>
           
         </section>
@@ -202,7 +302,7 @@ markdownSlide {
           
           <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
             <script type="text/template">
-## Other Slide Definitions    
+## Slide Definition    
 ```kotlin
 presentation {
   path = "greattalk1"

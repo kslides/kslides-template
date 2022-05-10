@@ -19,7 +19,7 @@ fun main() {
       #githubCorner path { fill: #258BD2; }
       """
 
-    presentationDefault {
+    presentationConfig {
       history = true
       transition = Transition.SLIDE
       transitionSpeed = Speed.SLOW
@@ -70,7 +70,6 @@ fun main() {
       }
 
       markdownSlide {
-
         slideConfig {
           transition = Transition.ZOOM
         }
@@ -95,7 +94,7 @@ fun main() {
 
       dslSlide {
         content {
-          h1 { +"An HTML DSL Slide 🐦" }
+          h1 { +"A DSL Slide 🐦" }
           p { +"This is some text" }
         }
       }
@@ -135,7 +134,11 @@ fun main() {
           content {
             h2 { +"Code with a dslSlide" }
             // Display lines 3-7 of the url content and highlight lines 1 and 5, 2 and 4, and finally 3
-            codeSnippet("kotlin", include(url, "[3-7]"), "[1,5|2,4|3]")
+            codeSnippet {
+              language = "kotlin"
+              highlightPattern = "[1,5|2,4|3]"
+              +include(url, "[3-7]")
+            }
           }
         }
         // code2 end
@@ -143,7 +146,41 @@ fun main() {
         dslSlide {
           content {
             h2 { +"Slide Definition" }
-            codeSnippet("kotlin", include(slides, beginToken = "code2 begin", endToken = "code2 end"))
+            codeSnippet {
+              language = "kotlin"
+              +include(slides, beginToken = "code2 begin", endToken = "code2 end")
+            }
+          }
+        }
+      }
+
+      verticalSlides {
+        // code3 begin
+        for (lines in "[8-12|3-12|2-13|]".toLinePatterns().zip(listOf(3, 3, 2, 1))) {
+          dslSlide {
+            autoAnimate = true
+            content {
+              h2 { +"Animated Code" }
+              val file = "src/main/resources/json-example.json"
+              codeSnippet {
+                dataId = "code-animation"
+                language = "json"
+                lineOffSet = lines.second
+                +include(file, linePattern = lines.first)
+              }
+            }
+          }
+        }
+        // code3 end
+
+        markdownSlide {
+          content {
+            """            
+            ## Slide Definition    
+            ```kotlin []
+            ${include(slides, beginToken = "code3 begin", endToken = "code3 end")}
+            ```
+            """
           }
         }
       }
@@ -195,7 +232,7 @@ fun main() {
         markdownSlide {
           content {
             """
-            ## Other Slide Definitions    
+            ## Slide Definition    
             ```kotlin
             ${include(slides, beginToken = "others begin", endToken = "others end")}
             ```
