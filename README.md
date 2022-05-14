@@ -9,7 +9,7 @@ A template repo for authoring [kslides](https://github.com/kslides/kslides) pres
 
 Open your newly created kslides repo with [IntelliJ](https://www.jetbrains.com/idea/download/) and edit
 the `src/main/kotlin/Slides.kt` file. The [kslides](https://github.com/kslides/kslides) repo 
-[READEME.md](https://github.com/kslides/kslides/blob/5ed96d3ca2d187acd8310cd3881c40ad0f85acb6/README.md) 
+[READEME.md](https://github.com/kslides/kslides/blob/master/README.md) 
 describes the various _kslides_ blocks.
 
 ## Deployment Options
@@ -33,7 +33,7 @@ describes the various _kslides_ blocks.
 3) Click on the **GitHub** button and select your slides repo
 4) Go to your Netlify dashboard and click on the newly added repo.
 5) To edit your Netlify subdomain name, click on the **Domain settings** button and then click on the **Options** button 
-6) Your repo already has a _netlify.toml_ file that will instruct Netlify to use your _/docs_ folder as a html source
+6) Your repo already has a _netlify.toml_ file that will instruct Netlify to use your `/docs` folder as an html source
 7) Open the _src/main/kotlin/Slides.ht_ file
 8) Insure `enableFileSystem = true` is set in the _output{}_ block
 9) Click on the green arrow next to the `fun main()` declaration to run the program and generate the html content in the _/docs_ folder
