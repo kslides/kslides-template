@@ -156,17 +156,17 @@ fun main() {
 
       verticalSlides {
         // code3 begin
-        for (lines in "[8-12|3-12|2-13|]".toLinePatterns().zip(listOf(3, 3, 2, 1))) {
+        for (lines in "[8-12|3-12|2-13|]".toLinePatterns()) {
           dslSlide {
             autoAnimate = true
             content {
-              h2 { +"Animated Code" }
+              h2 { +"Animated Code without Line Numbers" }
               val file = "src/main/resources/json-example.json"
               codeSnippet {
                 dataId = "code-animation"
                 language = "json"
-                lineOffSet = lines.second
-                +include(file, linePattern = lines.first)
+                highlightPattern = "none"
+                +include(file, linePattern = lines)
               }
             }
           }
@@ -179,6 +179,37 @@ fun main() {
             ## Slide Definition    
             ```kotlin []
             ${include(slides, beginToken = "code3 begin", endToken = "code3 end")}
+            ```
+            """
+          }
+        }
+      }
+
+      verticalSlides {
+        // code4 begin
+        for (lines in "[8-12|3-12|2-13|]".toLinePatterns().zip(listOf(3, 3, 2, 1))) {
+          dslSlide {
+            autoAnimate = true
+            content {
+              h2 { +"Animated Code with Line Numbers" }
+              val file = "src/main/resources/json-example.json"
+              codeSnippet {
+                dataId = "code-animation"
+                language = "json"
+                lineOffSet = lines.second
+                +include(file, linePattern = lines.first)
+              }
+            }
+          }
+        }
+        // code4 end
+
+        markdownSlide {
+          content {
+            """            
+            ## Slide Definition    
+            ```kotlin []
+            ${include(slides, beginToken = "code4 begin", endToken = "code4 end")}
             ```
             """
           }
