@@ -51,9 +51,13 @@
 		</style>
     
     <style media="screen" type="text/css">
-			#githubCorner path { fill: #258BD2; }
+			#githubCorner path { 
+			  fill: #258BD2; 
+			}
 			
-			img[alt=revealjs-image] { width: 1000px; }
+			img[alt=revealjs-image] { 
+			  width: 1000px; 
+			}
 			
 		</style>
     
@@ -110,7 +114,7 @@ fun main() {
 ## Slide Definition    
 ```kotlin []
 markdownSlide {
-  val src = "kslides-examples/src/main/kotlin/examples/HelloWorldK.kt"
+  val src = "kslides-examples/src/main/kotlin/content/HelloWorldK.kt"
   content {
     """
     ## Code with a markdownSlide     
@@ -143,7 +147,7 @@ fun main() {
             <h2>Slide Definition</h2>
             <pre><code class="kotlin" data-line-numbers="" data-noescape="" data-trim="">
 dslSlide {
-  val src = "kslides-examples/src/main/kotlin/examples/HelloWorldK.kt"
+  val src = "kslides-examples/src/main/kotlin/content/HelloWorldK.kt"
   val url = githubRawUrl("kslides", "kslides", src)
   content {
     h2 { +"Code with a dslSlide" }
@@ -365,7 +369,7 @@ for (lines in "[8-12|3-12|2-13|]".toLinePatterns().zip(listOf(3, 3, 2, 1))) {
 ## Slide Definition    
 ```kotlin []
 markdownSlide {
-  // Image size is controlled by css
+  // Image size is controlled by css above
   content {
     """
     ## Images 

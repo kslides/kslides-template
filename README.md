@@ -5,6 +5,17 @@
 
 A template repo for authoring [kslides](https://github.com/kslides/kslides) presentation.
 
+## Getting Started
+
+[![Template](https://img.shields.io/endpoint?color=%232A9EEE&logo=github&style=flat&url=https%3A%2F%2Fraw.githubusercontent.com%2Fkslides%2Fkslides%2Fmaster%2Fdocs%2Fshields%2Ftemplate.json)](https://github.com/kslides/kslides-template/generate)
+
+To create a kslides presentation, generate a new repository using this
+repo as a [template](https://github.com/kslides/kslides-template/generate).
+
+All changes to this template are documented in the 
+[CHANGELOG.md](https://github.com/kslides/kslides-template/blob/master/CHANGELOG.md) file.
+Check back occasionally for any changes that should to be incorporated into your kslides repo.
+
 ## Creating Slide Content
 
 Open your newly created kslides repo with [IntelliJ](https://www.jetbrains.com/idea/download/) and edit

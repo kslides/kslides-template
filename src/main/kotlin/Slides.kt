@@ -16,7 +16,9 @@ fun main() {
     // CSS values assigned here are applied to all the presentations
     css +=
       """
-      #githubCorner path { fill: #258BD2; }
+      #githubCorner path { 
+        fill: #258BD2; 
+      }
       """
 
     presentationConfig {
@@ -55,7 +57,9 @@ fun main() {
 
       css +=
         """
-        img[alt=revealjs-image] { width: 1000px; }
+        img[alt=revealjs-image] { 
+          width: 1000px; 
+        }
         """
 
       val slides = "src/main/kotlin/Slides.kt"
@@ -102,7 +106,7 @@ fun main() {
       verticalSlides {
         // code1 begin
         markdownSlide {
-          val src = "kslides-examples/src/main/kotlin/examples/HelloWorldK.kt"
+          val src = "kslides-examples/src/main/kotlin/content/HelloWorldK.kt"
           content {
             """
             ## Code with a markdownSlide     
@@ -129,7 +133,7 @@ fun main() {
       verticalSlides {
         // code2 begin
         dslSlide {
-          val src = "kslides-examples/src/main/kotlin/examples/HelloWorldK.kt"
+          val src = "kslides-examples/src/main/kotlin/content/HelloWorldK.kt"
           val url = githubRawUrl("kslides", "kslides", src)
           content {
             h2 { +"Code with a dslSlide" }
@@ -219,7 +223,7 @@ fun main() {
       verticalSlides {
         // image begin
         markdownSlide {
-          // Image size is controlled by css
+          // Image size is controlled by css above
           content {
             """
             ## Images 
