@@ -16,11 +16,12 @@ application {
 
 // Change this to your group name
 group 'com.github.username'
-version '1.1.5'
+version '1.2.0'
 
 repositories {
     google()
     mavenCentral()
+    maven { url = 'https://repo.kotlin.link' }
     maven { url = 'https://jitpack.io' }
 }
 
@@ -38,6 +39,8 @@ dependencies {
 
     implementation "com.github.pambrose.common-utils:core-utils:$utils_version"
     implementation "com.github.pambrose.common-utils:ktor-server-utils:$utils_version"
+
+    implementation "space.kscience:plotlykt-core:$plotly_version"
 
     implementation "io.github.microutils:kotlin-logging:$logging_version"
     implementation "ch.qos.logback:logback-classic:$logback_version"
@@ -72,10 +75,7 @@ task uberjar(type: Jar, dependsOn: shadowJar) {
 
 compileKotlin {
     kotlinOptions {
-        //useIR = true
-        jvmTarget = '1.8'
-        //languageVersion = '1.7'
-        //apiVersion = '1.7'
+        jvmTarget = '11'
         freeCompilerArgs += ['-Xbackend-threads=8',
                              //'-Xcontext-receivers',
                              //'-Xskip-prerelease-check',
@@ -85,10 +85,7 @@ compileKotlin {
 
 compileTestKotlin {
     kotlinOptions {
-        //useIR = true
-        jvmTarget = '1.8'
-        //languageVersion = '1.7'
-        //apiVersion = '1.7'
+        jvmTarget = '11'
         freeCompilerArgs += ['-Xbackend-threads=8',
                              //'-Xcontext-receivers',
                              //'-Xskip-prerelease-check',

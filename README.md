@@ -2,6 +2,7 @@
 
 [![Build Status](https://app.travis-ci.com/kslides/kslides-template.svg?branch=master)](https://app.travis-ci.com/kslides/kslides-template)
 [![Kotlin version](https://img.shields.io/badge/kotlin-1.6.21-red?logo=kotlin)](http://kotlinlang.org)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/ed16ddd9-ab47-4e9d-8e37-807edded7a6e/deploy-status)](https://app.netlify.com/sites/kslides-template/deploys)
 
 A template repo for authoring [kslides](https://github.com/kslides/kslides) presentation.
 
@@ -22,6 +23,13 @@ Open your newly created kslides repo with [IntelliJ](https://www.jetbrains.com/i
 the `src/main/kotlin/Slides.kt` file. The [kslides](https://github.com/kslides/kslides) repo 
 [READEME.md](https://github.com/kslides/kslides/blob/master/README.md) 
 describes the various _kslides_ blocks.
+
+### Static Content
+
+Presentations served by HTTP load static content from `/src/main/resources/public`, whereas
+filesystem presentations load static content from `/docs`.
+
+Make sure to run `./gradlew clean build` after making changes to `/src/main/resources/public`.
 
 ## Deployment Options
 
