@@ -2,6 +2,22 @@
 
 All notable changes to this template will be documented in this file.
 
+## [1.2.1] 5/19/2022
+
+### Added
+
+Added support for specifying playground css, which is useful for increasing
+the playground font size, as seen [here](https://kslides.com/#/playground).
+Playground css values are specified in any _PlaygroundConfig_ `css{}` block
+using the CSS DSL or via css strings.
+
+### Updated
+
+#### _gradle.properties_
+
+* Update `kslides_version=0.10.1`
+* Update `css_version=1.0.0-pre.338`
+
 ## [1.2.0] 5/18/2022
 
 ### Added
