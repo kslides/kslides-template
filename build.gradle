@@ -16,7 +16,7 @@ application {
 
 // Change this to your group name
 group 'com.github.username'
-version '1.2.1'
+version '1.2.2'
 
 repositories {
     google()
@@ -26,8 +26,6 @@ repositories {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-
     implementation "com.github.kslides.kslides:kslides-core:$kslides_version"
 
     implementation "io.ktor:ktor-server:$ktor_version"
@@ -39,6 +37,8 @@ dependencies {
 
     implementation "com.github.pambrose.common-utils:core-utils:$utils_version"
     implementation "com.github.pambrose.common-utils:ktor-server-utils:$utils_version"
+
+    implementation "com.github.pambrose:srcref:$srcref_version"
 
     implementation "space.kscience:plotlykt-core:$plotly_version"
 

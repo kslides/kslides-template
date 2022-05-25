@@ -14,40 +14,41 @@
     <link href="revealjs/plugin/copycode/copycode.css" rel="stylesheet">
     
     <style media="screen" type="text/css">
-		/* These CSS settings are embedded directly in the presentation html */
+			/* These CSS settings are embedded directly in the presentation html */
 		
-		/* This prevents auto-capitalization of headers */
-		.reveal h1,
-		.reveal h2,
-		.reveal h3,
-		.reveal h4,
-		.reveal h5,
-		.reveal h6 {
-		    text-transform: none;
-		}
+			/* This prevents auto-capitalization of headers */
+			.reveal h1,
+			.reveal h2,
+			.reveal h3,
+			.reveal h4,
+			.reveal h5,
+			.reveal h6 {
+			    text-transform: none;
+			}
 		
-		a.top-left {
-		    position: absolute;
-		    z-index: 1;
-		    width: clamp(50px, 8vmax, 80px);
-		    line-height: 0;
-		    color: rgba(255, 255, 255, 0.5);
-		}
+			a.top-left {
+			    position: absolute;
+			    z-index: 1;
+			    width: clamp(50px, 8vmax, 80px);
+			    line-height: 0;
+			    color: rgba(255, 255, 255, 0.5);
+			}
 		
-		a.top-left path {
-		    fill: #258bd2;
-		}
+			a.top-left path {
+			    fill: #258bd2;
+			}
 		
-		a.top-left:hover {
-		    color: white;
-		}
+			a.top-left:hover {
+			    color: white;
+			}
 		
-		a.top-right {
-		    position: absolute;
-		    top: 15px;
-		    right: 15px;
-		    z-index: 1;
-		}
+			a.top-right {
+			    position: absolute;
+			    top: 15px;
+			    right: 15px;
+			    z-index: 1;
+			}
+		
 		</style>
     
     <style media="screen" type="text/css">
@@ -55,6 +56,10 @@
 			  fill: #258BD2; 
 			}
 			
+			#ghsrc {
+			  font-size: 30px;
+			  text-decoration: underline;
+			}  
 			img[alt=revealjs-image] { 
 			  width: 1000px; 
 			}
@@ -125,6 +130,7 @@ markdownSlide {
   }
 }
 ```
+<a href="https://www.srcref.com/github?account=kslides&amp;repo=kslides-template&amp;branch=master&amp;path=src%2Fmain%2Fkotlin%2FSlides.kt&amp;bregex=%5Cs%2B%2F%2F+code1+begin&amp;boccur=1&amp;boffset=1&amp;btopd=true&amp;eregex=%5Cs%2B%2F%2F+code1+end&amp;eoccur=1&amp;eoffset=-1&amp;etopd=true" id="ghsrc" target="_blank">GitHub Source</a>
 </script>
           </section>
           
@@ -161,12 +167,13 @@ dslSlide {
 }
 </code>
             </pre>
+            <a href="https://www.srcref.com/github?account=kslides&amp;repo=kslides-template&amp;branch=master&amp;path=src%2Fmain%2Fkotlin%2FSlides.kt&amp;bregex=%5Cs%2B%2F%2F+code2+begin&amp;boccur=1&amp;boffset=1&amp;btopd=true&amp;eregex=%5Cs%2B%2F%2F+code2+end&amp;eoccur=1&amp;eoffset=-1&amp;etopd=true" id="ghsrc" target="_blank">GitHub Source</a>
           </section>
           
         </section>
         
         <section>
-          <section data-auto-animate="">
+          <section data-auto-animate="" data-transition="none">
             <h2>Animated Code without Line Numbers</h2>
             <pre data-id="code-animation"><code class="json" data-noescape="" data-trim="">
 {
@@ -178,7 +185,7 @@ dslSlide {
             </pre>
           </section>
           
-          <section data-auto-animate="">
+          <section data-auto-animate="" data-transition="none">
             <h2>Animated Code without Line Numbers</h2>
             <pre data-id="code-animation"><code class="json" data-noescape="" data-trim="">
 {
@@ -195,7 +202,7 @@ dslSlide {
             </pre>
           </section>
           
-          <section data-auto-animate="">
+          <section data-auto-animate="" data-transition="none">
             <h2>Animated Code without Line Numbers</h2>
             <pre data-id="code-animation"><code class="json" data-noescape="" data-trim="">
 "books":[
@@ -214,7 +221,7 @@ dslSlide {
             </pre>
           </section>
           
-          <section data-auto-animate="">
+          <section data-auto-animate="" data-transition="none">
             <h2>Animated Code without Line Numbers</h2>
             <pre data-id="code-animation"><code class="json" data-noescape="" data-trim="">
 {
@@ -242,6 +249,9 @@ dslSlide {
 for (lines in "[8-12|3-12|2-13|]".toLinePatterns()) {
   dslSlide {
     autoAnimate = true
+    slideConfig {
+      transition = Transition.NONE
+    }
     content {
       h2 { +"Animated Code without Line Numbers" }
       val file = "src/main/resources/json-example.json"
@@ -255,13 +265,14 @@ for (lines in "[8-12|3-12|2-13|]".toLinePatterns()) {
   }
 }
 ```
+<a href="https://www.srcref.com/github?account=kslides&amp;repo=kslides-template&amp;branch=master&amp;path=src%2Fmain%2Fkotlin%2FSlides.kt&amp;bregex=%5Cs%2B%2F%2F+code3+begin&amp;boccur=1&amp;boffset=1&amp;btopd=true&amp;eregex=%5Cs%2B%2F%2F+code3+end&amp;eoccur=1&amp;eoffset=-1&amp;etopd=true" id="ghsrc" target="_blank">GitHub Source</a>
 </script>
           </section>
           
         </section>
         
         <section>
-          <section data-auto-animate="">
+          <section data-auto-animate="" data-transition="none">
             <h2>Animated Code with Line Numbers</h2>
             <pre data-id="code-animation"><code class="json" data-line-numbers="" data-ln-start-from="3" data-noescape="" data-trim="">
 {
@@ -273,7 +284,7 @@ for (lines in "[8-12|3-12|2-13|]".toLinePatterns()) {
             </pre>
           </section>
           
-          <section data-auto-animate="">
+          <section data-auto-animate="" data-transition="none">
             <h2>Animated Code with Line Numbers</h2>
             <pre data-id="code-animation"><code class="json" data-line-numbers="" data-ln-start-from="3" data-noescape="" data-trim="">
 {
@@ -290,7 +301,7 @@ for (lines in "[8-12|3-12|2-13|]".toLinePatterns()) {
             </pre>
           </section>
           
-          <section data-auto-animate="">
+          <section data-auto-animate="" data-transition="none">
             <h2>Animated Code with Line Numbers</h2>
             <pre data-id="code-animation"><code class="json" data-line-numbers="" data-ln-start-from="2" data-noescape="" data-trim="">
 "books":[
@@ -309,7 +320,7 @@ for (lines in "[8-12|3-12|2-13|]".toLinePatterns()) {
             </pre>
           </section>
           
-          <section data-auto-animate="">
+          <section data-auto-animate="" data-transition="none">
             <h2>Animated Code with Line Numbers</h2>
             <pre data-id="code-animation"><code class="json" data-line-numbers="" data-ln-start-from="1" data-noescape="" data-trim="">
 {
@@ -337,6 +348,9 @@ for (lines in "[8-12|3-12|2-13|]".toLinePatterns()) {
 for (lines in "[8-12|3-12|2-13|]".toLinePatterns().zip(listOf(3, 3, 2, 1))) {
   dslSlide {
     autoAnimate = true
+    slideConfig {
+      transition = Transition.NONE
+    }
     content {
       h2 { +"Animated Code with Line Numbers" }
       val file = "src/main/resources/json-example.json"
@@ -350,6 +364,7 @@ for (lines in "[8-12|3-12|2-13|]".toLinePatterns().zip(listOf(3, 3, 2, 1))) {
   }
 }
 ```
+<a href="https://www.srcref.com/github?account=kslides&amp;repo=kslides-template&amp;branch=master&amp;path=src%2Fmain%2Fkotlin%2FSlides.kt&amp;bregex=%5Cs%2B%2F%2F+code4+begin&amp;boccur=1&amp;boffset=1&amp;btopd=true&amp;eregex=%5Cs%2B%2F%2F+code4+end&amp;eoccur=1&amp;eoffset=-1&amp;etopd=true" id="ghsrc" target="_blank">GitHub Source</a>
 </script>
           </section>
           
@@ -379,6 +394,7 @@ markdownSlide {
   }
 }
 ```
+<a href="https://www.srcref.com/github?account=kslides&amp;repo=kslides-template&amp;branch=master&amp;path=src%2Fmain%2Fkotlin%2FSlides.kt&amp;bregex=%5Cs%2B%2F%2F+image+begin&amp;boccur=1&amp;boffset=1&amp;btopd=true&amp;eregex=%5Cs%2B%2F%2F+image+end&amp;eoccur=1&amp;eoffset=-1&amp;etopd=true" id="ghsrc" target="_blank">GitHub Source</a>
 </script>
           </section>
           
@@ -403,54 +419,24 @@ markdownSlide {
             <script type="text/template">
 ## Slide Definition    
 ```kotlin
-presentation {
-  path = "greattalk1"
+markdownSlide {
+  id = "otherslides"
+  content {
+    """
+    ## Other Presentations Defined In Slides.kt   
+    <span style="text-align: left; text-indent: 25%;">
 
-  presentationConfig {
-    topRightHref = "/#/otherslides"
-    topRightTitle = "Go back to main presentation"
-    topRightText = "🔙"
-  }
+    [🐦 greattalk1/ Slides](/greattalk1) 
 
-  dslSlide {
-    content {
-      h2 { +"greattalk1/index.html Slides" }
-    }
-  }
-}
+    [🐦 greattalk1/other.html Slides](/greattalk1/other.html) 
 
-presentation {
-  path = "greattalk1/other.html"
-
-  presentationConfig {
-    topRightHref = "/#/otherslides"
-    topRightTitle = "Go back to main presentation"
-    topRightText = "🔙"
-  }
-
-  dslSlide {
-    content {
-      h2 { +"greattalk1/other.html slides" }
-    }
-  }
-}
-
-presentation {
-  path = "greattalk2.html"
-
-  presentationConfig {
-    topRightHref = "/#/otherslides"
-    topRightTitle = "Go back to main presentation"
-    topRightText = "🔙"
-  }
-
-  dslSlide {
-    content {
-      h2 { +"greattalk2.html slides" }
-    }
+    [🐦 greattalk2.html Slides](/greattalk2.html) 
+    </span>
+    """
   }
 }
 ```
+<a href="https://www.srcref.com/github?account=kslides&amp;repo=kslides-template&amp;branch=master&amp;path=src%2Fmain%2Fkotlin%2FSlides.kt&amp;bregex=%5Cs%2B%2F%2F+others+begin&amp;boccur=1&amp;boffset=1&amp;btopd=true&amp;eregex=%5Cs%2B%2F%2F+others+end&amp;eoccur=1&amp;eoffset=-1&amp;etopd=true" id="ghsrc" target="_blank">GitHub Source</a>
 </script>
           </section>
           

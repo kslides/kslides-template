@@ -1,7 +1,22 @@
 import com.kslides.*
+import com.pambrose.srcref.Api.srcrefUrl
 import kotlinx.html.*
 
 fun main() {
+
+  val slides = "src/main/kotlin/Slides.kt"
+
+  fun srcrefLink(token: String, escapeHtml4: Boolean = false) =
+    srcrefUrl(
+      account = "kslides",
+      repo = "kslides-template",
+      path = slides,
+      beginRegex = "\\s+// $token begin",
+      beginOffset = 1,
+      endRegex = "\\s+// $token end",
+      endOffset = -1,
+      escapeHtml4 = escapeHtml4,
+    )
 
   kslides {
 
@@ -57,12 +72,14 @@ fun main() {
 
       css +=
         """
+        #ghsrc {
+          font-size: 30px;
+          text-decoration: underline;
+        }  
         img[alt=revealjs-image] { 
           width: 1000px; 
         }
         """
-
-      val slides = "src/main/kotlin/Slides.kt"
 
       presentationConfig {
         transition = Transition.CONCAVE
@@ -125,6 +142,7 @@ fun main() {
             ```kotlin []
             ${include(slides, beginToken = "code1 begin", endToken = "code1 end")}
             ```
+            <a id="ghsrc" href="${srcrefLink("code1", true)}" target="_blank">GitHub Source</a>
             """
           }
         }
@@ -154,6 +172,12 @@ fun main() {
               language = "kotlin"
               +include(slides, beginToken = "code2 begin", endToken = "code2 end")
             }
+            a {
+              id = "ghsrc"
+              href = srcrefLink("code2")
+              target = "_blank"
+              +"GitHub Source"
+            }
           }
         }
       }
@@ -163,6 +187,9 @@ fun main() {
         for (lines in "[8-12|3-12|2-13|]".toLinePatterns()) {
           dslSlide {
             autoAnimate = true
+            slideConfig {
+              transition = Transition.NONE
+            }
             content {
               h2 { +"Animated Code without Line Numbers" }
               val file = "src/main/resources/json-example.json"
@@ -184,6 +211,7 @@ fun main() {
             ```kotlin []
             ${include(slides, beginToken = "code3 begin", endToken = "code3 end")}
             ```
+            <a id="ghsrc" href="${srcrefLink("code3", true)}" target="_blank">GitHub Source</a>
             """
           }
         }
@@ -194,6 +222,9 @@ fun main() {
         for (lines in "[8-12|3-12|2-13|]".toLinePatterns().zip(listOf(3, 3, 2, 1))) {
           dslSlide {
             autoAnimate = true
+            slideConfig {
+              transition = Transition.NONE
+            }
             content {
               h2 { +"Animated Code with Line Numbers" }
               val file = "src/main/resources/json-example.json"
@@ -215,6 +246,7 @@ fun main() {
             ```kotlin []
             ${include(slides, beginToken = "code4 begin", endToken = "code4 end")}
             ```
+            <a id="ghsrc" href="${srcrefLink("code4", true)}" target="_blank">GitHub Source</a>
             """
           }
         }
@@ -241,12 +273,14 @@ fun main() {
             ```kotlin []
             ${include(slides, beginToken = "image begin", endToken = "image end")}
             ```
+            <a id="ghsrc" href="${srcrefLink("image", true)}" target="_blank">GitHub Source</a>
             """
           }
         }
       }
 
       verticalSlides {
+        // others begin
         markdownSlide {
           id = "otherslides"
           content {
@@ -263,6 +297,7 @@ fun main() {
             """
           }
         }
+        // others end
 
         markdownSlide {
           content {
@@ -271,13 +306,13 @@ fun main() {
             ```kotlin
             ${include(slides, beginToken = "others begin", endToken = "others end")}
             ```
+            <a id="ghsrc" href="${srcrefLink("others", true)}" target="_blank">GitHub Source</a>
             """
           }
         }
       }
     }
 
-    // others begin
     presentation {
       path = "greattalk1"
 
@@ -325,6 +360,5 @@ fun main() {
         }
       }
     }
-    // others end
   }
 }

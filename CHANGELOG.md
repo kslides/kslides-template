@@ -2,6 +2,25 @@
 
 All notable changes to this template will be documented in this file.
 
+## [1.2.2] 5/25/2022
+
+### Added
+
+Added support for including [srcref](https://www.srcref.com) GitHub links.
+
+### Updated
+
+#### _gradle.properties_
+
+* Update `kslides_version=0.10.2`
+* Update `css_version=1.0.0-pre.340`
+* Update `plotly_version=0.5.2-dev-2`
+* Add `srcref_version=1.0.3`
+
+#### _build.gradle_
+
+* Add `implementation "com.github.pambrose:srcref:$srcref_version"` to `dependencies{}`
+
 ## [1.2.1] 5/19/2022
 
 ### Added
