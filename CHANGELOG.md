@@ -2,6 +2,22 @@
 
 All notable changes to this template will be documented in this file.
 
+## [1.2.3] 5/25/2022
+
+### Added
+
+Added a `/favicon.ico` file.
+
+### Updated
+
+* Add `docs/favicon.ico`
+* Add `src/main/resources/public/favicon.ico` and run `./gradlew clean build`
+
+#### _gradle.properties_
+
+* Update `kslides_version=0.10.3`
+
+
 ## [1.2.2] 5/25/2022
 
 ### Added
