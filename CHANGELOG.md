@@ -2,6 +2,19 @@
 
 All notable changes to this template will be documented in this file.
 
+## [1.2.4] 6/5/2022
+
+### Updated
+
+#### _gradle.properties_
+
+* Update `css_version=1.0.0-pre.341`
+* Update `kslides_version=0.10.4`
+* Update `ktor_version=2.0.2`
+* Update `logging_version=2.1.23`
+* Update `srcref_version=1.0.7`
+* Update `utils_version=1.26.0`
+
 ## [1.2.3] 5/25/2022
 
 ### Added
