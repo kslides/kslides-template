@@ -29,4 +29,4 @@ versioncheck:
 	./gradlew dependencyUpdates
 
 upgrade-wrapper:
-	./gradlew wrapper --gradle-version=7.4.2 --distribution-type=bin
+	./gradlew wrapper --gradle-version=7.5 --distribution-type=bin
