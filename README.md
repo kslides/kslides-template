@@ -72,5 +72,27 @@ Make sure to run `./gradlew clean build` after making changes to `/src/main/reso
 6) Commit and push the changes to Heroku with: `git push heroku master`
 7) Open the app in a browser with: `heroku open`
 
+## build.gradle
 
+The `build.gradle` file uses these repositories:
 
+```groovy
+repositories {
+    google()
+    mavenCentral()
+    maven { url = 'https://maven.pkg.jetbrains.space/mipt-npm/p/sci/maven' }
+    maven { url = 'https://jitpack.io' }
+}
+```
+
+and has these dependencies:
+
+```groovy
+dependencies {
+    implementation "com.github.kslides.kslides:kslides-core:$kslides_version"
+    implementation "io.ktor:ktor-server-html-builder:$ktor_version"
+    implementation "org.jetbrains.kotlin-wrappers:kotlin-css:$css_version"
+    implementation "com.github.pambrose:srcref:$srcref_version"
+    implementation "space.kscience:plotlykt-core:$plotly_version"
+}
+```
