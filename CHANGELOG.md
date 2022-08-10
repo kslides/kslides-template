@@ -2,9 +2,21 @@
 
 All notable changes to this template will be documented in this file.
 
-## [1.3.0] 7/16/2022
+## [1.4.0] 8/9/2022
 
-### Updated
+Added support for [Mermaid](https://mermaid-js.github.io/) diagrams.
+
+#### _build.gradle_
+
+* plotly support is now in a separate module: `com.github.kslides.kslides:kslides-plotly`
+
+#### _gradle.properties_
+
+* Update `kslides_version=0.12.0`
+* Update `plotly_version=0.5.3-dev-1`
+* Update `css_version=1.0.0-pre.365`
+
+## [1.3.0] 7/16/2022
 
 #### _build.gradle_
 
@@ -22,8 +34,6 @@ All notable changes to this template will be documented in this file.
 
 ## [1.2.5] 6/11/2022
 
-### Updated
-
 #### _build.gradle_
 
 * Update `id 'org.jetbrains.kotlin.jvm' version '1.7.0'` in `plugins{}`
@@ -37,8 +47,6 @@ All notable changes to this template will be documented in this file.
 
 ## [1.2.4] 6/5/2022
 
-### Updated
-
 #### _gradle.properties_
 
 * Update `css_version=1.0.0-pre.341`
@@ -50,11 +58,7 @@ All notable changes to this template will be documented in this file.
 
 ## [1.2.3] 5/25/2022
 
-### Added
-
 Added a `/favicon.ico` file.
-
-### Updated
 
 * Add `docs/favicon.ico`
 * Add `src/main/resources/public/favicon.ico` and run `./gradlew clean build`
@@ -66,11 +70,7 @@ Added a `/favicon.ico` file.
 
 ## [1.2.2] 5/25/2022
 
-### Added
-
 Added support for including [srcref](https://www.srcref.com) GitHub links.
-
-### Updated
 
 #### _gradle.properties_
 
@@ -85,14 +85,10 @@ Added support for including [srcref](https://www.srcref.com) GitHub links.
 
 ## [1.2.1] 5/19/2022
 
-### Added
-
 Added support for specifying playground css, which is useful for increasing
 the playground font size, as seen [here](https://kslides.com/#/playground).
 Playground css values are specified in any _PlaygroundConfig_ `css{}` block
 using the CSS DSL or via css strings.
-
-### Updated
 
 #### _gradle.properties_
 
@@ -101,11 +97,7 @@ using the CSS DSL or via css strings.
 
 ## [1.2.0] 5/18/2022
 
-### Added
-
 Added support for plotly-kt ([Example](https://kslides.com/#/plotly))
-
-### Updated
 
 #### _gradle.properties_
 
@@ -119,8 +111,6 @@ Added support for plotly-kt ([Example](https://kslides.com/#/plotly))
 * Update `jvmTarget = '11'` in _compileKotlin.kotlinOptions_ and _compileTestKotlin.kotlinOptions_
 
 ## [1.1.5] 5/14/2022
-
-### Updated
 
 #### _gradle.properties_
 
