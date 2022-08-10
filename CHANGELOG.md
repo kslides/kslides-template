@@ -2,6 +2,13 @@
 
 All notable changes to this template will be documented in this file.
 
+## [1.4.1] 8/10/2022
+
+#### _gradle.properties_
+
+* Update `kslides_version=0.12.2`
+
+
 ## [1.4.0] 8/9/2022
 
 Added support for [Mermaid](https://mermaid-js.github.io/) diagrams.

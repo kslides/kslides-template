@@ -16,7 +16,7 @@ application {
 
 // Change this to your group name
 group 'com.github.username'
-version '1.4.0'
+version '1.4.1'
 
 repositories {
     google()
