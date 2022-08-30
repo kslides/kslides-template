@@ -2,22 +2,30 @@
 
 All notable changes to this template will be documented in this file.
 
+## [1.4.2] 8/30/2022
+
+### _gradle.properties_
+
+* Update `css_version=1.0.0-pre.380`
+* Update `kslides_version=0.13.1`
+* Update `ktor_version=2.1.0`
+* Update `srcref_version=1.0.9`
+
 ## [1.4.1] 8/10/2022
 
-#### _gradle.properties_
+### _gradle.properties_
 
 * Update `kslides_version=0.12.2`
-
 
 ## [1.4.0] 8/9/2022
 
 Added support for [Mermaid](https://mermaid-js.github.io/) diagrams.
 
-#### _build.gradle_
+### _build.gradle_
 
 * plotly support is now in a separate module: `com.github.kslides.kslides:kslides-plotly`
 
-#### _gradle.properties_
+### _gradle.properties_
 
 * Update `kslides_version=0.12.0`
 * Update `plotly_version=0.5.3-dev-1`
@@ -25,15 +33,11 @@ Added support for [Mermaid](https://mermaid-js.github.io/) diagrams.
 
 ## [1.3.0] 7/16/2022
 
-#### _build.gradle_
+### _build.gradle_
 
 * Update `id 'org.jetbrains.kotlin.jvm' version '1.7.10'` in `plugins{}`
 
-#### _build.gradle_
-
-* Simplified build.gradle by removing dependencies pulled in automatically
-
-#### _gradle.properties_
+### _gradle.properties_
 
 * Update `kslides_version=0.11.0`
 * Update `ktor_version=2.0.3`
@@ -41,11 +45,11 @@ Added support for [Mermaid](https://mermaid-js.github.io/) diagrams.
 
 ## [1.2.5] 6/11/2022
 
-#### _build.gradle_
+### _build.gradle_
 
 * Update `id 'org.jetbrains.kotlin.jvm' version '1.7.0'` in `plugins{}`
 
-#### _gradle.properties_
+### _gradle.properties_
 
 * Update `css_version=1.0.0-pre.343`
 * Update `kslides_version=0.10.6`
@@ -54,7 +58,7 @@ Added support for [Mermaid](https://mermaid-js.github.io/) diagrams.
 
 ## [1.2.4] 6/5/2022
 
-#### _gradle.properties_
+### _gradle.properties_
 
 * Update `css_version=1.0.0-pre.341`
 * Update `kslides_version=0.10.4`
@@ -70,7 +74,7 @@ Added a `/favicon.ico` file.
 * Add `docs/favicon.ico`
 * Add `src/main/resources/public/favicon.ico` and run `./gradlew clean build`
 
-#### _gradle.properties_
+### _gradle.properties_
 
 * Update `kslides_version=0.10.3`
 
@@ -79,14 +83,14 @@ Added a `/favicon.ico` file.
 
 Added support for including [srcref](https://www.srcref.com) GitHub links.
 
-#### _gradle.properties_
+### _gradle.properties_
 
 * Update `kslides_version=0.10.2`
 * Update `css_version=1.0.0-pre.340`
 * Update `plotly_version=0.5.2-dev-2`
 * Add `srcref_version=1.0.3`
 
-#### _build.gradle_
+### _build.gradle_
 
 * Add `implementation "com.github.pambrose:srcref:$srcref_version"` to `dependencies{}`
 
@@ -97,7 +101,7 @@ the playground font size, as seen [here](https://kslides.com/#/playground).
 Playground css values are specified in any _PlaygroundConfig_ `css{}` block
 using the CSS DSL or via css strings.
 
-#### _gradle.properties_
+### _gradle.properties_
 
 * Update `kslides_version=0.10.1`
 * Update `css_version=1.0.0-pre.338`
@@ -106,11 +110,11 @@ using the CSS DSL or via css strings.
 
 Added support for plotly-kt ([Example](https://kslides.com/#/plotly))
 
-#### _gradle.properties_
+### _gradle.properties_
 
 * Add `plotly_version=0.5.1-dev-4`
 
-#### _build.gradle_
+### _build.gradle_
 
 * Add `maven { url = 'https://repo.kotlin.link' }` to `repositories{}`
 * Add `implementation "space.kscience:plotlykt-core:$plotly_version"` to `dependencies{}`
@@ -119,6 +123,6 @@ Added support for plotly-kt ([Example](https://kslides.com/#/plotly))
 
 ## [1.1.5] 5/14/2022
 
-#### _gradle.properties_
+### _gradle.properties_
 
 * Update `kslides_version=0.9.0` 
