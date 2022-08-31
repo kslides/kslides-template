@@ -2,9 +2,20 @@
 
 All notable changes to this template will be documented in this file.
 
+## [1.4.3] 8/30/2022
+
+Added support for topLeftSvgClass, topLeftSvgStyle, topRightSvgClass, and topRightSvgStyle.
+
+### _gradle.properties_
+
+* Update `css_version=1.0.0-pre.381`
+* Update `kslides_version=0.13.2`
+
 ## [1.4.2] 8/30/2022
 
 ### _gradle.properties_
+
+Added support for topLeftSvgSrc and topRightSvgSrc.
 
 * Update `css_version=1.0.0-pre.380`
 * Update `kslides_version=0.13.1`
