@@ -16,7 +16,7 @@ application {
 
 // Change this to your group name
 group 'com.github.username'
-version '1.4.3'
+version '1.5.0'
 
 repositories {
     google()
@@ -65,13 +65,11 @@ task uberjar(type: Jar, dependsOn: shadowJar) {
 compileKotlin {
     kotlinOptions {
         jvmTarget = '11'
-        //freeCompilerArgs += ['-Xbackend-threads=8',]
     }
 }
 
 compileTestKotlin {
     kotlinOptions {
         jvmTarget = '11'
-        //freeCompilerArgs += ['-Xbackend-threads=8',]
     }
 }
