@@ -2,6 +2,15 @@
 
 All notable changes to this template will be documented in this file.
 
+## [1.5.1] 9/19/2022
+
+Change `diagram.content` to `diagram.source`.
+
+### _gradle.properties_
+
+* Update `css_version=1.0.0-pre.388`
+* Update `kslides_version=0.14.1`
+
 ## [1.5.0] 9/18/2022
 
 Added support for Kroki diagrams and removed iframes-based Mermaid diagrams.
