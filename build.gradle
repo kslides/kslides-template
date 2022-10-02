@@ -1,7 +1,7 @@
 plugins {
     id 'java'
     id 'application'
-    id 'org.jetbrains.kotlin.jvm' version '1.7.10'
+    id 'org.jetbrains.kotlin.jvm' version '1.7.20'
     id "com.github.ben-manes.versions" version '0.42.0'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
@@ -21,7 +21,7 @@ version '1.5.1'
 repositories {
     google()
     mavenCentral()
-    maven { url = 'https://maven.pkg.jetbrains.space/mipt-npm/p/sci/maven' }
+    // maven { url = 'https://maven.pkg.jetbrains.space/mipt-npm/p/sci/maven' }
     maven { url = 'https://jitpack.io' }
 }
 

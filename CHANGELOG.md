@@ -2,6 +2,22 @@
 
 All notable changes to this template will be documented in this file.
 
+## [1.5.2] 10/2/2022
+
+Update jars
+
+### _build.gradle_
+
+* Update `id 'org.jetbrains.kotlin.jvm' version '1.7.20'` in `plugins{}`
+
+### _gradle.properties_
+
+* Update `css_version=1.0.0-pre.397`
+* Update `kslides_version=0.15.1`
+* Update `ktor_version=2.1.2`
+* Update `plotly_version=0.5.0`
+* Update `srcref_version=1.0.10`
+
 ## [1.5.1] 9/19/2022
 
 Change `diagram.content` to `diagram.source`.
