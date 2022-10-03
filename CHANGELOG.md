@@ -2,6 +2,15 @@
 
 All notable changes to this template will be documented in this file.
 
+## [1.5.3] 10/3/2022
+
+Update jars
+
+### _gradle.properties_
+
+* Update `srcref_version=1.0.12`
+
+
 ## [1.5.2] 10/2/2022
 
 Update jars
