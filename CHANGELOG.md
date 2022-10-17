@@ -2,13 +2,28 @@
 
 All notable changes to this template will be documented in this file.
 
+## [1.5.4] 10/17/2022
+
+Update jars
+
+### _build.gradle_
+
+* `id 'com.github.ben-manes.versions' version '0.43.0'` in `plugins{}`
+
+### _gradle.properties_
+
+* `css_version=1.0.0-pre.408`
+* `kslides_version=0.15.2`
+* `srcref_version=1.0.14`
+
+
 ## [1.5.3] 10/3/2022
 
 Update jars
 
 ### _gradle.properties_
 
-* Update `srcref_version=1.0.12`
+* `srcref_version=1.0.12`
 
 
 ## [1.5.2] 10/2/2022
@@ -17,15 +32,15 @@ Update jars
 
 ### _build.gradle_
 
-* Update `id 'org.jetbrains.kotlin.jvm' version '1.7.20'` in `plugins{}`
+* `id 'org.jetbrains.kotlin.jvm' version '1.7.20'` in `plugins{}`
 
 ### _gradle.properties_
 
-* Update `css_version=1.0.0-pre.397`
-* Update `kslides_version=0.15.1`
-* Update `ktor_version=2.1.2`
-* Update `plotly_version=0.5.0`
-* Update `srcref_version=1.0.10`
+* `css_version=1.0.0-pre.397`
+* `kslides_version=0.15.1`
+* `ktor_version=2.1.2`
+* `plotly_version=0.5.0`
+* `srcref_version=1.0.10`
 
 ## [1.5.1] 9/19/2022
 
@@ -33,8 +48,8 @@ Change `diagram.content` to `diagram.source`.
 
 ### _gradle.properties_
 
-* Update `css_version=1.0.0-pre.388`
-* Update `kslides_version=0.14.1`
+* `css_version=1.0.0-pre.388`
+* `kslides_version=0.14.1`
 
 ## [1.5.0] 9/18/2022
 
@@ -42,8 +57,8 @@ Added support for Kroki diagrams and removed iframes-based Mermaid diagrams.
 
 ### _gradle.properties_
 
-* Update `css_version=1.0.0-pre.387`
-* Update `kslides_version=0.14.0`
+* `css_version=1.0.0-pre.387`
+* `kslides_version=0.14.0`
 
 
 ## [1.4.4] 9/10/2022
@@ -52,9 +67,9 @@ Converted Mermaid diagrams to use iframes.
 
 ### _gradle.properties_
 
-* Update `css_version=1.0.0-pre.383`
-* Update `kslides_version=0.13.3`
-* Update `ktor_version=2.1.1`
+* `css_version=1.0.0-pre.383`
+* `kslides_version=0.13.3`
+* `ktor_version=2.1.1`
 
 
 ## [1.4.3] 8/30/2022
@@ -63,8 +78,8 @@ Added support for topLeftSvgClass, topLeftSvgStyle, topRightSvgClass, and topRig
 
 ### _gradle.properties_
 
-* Update `css_version=1.0.0-pre.381`
-* Update `kslides_version=0.13.2`
+* `css_version=1.0.0-pre.381`
+* `kslides_version=0.13.2`
 
 
 ## [1.4.2] 8/30/2022
@@ -73,17 +88,17 @@ Added support for topLeftSvgClass, topLeftSvgStyle, topRightSvgClass, and topRig
 
 Added support for topLeftSvgSrc and topRightSvgSrc.
 
-* Update `css_version=1.0.0-pre.380`
-* Update `kslides_version=0.13.1`
-* Update `ktor_version=2.1.0`
-* Update `srcref_version=1.0.9`
+* `css_version=1.0.0-pre.380`
+* `kslides_version=0.13.1`
+* `ktor_version=2.1.0`
+* `srcref_version=1.0.9`
 
 
 ## [1.4.1] 8/10/2022
 
 ### _gradle.properties_
 
-* Update `kslides_version=0.12.2`
+* `kslides_version=0.12.2`
 
 
 ## [1.4.0] 8/9/2022
@@ -96,48 +111,48 @@ Added support for [Mermaid](https://mermaid-js.github.io/) diagrams.
 
 ### _gradle.properties_
 
-* Update `kslides_version=0.12.0`
-* Update `plotly_version=0.5.3-dev-1`
-* Update `css_version=1.0.0-pre.365`
+* `kslides_version=0.12.0`
+* `plotly_version=0.5.3-dev-1`
+* `css_version=1.0.0-pre.365`
 
 
 ## [1.3.0] 7/16/2022
 
 ### _build.gradle_
 
-* Update `id 'org.jetbrains.kotlin.jvm' version '1.7.10'` in `plugins{}`
+* `id 'org.jetbrains.kotlin.jvm' version '1.7.10'` in `plugins{}`
 
 ### _gradle.properties_
 
-* Update `kslides_version=0.11.0`
-* Update `ktor_version=2.0.3`
-* Update `css_version=1.0.0-pre.357`
+* `kslides_version=0.11.0`
+* `ktor_version=2.0.3`
+* `css_version=1.0.0-pre.357`
 
 
 ## [1.2.5] 6/11/2022
 
 ### _build.gradle_
 
-* Update `id 'org.jetbrains.kotlin.jvm' version '1.7.0'` in `plugins{}`
+* `id 'org.jetbrains.kotlin.jvm' version '1.7.0'` in `plugins{}`
 
 ### _gradle.properties_
 
-* Update `css_version=1.0.0-pre.343`
-* Update `kslides_version=0.10.6`
-* Update `srcref_version=1.0.8`
-* Update `utils_version=1.27.0`
+* `css_version=1.0.0-pre.343`
+* `kslides_version=0.10.6`
+* `srcref_version=1.0.8`
+* `utils_version=1.27.0`
 
 
 ## [1.2.4] 6/5/2022
 
 ### _gradle.properties_
 
-* Update `css_version=1.0.0-pre.341`
-* Update `kslides_version=0.10.4`
-* Update `ktor_version=2.0.2`
-* Update `logging_version=2.1.23`
-* Update `srcref_version=1.0.7`
-* Update `utils_version=1.26.0`
+* `css_version=1.0.0-pre.341`
+* `kslides_version=0.10.4`
+* `ktor_version=2.0.2`
+* `logging_version=2.1.23`
+* `srcref_version=1.0.7`
+* `utils_version=1.26.0`
 
 
 ## [1.2.3] 5/25/2022
@@ -149,7 +164,7 @@ Added a `/favicon.ico` file.
 
 ### _gradle.properties_
 
-* Update `kslides_version=0.10.3`
+* `kslides_version=0.10.3`
 
 
 ## [1.2.2] 5/25/2022
@@ -158,9 +173,9 @@ Added support for including [srcref](https://www.srcref.com) GitHub links.
 
 ### _gradle.properties_
 
-* Update `kslides_version=0.10.2`
-* Update `css_version=1.0.0-pre.340`
-* Update `plotly_version=0.5.2-dev-2`
+* `kslides_version=0.10.2`
+* `css_version=1.0.0-pre.340`
+* `plotly_version=0.5.2-dev-2`
 * Add `srcref_version=1.0.3`
 
 ### _build.gradle_
@@ -177,8 +192,8 @@ using the CSS DSL or via css strings.
 
 ### _gradle.properties_
 
-* Update `kslides_version=0.10.1`
-* Update `css_version=1.0.0-pre.338`
+* `kslides_version=0.10.1`
+* `css_version=1.0.0-pre.338`
 
 
 ## [1.2.0] 5/18/2022
@@ -193,12 +208,12 @@ Added support for plotly-kt ([Example](https://kslides.com/#/plotly))
 
 * Add `maven { url = 'https://repo.kotlin.link' }` to `repositories{}`
 * Add `implementation "space.kscience:plotlykt-core:$plotly_version"` to `dependencies{}`
-* Update `kslides_version=0.10.0`
-* Update `jvmTarget = '11'` in _compileKotlin.kotlinOptions_ and _compileTestKotlin.kotlinOptions_
+* `kslides_version=0.10.0`
+* `jvmTarget = '11'` in _compileKotlin.kotlinOptions_ and _compileTestKotlin.kotlinOptions_
 
 
 ## [1.1.5] 5/14/2022
 
 ### _gradle.properties_
 
-* Update `kslides_version=0.9.0` 
+* `kslides_version=0.9.0` 
