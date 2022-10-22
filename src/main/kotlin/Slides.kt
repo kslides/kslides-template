@@ -21,7 +21,7 @@ fun main() {
   kslides {
 
     output {
-      // Write the presentation's html files to /docs for Github Pages or netlify.com
+      // Write the presentation's html files to /docs for GitHub Pages or netlify.com
       enableFileSystem = true
 
       // Run locally or on Heroku
