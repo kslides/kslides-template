@@ -1,9 +1,9 @@
 plugins {
     id 'java'
     id 'application'
-    id 'org.jetbrains.kotlin.jvm' version '1.8.0'
+    id 'org.jetbrains.kotlin.jvm' version '1.8.20'
     id 'com.github.ben-manes.versions' version '0.46.0'
-    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
 // mainName is relevant only if you are hosting your slides via HTTP
@@ -16,7 +16,7 @@ application {
 
 // Change this to your group name
 group 'com.github.username'
-version '1.7.0'
+version '1.8.0'
 
 repositories {
     google()
@@ -64,12 +64,12 @@ task uberjar(type: Jar, dependsOn: shadowJar) {
 
 compileKotlin {
     kotlinOptions {
-        jvmTarget = '11'
+        jvmTarget = '17'
     }
 }
 
 compileTestKotlin {
     kotlinOptions {
-        jvmTarget = '11'
+        jvmTarget = '17'
     }
 }
