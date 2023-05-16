@@ -2,6 +2,21 @@
 
 All notable changes to this template will be documented in this file.
 
+## [1.9.0] 05/16/2023
+
+Update jars
+
+### _build.gradle_
+
+* `id 'org.jetbrains.kotlin.jvm' version '1.8.21'` in `plugins{}`
+
+### _gradle.properties_
+* `css_version=1.0.0-pre.550`
+* `kslides_version=0.18.2`
+* `ktor_version=2.3.0`
+* `srcref_version=1.0.25`
+
+
 ## [1.8.0] 04/10/2023
 
 Update jars
