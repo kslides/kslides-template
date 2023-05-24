@@ -6,6 +6,10 @@ All notable changes to this template will be documented in this file.
 
 Update jars
 
+### _docs_
+
+* Replace the `docs/revealjs` dir with the contents from this release
+
 ### _gradle.properties_
 * `css_version=1.0.0-pre.554`
 * `kslides_version=0.10.0`
