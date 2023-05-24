@@ -22,7 +22,7 @@ Check back occasionally for any changes that should to be incorporated into your
 
 Open your newly created kslides repo with [IntelliJ](https://www.jetbrains.com/idea/download/) and edit
 the `src/main/kotlin/Slides.kt` file. The [kslides](https://github.com/kslides/kslides) repo 
-[READEME.md](https://github.com/kslides/kslides/blob/master/README.md) 
+[README.md](https://github.com/kslides/kslides/blob/master/README.md) 
 describes the various _kslides_ blocks.
 
 ### Static Content
