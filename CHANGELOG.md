@@ -2,6 +2,14 @@
 
 All notable changes to this template will be documented in this file.
 
+## [1.10.0] 05/23/2023
+
+Update jars
+
+### _gradle.properties_
+* `css_version=1.0.0-pre.554`
+* `kslides_version=0.10.0`
+
 ## [1.9.0] 05/16/2023
 
 Update jars

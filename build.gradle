@@ -16,7 +16,7 @@ application {
 
 // Change this to your group name
 group 'com.github.username'
-version '1.9.0'
+version '1.10.0'
 
 repositories {
     google()
@@ -24,6 +24,9 @@ repositories {
     // maven { url = 'https://maven.pkg.jetbrains.space/mipt-npm/p/sci/maven' }
     maven { url = 'https://jitpack.io' }
 }
+
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
 
 dependencies {
     implementation "com.github.kslides.kslides:kslides-core:$kslides_version"
@@ -62,14 +65,6 @@ task uberjar(type: Jar, dependsOn: shadowJar) {
     from zipTree(shadowJar.archiveFile)
 }
 
-compileKotlin {
-    kotlinOptions {
-        jvmTarget = '17'
-    }
-}
-
-compileTestKotlin {
-    kotlinOptions {
-        jvmTarget = '17'
-    }
+kotlin {
+    jvmToolchain(17)
 }
