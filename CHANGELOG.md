@@ -7,6 +7,7 @@ All notable changes to this template will be documented in this file.
 * Update to kotlin 1.9.10
 * Update to revealjs 5.0.0
 * Update to CopyCode 1.1.2
+* Update to kslides-core 0.20.1
 * Add support for revealjs Scroll View
 
 ### _build.gradle_
