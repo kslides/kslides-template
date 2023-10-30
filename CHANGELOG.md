@@ -2,6 +2,26 @@
 
 All notable changes to this template will be documented in this file.
 
+## [1.20.0] 10/30/2023
+
+* Update to kotlin 1.9.10
+* Update to revealjs 5.0.0
+* Update to CopyCode 1.1.2
+* Add support for revealjs Scroll View
+
+### _build.gradle_
+
+* `id 'org.jetbrains.kotlin.jvm' version '1.9.10'` in `plugins{}`
+* `id 'com.github.ben-manes.versions' version '0.49.0'` in `plugins{}`
+
+### _docs_
+
+* Replace the `docs/revealjs` dir with the contents from this release
+
+### _gradle.properties_
+* Update to newest grade.properties
+
+
 ## [1.10.0] 05/23/2023
 
 Update jars
@@ -20,7 +40,7 @@ Update jars
 
 ### _build.gradle_
 
-* `id 'org.jetbrains.kotlin.jvm' version '1.8.21'` in `plugins{}`
+* `id 'org.jetbrains.kotlin.jvm' version '1.9.10'` in `plugins{}`
 
 ### _gradle.properties_
 * `css_version=1.0.0-pre.550`
