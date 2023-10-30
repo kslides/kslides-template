@@ -39,7 +39,7 @@ Make sure to run `./gradlew clean build` after making changes to `/src/main/reso
 1) Go to your kslides content repo on GitHub 
 2) Click on _Settings_ -> _Pages_ 
 3) Under **Source**, choose the _master_ branch and the _/docs_ folder and click on _Save_
-4) Open the _src/main/kotlin/Slides.ht_ file
+4) Open the _src/main/kotlin/Slides.kt_ file
 5) Ensure the _output{}_ block contains: `enableFileSystem = true` 
 6) Click on the green arrow next to the `fun main()` declaration to run the program and generate the html content in the _/docs_ folder
 7) Add the newly generated html files in the `/docs` folder to git 
