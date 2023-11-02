@@ -2,6 +2,20 @@
 
 All notable changes to this template will be documented in this file.
 
+## [1.30.0] 11/01/2023
+
+* Update to kotlin 1.9.10
+* Update to kslides-core 0.21.0
+* Update to srcref 1.2.0
+
+### _build.gradle_
+
+* `id 'org.jetbrains.kotlin.jvm' version '1.9.20'` in `plugins{}`
+
+### _gradle.properties_
+* `kslides_version=0.21.0`
+* `srcref_version=1.2.0`
+
 ## [1.20.0] 10/30/2023
 
 * Update to kotlin 1.9.10
