@@ -1,8 +1,8 @@
 plugins {
     id 'java'
     id 'application'
-    id 'org.jetbrains.kotlin.jvm' version '1.9.20'
-    id 'com.github.ben-manes.versions' version '0.49.0'
+    id 'org.jetbrains.kotlin.jvm' version '2.0.0'
+    id 'com.github.ben-manes.versions' version '0.51.0'
     id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
@@ -16,12 +16,12 @@ application {
 
 // Change this to your group name
 group 'com.github.username'
-version '1.30.0'
+version '1.31.0'
 
 repositories {
     google()
     mavenCentral()
-    // maven { url = 'https://maven.pkg.jetbrains.space/mipt-npm/p/sci/maven' }
+    maven { url = 'https://repo.kotlin.link' }
     maven { url = 'https://jitpack.io' }
 }
 
@@ -43,6 +43,10 @@ dependencies {
 task stage(dependsOn: ['uberjar', 'build', 'clean'])
 build.mustRunAfter clean
 
+kotlin {
+    jvmToolchain(17)
+}
+
 shadowJar {
     zip64 true
     mergeServiceFiles()
@@ -63,8 +67,4 @@ task uberjar(type: Jar, dependsOn: shadowJar) {
         attributes('Main-Class': mainName)
     }
     from zipTree(shadowJar.archiveFile)
-}
-
-kotlin {
-    jvmToolchain(17)
 }

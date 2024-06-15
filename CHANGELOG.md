@@ -2,6 +2,25 @@
 
 All notable changes to this template will be documented in this file.
 
+## [1.31.0] 11/01/2023
+
+* Update to kotlin 2.0.0
+* Update to kslides-core 0.22.0
+* Update to srcref 1.6.0
+
+### _build.gradle_
+
+* `id 'org.jetbrains.kotlin.jvm' version '2.0.0'` in `plugins{}`
+
+### _gradle.properties_
+* `kslides_version=0.22.0`
+* `srcref_version=1.6.0`
+
+### _docs_
+
+* Replace the `docs/revealjs` dir with the contents from this release
+
+
 ## [1.30.0] 11/01/2023
 
 * Update to kotlin 1.9.10
