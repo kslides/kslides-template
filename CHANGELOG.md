@@ -2,7 +2,20 @@
 
 All notable changes to this template will be documented in this file.
 
-## [1.31.0] 11/01/2023
+## [1.32.0] 12/11/2024
+
+* Update to kotlin 2.1.0
+* Update to kslides-core 0.24.0
+* Removed transitive gradle dependencies with api instead of implementation
+
+### _build.gradle_
+
+* `id 'org.jetbrains.kotlin.jvm' version '2.1.0'` in `plugins{}`
+
+### _gradle.properties_
+* `kslides_version=0.24.0`
+* 
+## [1.31.0] 11/01/2024
 
 * Update to kotlin 2.0.0
 * Update to kslides-core 0.22.0

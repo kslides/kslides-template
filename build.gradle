@@ -1,7 +1,7 @@
 plugins {
     id 'java'
     id 'application'
-    id 'org.jetbrains.kotlin.jvm' version '2.0.0'
+    id 'org.jetbrains.kotlin.jvm' version '2.1.0'
     id 'com.github.ben-manes.versions' version '0.51.0'
     id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
@@ -16,28 +16,20 @@ application {
 
 // Change this to your group name
 group 'com.github.username'
-version '1.31.0'
+version '1.32.0'
 
 repositories {
     google()
     mavenCentral()
-    maven { url = 'https://repo.kotlin.link' }
     maven { url = 'https://jitpack.io' }
+    maven { url = 'https://repo.kotlin.link' }
 }
-
-sourceCompatibility = JavaVersion.VERSION_17
-targetCompatibility = JavaVersion.VERSION_17
 
 dependencies {
     implementation "com.github.kslides.kslides:kslides-core:$kslides_version"
-    implementation "io.ktor:ktor-server-html-builder:$ktor_version"
-    implementation "org.jetbrains.kotlin-wrappers:kotlin-css:$css_version"
 
-    implementation "com.github.pambrose:srcref:$srcref_version"
-
-    // Include these dependencies if you use plotly.kt
+    // Include this dependency if you use plotly.kt
     // implementation "com.github.kslides.kslides:kslides-plotly:$kslides_version"
-    // implementation "space.kscience:plotlykt-core:$plotly_version"
 }
 
 task stage(dependsOn: ['uberjar', 'build', 'clean'])
