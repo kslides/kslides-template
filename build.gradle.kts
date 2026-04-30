@@ -48,7 +48,9 @@ tasks.named<ShadowJar>("shadowJar") {
     }
 }
 
-tasks.register("stage") {
+tasks.register<DefaultTask>("stage") {
+    group = "build"
+    description = "Clean and build kslides.jar — invoked by Heroku via Procfile."
     dependsOn("clean", "shadowJar")
 }
 
