@@ -17,7 +17,7 @@ application {
 
 // Change this to your name
 group = "com.github.username"
-version = "1.4.0"
+version = "1.40.0"
 
 dependencies {
     implementation(libs.kslides.core)
