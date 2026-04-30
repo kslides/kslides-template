@@ -5,18 +5,33 @@ structured per-version diff, see [CHANGELOG.md](CHANGELOG.md).
 
 ---
 
-## Unreleased
+## v1.40.0 — 2026-04-29
 
 **Build modernization.** The project has migrated to the Gradle Kotlin DSL
 and the Gradle version catalog. All plugin and library versions now live in
-`gradle/libs.versions.toml`, the Gradle wrapper has been upgraded to 9.4.1,
-and the Shadow plugin has moved to the maintained `com.gradleup.shadow`
-fork (9.4.1).
+`gradle/libs.versions.toml`, the Gradle wrapper has been upgraded to
+**9.5.0**, and the Shadow plugin has moved to the maintained
+`com.gradleup.shadow` fork (9.4.1). The `ben-manes-versions` plugin used by
+`make versioncheck` is now at 0.54.0.
 
-A new `syncRevealJs` Gradle task unpacks the reveal.js assets bundled in the
-`kslides-core` JAR into `docs/revealjs/`, so static publishing targets like
-Netlify and GitHub Pages keep working when `kslides-core` ships updated
-reveal.js content.
+A new `syncRevealJs` Gradle task unpacks the reveal.js assets bundled in
+the `kslides-core` JAR into `docs/revealjs/`, so static publishing targets
+like Netlify and GitHub Pages keep working when `kslides-core` ships
+updated reveal.js content. Run `make sync-revealjs` after a `kslides-core`
+upgrade.
+
+The README has been rewritten to document the Kotlin DSL + version-catalog
+setup (the old Groovy `build.gradle` snippet is gone). `LICENSE` was
+renamed to `LICENSE.txt`. `CHANGELOG.md`, `RELEASE_NOTES.md`, and
+`CLAUDE.md` are now part of the template.
+
+The legacy `build.gradle`, `settings.gradle`, and `.travis.yml` have been
+removed.
+
+> **Forks:** mirror the new `build.gradle.kts`, `settings.gradle.kts`, and
+> `gradle/libs.versions.toml` into your fork (or regenerate from this
+> template) — there is no in-place migration path from the old Groovy
+> build.
 
 ---
 

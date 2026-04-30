@@ -1,8 +1,7 @@
 # kslides Template
 
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/kslides/kslides-template)
-[![Build Status](https://app.travis-ci.com/kslides/kslides-template.svg?branch=master)](https://app.travis-ci.com/kslides/kslides-template)
-[![Kotlin version](https://img.shields.io/badge/kotlin-2.1.20-red?logo=kotlin)](http://kotlinlang.org)
+[![Kotlin version](https://img.shields.io/badge/kotlin-2.3.21-red?logo=kotlin)](http://kotlinlang.org)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/ed16ddd9-ab47-4e9d-8e37-807edded7a6e/deploy-status)](https://app.netlify.com/sites/kslides-template/deploys)
 
 A template repo for authoring [kslides](https://github.com/kslides/kslides) presentation.
@@ -14,9 +13,11 @@ A template repo for authoring [kslides](https://github.com/kslides/kslides) pres
 To create a kslides presentation, generate a new repository using this
 repo as a [template](https://github.com/kslides/kslides-template/generate).
 
-All changes to this template are documented in the 
-[CHANGELOG.md](https://github.com/kslides/kslides-template/blob/master/CHANGELOG.md) file.
-Check back occasionally for any changes that should to be incorporated into your kslides repo.
+All changes to this template are documented in
+[CHANGELOG.md](https://github.com/kslides/kslides-template/blob/master/CHANGELOG.md)
+(structured per-version diff) and
+[RELEASE_NOTES.md](https://github.com/kslides/kslides-template/blob/master/RELEASE_NOTES.md)
+(narrative highlights). Check back occasionally for any changes that should be incorporated into your kslides repo.
 
 ## Creating Slide Content
 
@@ -105,8 +106,10 @@ Versions live in `gradle/libs.versions.toml`:
 
 ```toml
 [versions]
-kotlin = "2.1.20"
+ben-manes-versions = "0.54.0"
+kotlin = "2.3.21"
 kslides = "1.0.0"
+shadow = "9.4.1"
 
 [libraries]
 kslides-core = { module = "com.kslides:kslides-core", version.ref = "kslides" }

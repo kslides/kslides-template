@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this repo is
 
-A GitHub template for authoring [kslides](https://github.com/kslides/kslides) presentations. End users hit "Use this template" to fork it, then edit `src/main/kotlin/Slides.kt` to author their deck. Changes here flow downstream to every fork, so keep the template minimal and back-compat where possible — see `CHANGELOG.md` for the running history users are expected to track.
+A GitHub template for authoring [kslides](https://github.com/kslides/kslides) presentations. End users hit "Use this template" to fork it, then edit `src/main/kotlin/Slides.kt` to author their deck. Changes here flow downstream to every fork, so keep the template minimal and back-compat where possible — see `CHANGELOG.md` (per-version diff) and `RELEASE_NOTES.md` (narrative) for the running history users are expected to track.
 
 ## Build & run
 
@@ -56,4 +56,4 @@ This is the single most surprising thing about the project — the same logical 
 ## Conventions for edits to this template
 
 - Anything user-facing (groupId placeholder `com.github.username`, `mainName`, `Slides.kt` example content) is meant to be edited downstream — keep it obvious and commented, don't over-engineer.
-- Update `CHANGELOG.md` for any change a downstream fork would need to mirror.
+- For any change a downstream fork would need to mirror, update **both** `CHANGELOG.md` (Keep-a-Changelog format, per-version structured entry) and `RELEASE_NOTES.md` (narrative highlights). Tag-driven releases also need the template `version` in `build.gradle.kts` bumped — keep all three in sync in the same commit.
