@@ -6,6 +6,12 @@
 
 A template repo for authoring [kslides](https://github.com/kslides/kslides) presentation.
 
+## Prerequisites
+
+- **JDK 17.** The Gradle toolchain auto-provisions one if you don't have it locally.
+- **[IntelliJ IDEA](https://www.jetbrains.com/idea/download/)** — recommended; the primary author workflow is the green-arrow run on `fun main()` in `Slides.kt`.
+- **Git.**
+
 ## Getting Started
 
 [![Template](https://img.shields.io/endpoint?color=%232A9EEE&logo=github&style=flat&url=https%3A%2F%2Fraw.githubusercontent.com%2Fkslides%2Fkslides%2Fmaster%2Fdocs%2Fshields%2Ftemplate.json)](https://github.com/kslides/kslides-template/generate)
@@ -22,9 +28,26 @@ All changes to this template are documented in
 ## Creating Slide Content
 
 Open your newly created kslides repo with [IntelliJ](https://www.jetbrains.com/idea/download/) and edit
-the `src/main/kotlin/Slides.kt` file. The [kslides](https://github.com/kslides/kslides) repo 
-[README.md](https://github.com/kslides/kslides/blob/master/README.md) 
+the `src/main/kotlin/Slides.kt` file. The [kslides](https://github.com/kslides/kslides) repo
+[README.md](https://github.com/kslides/kslides/blob/master/README.md)
 describes the various _kslides_ blocks.
+
+### Project Structure
+
+- `src/main/kotlin/Slides.kt` — your deck (the only file most users touch).
+- `src/main/resources/public/` — static assets when serving over HTTP.
+- `docs/` — generated HTML and static assets when publishing to GitHub Pages or Netlify.
+- `gradle/libs.versions.toml` — kslides, Kotlin, and plugin versions.
+- `build.gradle.kts` — `group`, `version`, and `mainName` (see _Customizing Your Fork_ below).
+
+### Output Modes
+
+Configured per-presentation in `Slides.kt` via the `output {}` block:
+
+- `enableFileSystem = true` — write static HTML into `/docs` for GitHub Pages or Netlify.
+- `enableHttp = true` — run an embedded HTTP server (used by Heroku and for local preview).
+
+Both can be enabled at the same time.
 
 ### Static Content
 
@@ -32,6 +55,14 @@ Presentations served by HTTP load static content from `/src/main/resources/publi
 filesystem presentations load static content from `/docs`.
 
 Make sure to run `./gradlew clean build` after making changes to `/src/main/resources/public`.
+
+### Customizing Your Fork
+
+In `build.gradle.kts`:
+
+- `group = "com.github.username"` — change to your name or org.
+- `version` — your template version, independent of the kslides library version (which lives in `gradle/libs.versions.toml`).
+- `mainName = "SlidesKt"` — only change if you rename `Slides.kt`. Required for HTTP-served decks.
 
 ## Deployment Options
 
@@ -55,66 +86,26 @@ Make sure to run `./gradlew clean build` after making changes to `/src/main/reso
 4) Go to your Netlify dashboard and click on the newly added repo.
 5) To edit your Netlify subdomain name, click on the **Domain settings** button and then click on the **Options** button 
 6) Your repo already has a _netlify.toml_ file that will instruct Netlify to use your `/docs` folder as an html source
-7) Open the _src/main/kotlin/Slides.ht_ file
+7) Open the _src/main/kotlin/Slides.kt_ file
 8) Insure `enableFileSystem = true` is set in the _output{}_ block
 9) Click on the green arrow next to the `fun main()` declaration to run the program and generate the html content in the _/docs_ folder
 10) Add the newly generated html files in the `/docs` folder to git
 11) Commit and push the changes to GitHub
-12) Wait a minute or so and your slides will be available at _https://site-name/netlify.app/_
+12) Wait a minute or so and your slides will be available at _https://site-name.netlify.app/_
 
 
 ### Deploy to Heroku
 
 1) Create an account on [Heroku](https://www.heroku.com/)
 2) Install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli#install-the-heroku-cli)
-3) Open the _src/main/kotlin/Slides.ht_ file
+3) Open the _src/main/kotlin/Slides.kt_ file
 4) Ensure the _output{}_ block contains: `enableHttp = true`
 5) Create a new Heroku app with: `heroku create slideshow_name`
 6) Commit and push the changes to Heroku with: `git push heroku master`
 7) Open the app in a browser with: `heroku open`
 
-## build.gradle.kts
+## Updating kslides
 
-The build uses the Gradle [Kotlin DSL](https://docs.gradle.org/current/userguide/kotlin_dsl.html)
-together with a [version catalog](https://docs.gradle.org/current/userguide/platforms.html)
-at `gradle/libs.versions.toml`.
-
-Repositories are declared in `settings.gradle.kts`:
-
-```kotlin
-dependencyResolutionManagement {
-    repositoriesMode = FAIL_ON_PROJECT_REPOS
-    repositories {
-        mavenCentral()
-    }
-}
-```
-
-Dependencies in `build.gradle.kts` reference the catalog:
-
-```kotlin
-dependencies {
-    implementation(libs.kslides.core)
-
-    // Include this dependency if you use lets-plot
-    // implementation(libs.kslides.letsplot)
-}
-```
-
-Versions live in `gradle/libs.versions.toml`:
-
-```toml
-[versions]
-ben-manes-versions = "0.54.0"
-kotlin = "2.3.21"
-kslides = "1.0.0"
-shadow = "9.4.1"
-
-[libraries]
-kslides-core = { module = "com.kslides:kslides-core", version.ref = "kslides" }
-kslides-letsplot = { module = "com.kslides:kslides-letsplot", version.ref = "kslides" }
-```
-
-To bump a dependency, edit the `[versions]` block in `libs.versions.toml`.
-Run `./gradlew dependencyUpdates` (or `make versioncheck`) to see what's
-out of date.
+- Bump versions in `gradle/libs.versions.toml` (not in `build.gradle.kts`).
+- After bumping `kslides-core`, run `make sync-revealjs` (or `./gradlew syncRevealJs`) to refresh `docs/revealjs/` from the new core JAR — otherwise statically-published decks will load stale reveal.js assets.
+- `make versioncheck` lists out-of-date dependencies.
