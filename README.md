@@ -2,7 +2,7 @@
 
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/kslides/kslides-template)
 [![Build Status](https://app.travis-ci.com/kslides/kslides-template.svg?branch=master)](https://app.travis-ci.com/kslides/kslides-template)
-[![Kotlin version](https://img.shields.io/badge/kotlin-2.1.0-red?logo=kotlin)](http://kotlinlang.org)
+[![Kotlin version](https://img.shields.io/badge/kotlin-2.1.20-red?logo=kotlin)](http://kotlinlang.org)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/ed16ddd9-ab47-4e9d-8e37-807edded7a6e/deploy-status)](https://app.netlify.com/sites/kslides-template/deploys)
 
 A template repo for authoring [kslides](https://github.com/kslides/kslides) presentation.
@@ -72,27 +72,47 @@ Make sure to run `./gradlew clean build` after making changes to `/src/main/reso
 6) Commit and push the changes to Heroku with: `git push heroku master`
 7) Open the app in a browser with: `heroku open`
 
-## build.gradle
+## build.gradle.kts
 
-The `build.gradle` file uses these repositories:
+The build uses the Gradle [Kotlin DSL](https://docs.gradle.org/current/userguide/kotlin_dsl.html)
+together with a [version catalog](https://docs.gradle.org/current/userguide/platforms.html)
+at `gradle/libs.versions.toml`.
 
-```groovy
-repositories {
-    google()
-    mavenCentral()
-    maven { url = 'https://repo.kotlin.link' }
-    maven { url = 'https://jitpack.io' }
+Repositories are declared in `settings.gradle.kts`:
+
+```kotlin
+dependencyResolutionManagement {
+    repositoriesMode = FAIL_ON_PROJECT_REPOS
+    repositories {
+        mavenCentral()
+        mavenLocal()
+    }
 }
 ```
 
-and has these dependencies:
+Dependencies in `build.gradle.kts` reference the catalog:
 
-```groovy
+```kotlin
 dependencies {
-    implementation "com.github.kslides.kslides:kslides-core:$kslides_version"
-    implementation "io.ktor:ktor-server-html-builder:$ktor_version"
-    implementation "org.jetbrains.kotlin-wrappers:kotlin-css:$css_version"
-    implementation "com.github.pambrose:srcref:$srcref_version"
-    implementation "space.kscience:plotlykt-core:$plotly_version"
+    implementation(libs.kslides.core)
+
+    // Include this dependency if you use lets-plot
+    // implementation(libs.kslides.letsplot)
 }
 ```
+
+Versions live in `gradle/libs.versions.toml`:
+
+```toml
+[versions]
+kotlin = "2.1.20"
+kslides = "1.0.0"
+
+[libraries]
+kslides-core = { module = "com.kslides:kslides-core", version.ref = "kslides" }
+kslides-letsplot = { module = "com.kslides:kslides-letsplot", version.ref = "kslides" }
+```
+
+To bump a dependency, edit the `[versions]` block in `libs.versions.toml`.
+Run `./gradlew dependencyUpdates` (or `make versioncheck`) to see what's
+out of date.

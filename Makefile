@@ -20,11 +20,14 @@ dist:
 stage:
 	./gradlew stage
 
-cleandocs:
-	rm -rf docs/playground docs/plotly
+#clean-docs:
+#	rm -rf docs/playground docs/letplot
+
+sync-revealjs:
+	./gradlew syncRevealJs
 
 versioncheck:
-	./gradlew dependencyUpdates
+	./gradlew dependencyUpdates --no-configuration-cache --no-parallel
 
 upgrade-wrapper:
-	./gradlew wrapper --gradle-version=8.11.1 --distribution-type=bin
+	./gradlew wrapper --gradle-version=9.5.0 --distribution-type=bin
