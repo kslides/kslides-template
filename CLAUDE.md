@@ -51,7 +51,6 @@ This is the single most surprising thing about the project — the same logical 
 - JVM toolchain: 17 (foojay resolver convention; users without a local JDK 17 get one auto-provisioned).
 - `mainName` in `build.gradle.kts` (currently `"SlidesKt"`) must match the Kotlin file users want to serve over HTTP. The comment above it is the documented extension point for forks.
 - `version` in `build.gradle.kts` is the *template* version, not the kslides library version (which lives in `libs.versions.toml`). Keep them distinct.
-- Shadow excludes `LICENSE*` from the uberjar; if you need to ship third-party licenses, revisit that.
 
 ## Conventions for edits to this template
 

@@ -9,7 +9,7 @@ build: clean
 	./gradlew build -xtest
 
 uberjar:
-	./gradlew uberjar
+	./gradlew shadowJar
 
 uber: uberjar
 	java -jar build/libs/kslides.jar
