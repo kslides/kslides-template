@@ -1,6 +1,9 @@
+.PHONY: default build-all clean build uberjar uber dist stage sync-revealjs versioncheck upgrade-wrapper
+
 default: versioncheck
 
-build-all: clean stage
+# stage already depends on clean in Gradle (see build.gradle.kts).
+build-all: stage
 
 clean:
 	./gradlew clean
@@ -9,10 +12,11 @@ build: clean
 	./gradlew build -xtest
 
 uberjar:
-	./gradlew uberjar
+	./gradlew shadowJar
 
+# Matches Procfile (-DPORT=$PORT); falls back to 8080 for local runs.
 uber: uberjar
-	java -jar build/libs/kslides.jar
+	java -DPORT=$${PORT:-8080} -jar build/libs/kslides.jar
 
 dist:
 	./gradlew installDist
@@ -26,6 +30,7 @@ stage:
 sync-revealjs:
 	./gradlew syncRevealJs
 
+# ben-manes' dependencyUpdates is not configuration-cache compatible.
 versioncheck:
 	./gradlew dependencyUpdates --no-configuration-cache --no-parallel
 

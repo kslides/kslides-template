@@ -7,12 +7,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.40.0] - 2026-04-29
+
 ### Changed
 - Migrated build to Kotlin DSL (`build.gradle.kts`, `settings.gradle.kts`) and the Gradle version catalog (`gradle/libs.versions.toml`).
-- Upgraded Gradle wrapper to 9.4.1.
+- Upgraded Gradle wrapper to 9.5.0.
 - Upgraded Shadow plugin to `com.gradleup.shadow` 9.4.1.
-- Adopted property-assignment syntax in build scripts and bound the `shadowJar` task provider once for the `uberjar` task.
-- Added `syncRevealJs` task that unpacks reveal.js assets from the `kslides-core` JAR into `docs/revealjs/`.
+- Adopted property-assignment syntax in build scripts (`mainClass`, `archiveFileName`, `repositoriesMode`).
+- Collapsed the standalone `uberjar` task into `shadowJar` itself — `./gradlew shadowJar` now produces `build/libs/kslides.jar` directly with the custom manifest.
+- Gave the `stage` task an explicit `DefaultTask` type, the `build` group, and a description so it surfaces in `gradle tasks`.
+- Removed `mavenLocal()` from both repository blocks in `settings.gradle.kts`.
+- Alphabetized `[plugins]` entries in `gradle/libs.versions.toml`.
+- Bumped `ben-manes-versions` plugin to 0.54.0.
+- Rewrote the README's build section for Kotlin DSL + the version catalog.
+- Renamed `LICENSE` to `LICENSE.txt`.
+
+### Added
+- `syncRevealJs` Gradle task that unpacks reveal.js assets from the `kslides-core` JAR into `docs/revealjs/`.
+- `CHANGELOG.md` and `RELEASE_NOTES.md` covering history back to the initial commit.
+- `CLAUDE.md` project guidance.
+- `.PHONY` declarations in `Makefile` for every target.
+- `make uber` now honours `$PORT` (matches `Procfile`, defaults to 8080 locally).
+
+### Removed
+- Legacy `build.gradle` / `settings.gradle` (Groovy DSL).
+- `.travis.yml` (Travis CI config).
+- The `LICENSE*` exclusion in `shadowJar` — third-party LICENSE files are now preserved in the uberjar.
+- Standalone `uberjar` Gradle task (replaced by configuring `shadowJar` directly).
 
 ## [1.30.0] - 2023-11-01
 
@@ -160,7 +181,8 @@ released tag (1.2.1).
 ### 2021-02-15 — Initial commit
 - Repository created.
 
-[Unreleased]: https://github.com/kslides/kslides-template/compare/1.30.0...HEAD
+[Unreleased]: https://github.com/kslides/kslides-template/compare/1.40.0...HEAD
+[1.40.0]: https://github.com/kslides/kslides-template/compare/1.30.0...1.40.0
 [1.30.0]: https://github.com/kslides/kslides-template/compare/1.10.0...1.30.0
 [1.10.0]: https://github.com/kslides/kslides-template/compare/1.9.0...1.10.0
 [1.9.0]: https://github.com/kslides/kslides-template/compare/1.8.0...1.9.0

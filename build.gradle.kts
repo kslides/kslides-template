@@ -17,7 +17,7 @@ application {
 
 // Change this to your name
 group = "com.github.username"
-version = "1.4.0"
+version = "1.40.0"
 
 dependencies {
     implementation(libs.kslides.core)
@@ -30,21 +30,13 @@ kotlin {
     jvmToolchain(17)
 }
 
-tasks.withType<ShadowJar> {
+tasks.named<ShadowJar>("shadowJar") {
+    mustRunAfter("clean")
     isZip64 = true
     mergeServiceFiles()
     exclude("META-INF/*.SF")
     exclude("META-INF/*.DSA")
     exclude("META-INF/*.RSA")
-    exclude("LICENSE*")
-}
-
-val shadowJar = tasks.named<ShadowJar>("shadowJar")
-
-val uberjar = tasks.register<Jar>("uberjar") {
-    dependsOn(shadowJar)
-    mustRunAfter("clean")
-    isZip64 = true
     archiveFileName = "kslides.jar"
     manifest {
         attributes(
@@ -54,11 +46,12 @@ val uberjar = tasks.register<Jar>("uberjar") {
             "Main-Class" to mainName,
         )
     }
-    from(zipTree(shadowJar.flatMap { it.archiveFile }))
 }
 
-tasks.register("stage") {
-    dependsOn("clean", uberjar)
+tasks.register<DefaultTask>("stage") {
+    group = "build"
+    description = "Clean and build kslides.jar — invoked by Heroku via Procfile."
+    dependsOn("clean", "shadowJar")
 }
 
 // Unpack reveal.js assets from the kslides-core JAR into docs/revealjs/.

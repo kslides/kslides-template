@@ -5,18 +5,57 @@ structured per-version diff, see [CHANGELOG.md](CHANGELOG.md).
 
 ---
 
-## Unreleased
+## v1.40.0 — 2026-04-29
 
 **Build modernization.** The project has migrated to the Gradle Kotlin DSL
 and the Gradle version catalog. All plugin and library versions now live in
-`gradle/libs.versions.toml`, the Gradle wrapper has been upgraded to 9.4.1,
-and the Shadow plugin has moved to the maintained `com.gradleup.shadow`
-fork (9.4.1).
+`gradle/libs.versions.toml`, the Gradle wrapper has been upgraded to
+**9.5.0**, and the Shadow plugin has moved to the maintained
+`com.gradleup.shadow` fork (9.4.1). The `ben-manes-versions` plugin used by
+`make versioncheck` is now at 0.54.0.
 
-A new `syncRevealJs` Gradle task unpacks the reveal.js assets bundled in the
-`kslides-core` JAR into `docs/revealjs/`, so static publishing targets like
-Netlify and GitHub Pages keep working when `kslides-core` ships updated
-reveal.js content.
+**Simpler fat-jar build.** The previous setup had a `shadowJar` task plus a
+`Jar` wrapper called `uberjar` that re-zipped the shadow output to give it
+a stable filename and a custom manifest. The wrapper is gone — `shadowJar`
+itself now produces `build/libs/kslides.jar` with the
+`Implementation-Title` / `Implementation-Version` / `Built-JDK` /
+`Main-Class` manifest attributes. `make uberjar` now invokes the
+`shadowJar` Gradle task directly. The output filename and manifest are
+unchanged, so `Procfile` and `make uber` keep working. The
+`shadowJar` task no longer excludes `LICENSE*`, so third-party license
+files are preserved in the uberjar.
+
+**`stage` task is now discoverable.** `gradle tasks` lists it under the
+`build` group with a description.
+
+A new `syncRevealJs` Gradle task unpacks the reveal.js assets bundled in
+the `kslides-core` JAR into `docs/revealjs/`, so static publishing targets
+like Netlify and GitHub Pages keep working when `kslides-core` ships
+updated reveal.js content. Run `make sync-revealjs` after a `kslides-core`
+upgrade.
+
+**Makefile polish.** All targets are declared `.PHONY` so they keep working
+once `build/` (or any other directory matching a target name) exists.
+`make uber` now honours `$PORT` (matching `Procfile`) and falls back to
+`8080` for local runs.
+
+`mavenLocal()` has been removed from both repository blocks in
+`settings.gradle.kts` — the build no longer resolves dependencies or
+plugins from a developer's local Maven cache.
+
+The README has been rewritten to document the Kotlin DSL + version-catalog
+setup (the old Groovy `build.gradle` snippet is gone). `LICENSE` was
+renamed to `LICENSE.txt`. `CHANGELOG.md`, `RELEASE_NOTES.md`, and
+`CLAUDE.md` are now part of the template.
+
+The legacy `build.gradle`, `settings.gradle`, and `.travis.yml` have been
+removed.
+
+> **Forks:** mirror the new `build.gradle.kts`, `settings.gradle.kts`, and
+> `gradle/libs.versions.toml` into your fork (or regenerate from this
+> template) — there is no in-place migration path from the old Groovy
+> build. If your downstream tooling invoked the `uberjar` Gradle task
+> directly, switch to `shadowJar`.
 
 ---
 

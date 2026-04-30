@@ -9,6 +9,6 @@ kslides-core = { module = "com.kslides:kslides-core", version.ref = "kslides" }
 kslides-letsplot = { module = "com.kslides:kslides-letsplot", version.ref = "kslides" }
 
 [plugins]
-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 ben-manes-versions = { id = "com.github.ben-manes.versions", version.ref = "ben-manes-versions" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }
