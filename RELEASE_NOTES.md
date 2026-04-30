@@ -59,6 +59,18 @@ removed.
 
 ---
 
+## v1.32.0 — 2024-12-12
+
+A maintenance roll-up covering 2024.
+
+- Kotlin **2.1.0** (this release).
+- Kotlin **2.0.0** and reveal.js **5.1.0** (landed mid-cycle and shipped
+  here for the first tagged release on that combo).
+
+No template structure changes — just dependency bumps.
+
+---
+
 ## v1.30.0 — 2023-11-01
 
 The big "modern reveal.js" refresh.

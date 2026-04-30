@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+*Nothing yet.*
+
 ## [1.40.0] - 2026-04-29
 
 ### Changed
@@ -34,6 +36,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `.travis.yml` (Travis CI config).
 - The `LICENSE*` exclusion in `shadowJar` — third-party LICENSE files are now preserved in the uberjar.
 - Standalone `uberjar` Gradle task (replaced by configuring `shadowJar` directly).
+
+## [1.32.0] - 2024-12-12
+
+### Changed
+- Updated to Kotlin 2.1.0.
+- Updated to Kotlin 2.0.0 and reveal.js 5.1.0 (rolled up from earlier in the cycle).
 
 ## [1.30.0] - 2023-11-01
 
@@ -182,7 +190,8 @@ released tag (1.2.1).
 - Repository created.
 
 [Unreleased]: https://github.com/kslides/kslides-template/compare/1.40.0...HEAD
-[1.40.0]: https://github.com/kslides/kslides-template/compare/1.30.0...1.40.0
+[1.40.0]: https://github.com/kslides/kslides-template/compare/1.32.0...1.40.0
+[1.32.0]: https://github.com/kslides/kslides-template/compare/1.30.0...1.32.0
 [1.30.0]: https://github.com/kslides/kslides-template/compare/1.10.0...1.30.0
 [1.10.0]: https://github.com/kslides/kslides-template/compare/1.9.0...1.10.0
 [1.9.0]: https://github.com/kslides/kslides-template/compare/1.8.0...1.9.0
