@@ -56,6 +56,38 @@ filesystem presentations load static content from `/docs`.
 
 Make sure to run `./gradlew clean build` after making changes to `/src/main/resources/public`.
 
+### Images (`docs/images`)
+
+`docs/images/` is the **single source of truth** for image assets. It is committed to git so
+GitHub Pages and Netlify can serve the images directly alongside the generated HTML in `/docs`.
+
+To avoid duplicating the same files under `src/main/resources/public/images/`, the Gradle
+`processResources` task (in `build.gradle.kts`) copies `docs/images/` into the resources jar
+at `public/images/` at build time. HTTP-served decks therefore load the same images without
+a second committed copy.
+
+To add or update an image:
+
+1) Drop (or replace) the file in `docs/images/`.
+2) Run `./gradlew clean build` so HTTP-served decks pick up the change via `processResources`.
+3) Commit the file in `docs/images/` — do **not** add a parallel copy under `src/main/resources/public/images/`.
+
+### reveal.js Assets (`docs/revealjs`)
+
+The reveal.js distribution lives inside the `kslides-core` JAR (at classpath `revealjs/**`)
+and that JAR is the single source of truth. The `syncRevealJs` Gradle task unpacks those
+assets onto disk at `docs/revealjs/` so the static HTML in `/docs` has working JS/CSS
+references when published to GitHub Pages or Netlify.
+
+Run it whenever you bump `kslides-core` in `gradle/libs.versions.toml`:
+
+```
+make sync-revealjs        # or: ./gradlew syncRevealJs
+```
+
+Commit the refreshed `docs/revealjs/` along with the version bump so deployed decks load
+matching reveal.js assets.
+
 ### Customizing Your Fork
 
 In `build.gradle.kts`:

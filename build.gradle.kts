@@ -74,3 +74,10 @@ tasks.register<Sync>("syncRevealJs") {
     }
     into(layout.projectDirectory.dir("docs/revealjs"))
 }
+
+// Single source of truth for images assets: docs/images/ (committed for GitHub Pages).
+tasks.processResources {
+    from(rootProject.layout.projectDirectory.dir("docs/images")) {
+        into("public/images")
+    }
+}
