@@ -1,5 +1,7 @@
 [versions]
 ben-manes-versions = "0.54.0"
+gradle = "9.5.0"
+jvm = "17"
 kotlin = "2.3.21"
 kslides = "1.0.0"
 shadow = "9.4.1"

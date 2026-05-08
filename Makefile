@@ -1,5 +1,12 @@
 .PHONY: default build-all clean build uberjar uber dist stage sync-revealjs versioncheck upgrade-wrapper
 
+# Versions are sourced from gradle/libs.versions.toml so there is one source of truth.
+GRADLE_VERSION := $(shell awk -F' *= *' '/^gradle *=/ {gsub(/"/, "", $$2); print $$2; exit}' gradle/libs.versions.toml)
+
+ifeq ($(strip $(GRADLE_VERSION)),)
+$(error Could not determine gradle version from gradle/libs.versions.toml)
+endif
+
 default: versioncheck
 
 # stage already depends on clean in Gradle (see build.gradle.kts).
@@ -35,4 +42,4 @@ versioncheck:
 	./gradlew dependencyUpdates --no-configuration-cache --no-parallel
 
 upgrade-wrapper:
-	./gradlew wrapper --gradle-version=9.5.0 --distribution-type=bin
+	./gradlew wrapper --gradle-version=$(GRADLE_VERSION) --distribution-type=bin

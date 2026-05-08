@@ -37,8 +37,9 @@ describes the various _kslides_ blocks.
 - `src/main/kotlin/Slides.kt` — your deck (the only file most users touch).
 - `src/main/resources/public/` — static assets when serving over HTTP.
 - `docs/` — generated HTML and static assets when publishing to GitHub Pages or Netlify.
-- `gradle/libs.versions.toml` — kslides, Kotlin, and plugin versions.
-- `build.gradle.kts` — `group`, `version`, and `mainName` (see _Customizing Your Fork_ below).
+- `gradle/libs.versions.toml` — kslides, Kotlin, plugin, JVM, and Gradle versions.
+- `gradle.properties` — `group` and `version` (see _Customizing Your Fork_ below).
+- `build.gradle.kts` — `mainName` (see _Customizing Your Fork_ below).
 
 ### Output Modes
 
@@ -90,10 +91,13 @@ matching reveal.js assets.
 
 ### Customizing Your Fork
 
+In `gradle.properties`:
+
+- `group=com.github.username` — change to your name or org.
+- `version=...` — your template version, independent of the kslides library version (which lives in `gradle/libs.versions.toml`).
+
 In `build.gradle.kts`:
 
-- `group = "com.github.username"` — change to your name or org.
-- `version` — your template version, independent of the kslides library version (which lives in `gradle/libs.versions.toml`).
 - `mainName = "SlidesKt"` — only change if you rename `Slides.kt`. Required for HTTP-served decks.
 
 ## Deployment Options
@@ -138,6 +142,7 @@ In `build.gradle.kts`:
 
 ## Updating kslides
 
-- Bump versions in `gradle/libs.versions.toml` (not in `build.gradle.kts`).
+- Bump library, plugin, JVM, and Gradle versions in `gradle/libs.versions.toml` (not in `build.gradle.kts` or the `Makefile`).
+- After bumping `gradle` in `libs.versions.toml`, run `make upgrade-wrapper` to re-pin `gradle/wrapper/gradle-wrapper.properties`.
 - After bumping `kslides-core`, run `make sync-revealjs` (or `./gradlew syncRevealJs`) to refresh `docs/revealjs/` from the new core JAR — otherwise statically-published decks will load stale reveal.js assets.
 - `make versioncheck` lists out-of-date dependencies.

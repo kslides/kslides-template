@@ -19,7 +19,7 @@ The Makefile is a thin wrapper over `./gradlew`:
 - `make dist` — `./gradlew installDist`
 - `make sync-revealjs` — runs the `syncRevealJs` task (see Architecture)
 - `make versioncheck` — `./gradlew dependencyUpdates` (ben-manes plugin); must use `--no-configuration-cache --no-parallel`
-- `make upgrade-wrapper` — re-pin the Gradle wrapper version (hardcoded; bump in lockstep with `gradle/wrapper/gradle-wrapper.properties`)
+- `make upgrade-wrapper` — re-pin the Gradle wrapper version (reads `gradle = "..."` from `gradle/libs.versions.toml`; bump that key in lockstep with `gradle/wrapper/gradle-wrapper.properties`)
 
 Run `fun main()` in `Slides.kt` directly from IntelliJ (green arrow) to generate slides — that's the primary author workflow, not a Gradle task.
 
@@ -49,15 +49,15 @@ This is the single most surprising thing about the project — the same logical 
 ## Build configuration
 
 - Kotlin DSL (`build.gradle.kts`, `settings.gradle.kts`).
-- Version catalog in `gradle/libs.versions.toml` — bump kslides/kotlin/shadow there, not in `build.gradle.kts`.
-- JVM toolchain: 17 (foojay resolver convention; users without a local JDK 17 get one auto-provisioned).
+- Version catalog in `gradle/libs.versions.toml` — bump kslides/kotlin/shadow/jvm/gradle there, not in `build.gradle.kts` or the `Makefile`. The `jvm` key drives `jvmToolchain(...)`; the `gradle` key drives `make upgrade-wrapper` (extracted via `awk` in the `Makefile`).
+- JVM toolchain: pulled from `libs.versions.jvm` (currently `17`; foojay resolver convention; users without a local JDK get one auto-provisioned).
+- `group` and `version` live in `gradle.properties` (Gradle auto-binds them to `Project.group` / `Project.version`). `version` is the *template* version, not the kslides library version (which lives in `libs.versions.toml`). Keep them distinct.
 - `mainName` in `build.gradle.kts` (currently `"SlidesKt"`) must match the Kotlin file users want to serve over HTTP. The comment above it is the documented extension point for forks.
-- `version` in `build.gradle.kts` is the *template* version, not the kslides library version (which lives in `libs.versions.toml`). Keep them distinct.
-- `shadowJar` is configured directly (no `Jar`-typed wrapper task) — it sets `archiveFileName = "kslides.jar"` and the `Implementation-*` / `Main-Class` manifest attributes itself. To customize the uberjar, edit the `tasks.named<ShadowJar>("shadowJar") { … }` block.
+- `shadowJar` is configured directly (no `Jar`-typed wrapper task) — it sets `archiveFileName = "kslides.jar"` and the `Implementation-*` / `Main-Class` manifest attributes itself. To customize the uberjar, edit the `tasks.named<ShadowJar>(shadowJarTask) { … }` block.
 - Configuration cache is on (`org.gradle.configuration-cache=true` in `gradle.properties`). New tasks must be CC-compatible; ben-manes' `dependencyUpdates` is the only known incompatible task and `make versioncheck` opts out for it.
 - Repositories are locked down: `settings.gradle.kts` uses `FAIL_ON_PROJECT_REPOS` and resolves only from `mavenCentral()` (no `mavenLocal()` — local snapshots can't be picked up without temporarily editing the file).
 
 ## Conventions for edits to this template
 
 - Anything user-facing (groupId placeholder `com.github.username`, `mainName`, `Slides.kt` example content) is meant to be edited downstream — keep it obvious and commented, don't over-engineer.
-- For any change a downstream fork would need to mirror, update **both** `CHANGELOG.md` (Keep-a-Changelog format, per-version structured entry) and `RELEASE_NOTES.md` (narrative highlights). Tag-driven releases also need the template `version` in `build.gradle.kts` bumped — keep all three in sync in the same commit.
+- For any change a downstream fork would need to mirror, update **both** `CHANGELOG.md` (Keep-a-Changelog format, per-version structured entry) and `RELEASE_NOTES.md` (narrative highlights). Tag-driven releases also need the template `version` in `gradle.properties` bumped — keep all three in sync in the same commit.

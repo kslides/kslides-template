@@ -7,7 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-*Nothing yet.*
+### Changed
+- Moved `group` and `version` out of `build.gradle.kts` into `gradle.properties` (Gradle auto-binds them to `Project.group` / `Project.version`).
+- Centralized the JVM toolchain version and the Gradle wrapper version in `gradle/libs.versions.toml` as `jvm` and `gradle`. `build.gradle.kts` reads `jvm` via `libs.versions.jvm.get().toInt()`; the `Makefile`'s `upgrade-wrapper` target reads `gradle` via an `awk` shell expansion.
+- Consolidated repeated string literals in `build.gradle.kts` (`shadowJar`, `clean`, `kslides.jar`, `revealjs`, `docs/revealjs`) into named `val`s.
 
 ## [1.40.0] - 2026-04-29
 
