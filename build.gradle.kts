@@ -4,6 +4,7 @@ plugins {
     application
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.ben.manes.versions)
+    alias(libs.plugins.detekt)
     alias(libs.plugins.shadow)
 }
 
@@ -11,13 +12,15 @@ plugins {
 // Change mainName to the name of Kotlin file that has the presentation you want to serve
 val mainName = "SlidesKt"
 
+val cleanTask = "clean"
+val shadowJarTask = "shadowJar"
+val jarName = "kslides.jar"
+val revealJsPath = "revealjs"
+val docsRevealJsDir = "docs/$revealJsPath"
+
 application {
     mainClass = mainName
 }
-
-// Change this to your name
-group = "com.github.username"
-version = "1.40.0"
 
 dependencies {
     implementation(libs.kslides.core)
@@ -27,17 +30,22 @@ dependencies {
 }
 
 kotlin {
-    jvmToolchain(17)
+    jvmToolchain(libs.versions.jvm.get().toInt())
 }
 
-tasks.named<ShadowJar>("shadowJar") {
-    mustRunAfter("clean")
+detekt {
+    buildUponDefaultConfig = true
+    config.setFrom(files("detekt.yml"))
+}
+
+tasks.named<ShadowJar>(shadowJarTask) {
+    mustRunAfter(cleanTask)
     isZip64 = true
     mergeServiceFiles()
     exclude("META-INF/*.SF")
     exclude("META-INF/*.DSA")
     exclude("META-INF/*.RSA")
-    archiveFileName = "kslides.jar"
+    archiveFileName = jarName
     manifest {
         attributes(
             "Implementation-Title" to "kslides",
@@ -50,8 +58,8 @@ tasks.named<ShadowJar>("shadowJar") {
 
 tasks.register<DefaultTask>("stage") {
     group = "build"
-    description = "Clean and build kslides.jar — invoked by Heroku via Procfile."
-    dependsOn("clean", "shadowJar")
+    description = "Clean and build $jarName — invoked by Heroku via Procfile."
+    dependsOn(cleanTask, shadowJarTask)
 }
 
 // Unpack reveal.js assets from the kslides-core JAR into docs/revealjs/.
@@ -61,18 +69,18 @@ tasks.register<DefaultTask>("stage") {
 // Netlify / GitHub Pages.
 tasks.register<Sync>("syncRevealJs") {
     group = "kslides"
-    description = "Unpacks reveal.js assets from the kslides-core JAR into docs/revealjs/."
+    description = "Unpacks reveal.js assets from the kslides-core JAR into $docsRevealJsDir/."
 
     val coreJar = configurations.runtimeClasspath.map { rc ->
         rc.files.single { it.name.startsWith("kslides-core-") }
     }
 
     from(coreJar.map { zipTree(it) }) {
-        include("revealjs/**")
+        include("$revealJsPath/**")
         eachFile { relativePath = RelativePath(true, *relativePath.segments.drop(1).toTypedArray()) }
         includeEmptyDirs = false
     }
-    into(layout.projectDirectory.dir("docs/revealjs"))
+    into(layout.projectDirectory.dir(docsRevealJsDir))
 }
 
 // Single source of truth for images assets: docs/images/ (committed for GitHub Pages).

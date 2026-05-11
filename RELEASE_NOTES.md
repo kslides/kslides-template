@@ -5,6 +5,20 @@ structured per-version diff, see [CHANGELOG.md](CHANGELOG.md).
 
 ---
 
+## Unreleased
+
+**detekt static analysis, opt-in.** detekt 2.0.0-alpha.3 is wired in (plugin id `dev.detekt` — the namespace was renamed from `io.gitlab.arturbosch.detekt` in detekt 2.x). Run it with `make detekt` or `./gradlew detekt`. It is **not** part of `make build`, so existing fork workflows are unaffected. A small `detekt.yml` ships in the template root, layered on top of the bundled defaults via `buildUponDefaultConfig = true`; it disables three rules (`LongMethod`, `MagicNumber`, `WildcardImport`) that fight the kslides DSL in the sample `Slides.kt`. Forks that grow `Slides.kt` into something more conventional should re-enable those rules.
+
+**Single source of truth for versions and project coordinates.**
+
+- `group` and `version` now live in `gradle.properties` instead of `build.gradle.kts`. Gradle auto-binds them to the `Project.group` / `Project.version` fields, so the manifest's `Implementation-Version` keeps working unchanged.
+- The JVM toolchain version (`jvm = "17"`) and the Gradle wrapper version (`gradle = "9.5.0"`) are now declared in `gradle/libs.versions.toml`. `build.gradle.kts` reads `jvm` through the version catalog (`libs.versions.jvm.get().toInt()`); the `Makefile`'s `upgrade-wrapper` target reads `gradle` via an `awk` shell expansion so `make upgrade-wrapper` stays in sync without a manual edit.
+- Repeated string literals in `build.gradle.kts` (`shadowJar`, `clean`, `kslides.jar`, `revealjs`, `docs/revealjs`) were extracted into named `val`s so a future rename only changes one place.
+
+> **Forks:** if your fork hand-edited `group`, `version`, or the `jvmToolchain(17)` line in `build.gradle.kts`, move those edits to `gradle.properties` (group/version) or `gradle/libs.versions.toml` (jvm) when you pull this in.
+
+---
+
 ## v1.40.0 — 2026-04-29
 
 **Build modernization.** The project has migrated to the Gradle Kotlin DSL

@@ -7,7 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-*Nothing yet.*
+### Added
+- detekt 2.0.0-alpha.3 static analysis (plugin id `dev.detekt`, the renamed coordinate in detekt 2.x). Wired in via the version catalog and exposed as `make detekt` / `./gradlew detekt`. Not part of `make build`.
+- `detekt.yml` config that layers on top of the bundled defaults (`buildUponDefaultConfig = true`) and disables `LongMethod`, `MagicNumber`, and `WildcardImport` — these conflict with the kslides DSL idioms in the sample `Slides.kt`.
+
+### Changed
+- Moved `group` and `version` out of `build.gradle.kts` into `gradle.properties` (Gradle auto-binds them to `Project.group` / `Project.version`).
+- Centralized the JVM toolchain version and the Gradle wrapper version in `gradle/libs.versions.toml` as `jvm` and `gradle`. `build.gradle.kts` reads `jvm` via `libs.versions.jvm.get().toInt()`; the `Makefile`'s `upgrade-wrapper` target reads `gradle` via an `awk` shell expansion.
+- Consolidated repeated string literals in `build.gradle.kts` (`shadowJar`, `clean`, `kslides.jar`, `revealjs`, `docs/revealjs`) into named `val`s.
 
 ## [1.40.0] - 2026-04-29
 
