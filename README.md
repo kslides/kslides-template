@@ -40,6 +40,7 @@ describes the various _kslides_ blocks.
 - `gradle/libs.versions.toml` — kslides, Kotlin, plugin, JVM, and Gradle versions.
 - `gradle.properties` — `group` and `version` (see _Customizing Your Fork_ below).
 - `build.gradle.kts` — `mainName` (see _Customizing Your Fork_ below).
+- `detekt.yml` — overrides for the bundled detekt config (see _Static Analysis_ below).
 
 ### Output Modes
 
@@ -88,6 +89,16 @@ make sync-revealjs        # or: ./gradlew syncRevealJs
 
 Commit the refreshed `docs/revealjs/` along with the version bump so deployed decks load
 matching reveal.js assets.
+
+### Static Analysis
+
+[detekt](https://detekt.dev) static analysis is wired in (currently 2.0.0-alpha.3, plugin id `dev.detekt`). Run it with:
+
+```
+make detekt        # or: ./gradlew detekt
+```
+
+It is **not** wired into `make build`, so you opt in. The bundled defaults apply via `buildUponDefaultConfig = true`, with three rules disabled in `detekt.yml` (`LongMethod`, `MagicNumber`, `WildcardImport`) because they fight the kslides DSL idioms used in `Slides.kt`. Re-enable any of them once your `Slides.kt` has grown beyond the template sample.
 
 ### Customizing Your Fork
 

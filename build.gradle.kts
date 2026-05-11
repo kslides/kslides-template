@@ -4,6 +4,7 @@ plugins {
     application
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.ben.manes.versions)
+    alias(libs.plugins.detekt)
     alias(libs.plugins.shadow)
 }
 
@@ -30,6 +31,11 @@ dependencies {
 
 kotlin {
     jvmToolchain(libs.versions.jvm.get().toInt())
+}
+
+detekt {
+    buildUponDefaultConfig = true
+    config.setFrom(files("detekt.yml"))
 }
 
 tasks.named<ShadowJar>(shadowJarTask) {

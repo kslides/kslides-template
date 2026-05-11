@@ -7,6 +7,8 @@ structured per-version diff, see [CHANGELOG.md](CHANGELOG.md).
 
 ## Unreleased
 
+**detekt static analysis, opt-in.** detekt 2.0.0-alpha.3 is wired in (plugin id `dev.detekt` — the namespace was renamed from `io.gitlab.arturbosch.detekt` in detekt 2.x). Run it with `make detekt` or `./gradlew detekt`. It is **not** part of `make build`, so existing fork workflows are unaffected. A small `detekt.yml` ships in the template root, layered on top of the bundled defaults via `buildUponDefaultConfig = true`; it disables three rules (`LongMethod`, `MagicNumber`, `WildcardImport`) that fight the kslides DSL in the sample `Slides.kt`. Forks that grow `Slides.kt` into something more conventional should re-enable those rules.
+
 **Single source of truth for versions and project coordinates.**
 
 - `group` and `version` now live in `gradle.properties` instead of `build.gradle.kts`. Gradle auto-binds them to the `Project.group` / `Project.version` fields, so the manifest's `Implementation-Version` keeps working unchanged.
