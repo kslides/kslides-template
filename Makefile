@@ -1,12 +1,14 @@
 .PHONY: default help build-all clean build uberjar uber dist stage sync-revealjs detekt versioncheck upgrade-wrapper
 
 # Versions are sourced from gradle/libs.versions.toml so there is one source of truth.
-GRADLE_VERSION := $(shell awk -F' *= *' '/^gradle *=/ {gsub(/"/, "", $$2); print $$2; exit}' gradle/libs.versions.toml)
+GRADLE_VERSION := $(shell sed -n 's/^gradle = "\(.*\)"/\1/p' gradle/libs.versions.toml)
 
 default: versioncheck
 
-help: ## List available targets
-	@awk 'BEGIN {FS = ":.*## "} /^[a-zA-Z][a-zA-Z0-9_-]*:.*## / {printf "  \033[36m%-18s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
+help:  ## Show this help (list of targets)
+	@awk 'BEGIN {FS = ":.*?## "; printf "Usage: make <target>\n\nTargets:\n"} \
+		/^[a-zA-Z0-9_-]+:.*?## / {printf "  \033[36m%-22s\033[0m %s\n", $$1, $$2}' \
+		$(MAKEFILE_LIST)
 
 # stage already depends on clean in Gradle (see build.gradle.kts).
 build-all: stage ## Alias for stage
