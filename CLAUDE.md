@@ -20,7 +20,7 @@ The Makefile is a thin wrapper over `./gradlew`:
 - `make sync-revealjs` — runs the `syncRevealJs` task (see Architecture)
 - `make detekt` — runs detekt static analysis on `src/main/kotlin/`. Three default rules are disabled in `detekt.yml` because they fight the kslides DSL (LongMethod, MagicNumber, WildcardImport); the rest of the bundled config applies via `buildUponDefaultConfig = true`. Not wired into `make build`.
 - `make versioncheck` — `./gradlew dependencyUpdates` (ben-manes plugin); must use `--no-configuration-cache --no-parallel`
-- `make upgrade-wrapper` — re-pin the Gradle wrapper version (reads `gradle = "..."` from `gradle/libs.versions.toml`; bump that key in lockstep with `gradle/wrapper/gradle-wrapper.properties`)
+- `make upgrade-wrapper` — re-pin the Gradle wrapper version (reads `gradle-wrapper = "..."` from `gradle/libs.versions.toml`; bump that key in lockstep with `gradle/wrapper/gradle-wrapper.properties`)
 
 Run `fun main()` in `Slides.kt` directly from IntelliJ (green arrow) to generate slides — that's the primary author workflow, not a Gradle task.
 
@@ -50,7 +50,7 @@ This is the single most surprising thing about the project — the same logical 
 ## Build configuration
 
 - Kotlin DSL (`build.gradle.kts`, `settings.gradle.kts`).
-- Version catalog in `gradle/libs.versions.toml` — bump kslides/kotlin/shadow/detekt/jvm/gradle there, not in `build.gradle.kts` or the `Makefile`. The `jvm` key drives `jvmToolchain(...)`; the `gradle` key drives `make upgrade-wrapper` (extracted via `awk` in the `Makefile`).
+- Version catalog in `gradle/libs.versions.toml` — bump kslides/kotlin/shadow/detekt/jvm/gradle-wrapper there, not in `build.gradle.kts` or the `Makefile`. The `jvm` key drives `jvmToolchain(...)`; the `gradle-wrapper` key drives `make upgrade-wrapper` (extracted via `sed` in the `Makefile`).
 - detekt's plugin id is `dev.detekt` (renamed from `io.gitlab.arturbosch.detekt` in 2.0). The marker artifact lives on the Gradle Plugin Portal; detekt 2.x is **not** on Maven Central under the old coordinate.
 - JVM toolchain: pulled from `libs.versions.jvm` (currently `17`; foojay resolver convention; users without a local JDK get one auto-provisioned).
 - `group` and `version` live in `gradle.properties` (Gradle auto-binds them to `Project.group` / `Project.version`). `version` is the *template* version, not the kslides library version (which lives in `libs.versions.toml`). Keep them distinct.

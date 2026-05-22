@@ -1,9 +1,9 @@
 [versions]
 ben-manes-versions = "0.54.0"
 detekt = "2.0.0-alpha.3"
-gradle = "9.5.0"
+gradle-wrapper = "9.5.1"
 jvm = "17"
-kotlin = "2.3.21"
+kotlin = "2.4.0-RC"
 kslides = "1.0.0"
 shadow = "9.4.1"
 

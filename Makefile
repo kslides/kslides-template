@@ -1,9 +1,10 @@
-.PHONY: default help build-all clean build uberjar uber dist stage sync-revealjs detekt versioncheck upgrade-wrapper
+.PHONY: default help build-all clean build uberjar uber dist stage sync-revealjs detekt \
+        versions upgrade-wrapper
 
 # Versions are sourced from gradle/libs.versions.toml so there is one source of truth.
-GRADLE_VERSION := $(shell sed -n 's/^gradle = "\(.*\)"/\1/p' gradle/libs.versions.toml)
+GRADLE_VERSION := $(shell sed -n 's/^gradle-wrapper = "\(.*\)"/\1/p' gradle/libs.versions.toml)
 
-default: versioncheck
+default: help
 
 help:  ## Show this help (list of targets)
 	@awk 'BEGIN {FS = ":.*?## "; printf "Usage: make <target>\n\nTargets:\n"} \
@@ -40,8 +41,7 @@ sync-revealjs: ## Sync reveal.js assets from kslides-core into docs/revealjs
 detekt: ## Run detekt static analysis
 	./gradlew detekt
 
-# ben-manes' dependencyUpdates is not configuration-cache compatible.
-versioncheck: ## Report available dependency updates
+versions: ## Check for dependency updates
 	./gradlew dependencyUpdates --no-configuration-cache --no-parallel
 
 # Gradle's documented upgrade procedure: the first run rewrites
