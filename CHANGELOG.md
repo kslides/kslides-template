@@ -7,15 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.41.0] - 2026-07-03
+
 ### Added
 - Colorized `make help` target that lists every target from its trailing `##` comment. `make` with no arguments now defaults to `help` instead of running a dependency check.
+- `.editorconfig` codifying the project's formatting (2-space indent, LF endings, trailing-whitespace trim) so forks and IDEs stay consistent.
+- `-Xreturn-value-checker=check` on the production Kotlin compilation to flag ignored return values. It is deliberately not applied to the test source set, where Kotest's chained-receiver DSL (`shouldBe`, etc.) would only produce false positives.
 
 ### Changed
 - Upgraded Kotlin to 2.4.0, kslides to 1.1.0, the Shadow plugin to 9.4.3, and the Gradle wrapper to 9.6.1.
 - Renamed the `make versioncheck` target to `make versions`.
 - Moved `group` and `version` out of `build.gradle.kts` into `gradle.properties` (Gradle auto-binds them to `Project.group` / `Project.version`).
 - Centralized the JVM toolchain version and the Gradle wrapper version in `gradle/libs.versions.toml` as `jvm` and `gradle-wrapper`. `build.gradle.kts` reads `jvm` via `libs.versions.jvm.get().toInt()`; the `Makefile`'s `upgrade-wrapper` target reads `gradle-wrapper` via a `sed` shell expansion.
-- Consolidated repeated string literals in `build.gradle.kts` (`shadowJar`, `clean`, `kslides.jar`, `revealjs`, `docs/revealjs`) into named `val`s.
+- Consolidated repeated string literals in `build.gradle.kts` (`shadowJar`, `clean`, `kslides.jar`, `revealjs`, `docs/revealjs`) into named `val`s and grouped the build wiring into `configureKotlin` / `configureShadowJar` / `configureRevealSync` / `configureVersions` functions.
+- Renamed the `lineOffSet` parameter to `lineOffset` in the sample `Slides.kt` to match the kslides 1.1.0 API.
+
+### Removed
+- The committed copy of `revealjs.png` under `src/main/resources/public/images/`; it is now generated at build time from `docs/images/` via `processResources`, so the image lives in exactly one place.
+- Unused reveal.js sample assets (`beeping.wav`, `beeping.txt`, `video.mp4`) from `docs/revealjs/assets/`.
 
 ## [1.40.0] - 2026-04-29
 
@@ -197,7 +206,8 @@ released tag (1.2.1).
 ### 2021-02-15 — Initial commit
 - Repository created.
 
-[Unreleased]: https://github.com/kslides/kslides-template/compare/1.40.0...HEAD
+[Unreleased]: https://github.com/kslides/kslides-template/compare/1.41.0...HEAD
+[1.41.0]: https://github.com/kslides/kslides-template/compare/1.40.0...1.41.0
 [1.40.0]: https://github.com/kslides/kslides-template/compare/1.32.0...1.40.0
 [1.32.0]: https://github.com/kslides/kslides-template/compare/1.30.0...1.32.0
 [1.30.0]: https://github.com/kslides/kslides-template/compare/1.10.0...1.30.0

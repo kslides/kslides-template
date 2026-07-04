@@ -5,7 +5,7 @@ structured per-version diff, see [CHANGELOG.md](CHANGELOG.md).
 
 ---
 
-## Unreleased
+## v1.41.0 — 2026-07-03
 
 **Dependency and toolchain bumps.** Kotlin **2.4.0**, kslides **1.1.0**, the Shadow plugin **9.4.3**, and the Gradle wrapper **9.6.1**.
 
@@ -13,11 +13,15 @@ structured per-version diff, see [CHANGELOG.md](CHANGELOG.md).
 
 - `group` and `version` now live in `gradle.properties` instead of `build.gradle.kts`. Gradle auto-binds them to the `Project.group` / `Project.version` fields, so the manifest's `Implementation-Version` keeps working unchanged.
 - The JVM toolchain version (`jvm = "17"`) and the Gradle wrapper version (`gradle-wrapper = "9.6.1"`) are now declared in `gradle/libs.versions.toml`. `build.gradle.kts` reads `jvm` through the version catalog (`libs.versions.jvm.get().toInt()`); the `Makefile`'s `upgrade-wrapper` target reads `gradle-wrapper` via a `sed` shell expansion so `make upgrade-wrapper` stays in sync without a manual edit.
-- Repeated string literals in `build.gradle.kts` (`shadowJar`, `clean`, `kslides.jar`, `revealjs`, `docs/revealjs`) were extracted into named `val`s so a future rename only changes one place.
+- Repeated string literals in `build.gradle.kts` (`shadowJar`, `clean`, `kslides.jar`, `revealjs`, `docs/revealjs`) were extracted into named `val`s, and the build wiring was grouped into `configureKotlin` / `configureShadowJar` / `configureRevealSync` / `configureVersions` functions so a future rename only changes one place.
+
+**Stricter build, consistent formatting.** The `src/main/kotlin` compilation now runs with `-Xreturn-value-checker=check`, so accidentally ignored return values surface as warnings. It is intentionally left off the test source set, where Kotest's chained-receiver assertions (`shouldBe`, etc.) would otherwise flood the output with false positives. A new `.editorconfig` pins the project's formatting — 2-space indent, LF endings, trailing-whitespace trim.
 
 **Makefile help.** `make` with no arguments now prints a colorized list of targets — each generated from its trailing `##` comment — instead of running a dependency check. The dependency-update target was renamed from `make versioncheck` to `make versions`.
 
-> **Forks:** if your fork hand-edited `group`, `version`, or the `jvmToolchain(17)` line in `build.gradle.kts`, move those edits to `gradle.properties` (group/version) or `gradle/libs.versions.toml` (jvm) when you pull this in. If your tooling invoked `make versioncheck`, switch it to `make versions`.
+**Sample deck & assets.** The sample `Slides.kt` uses the kslides 1.1.0 `lineOffset` parameter (renamed from `lineOffSet`). `revealjs.png` is no longer committed twice — it lives only in `docs/images/` and is copied into the resources jar at build time via `processResources`. A few unused reveal.js sample assets (`beeping.wav`, `beeping.txt`, `video.mp4`) were removed.
+
+> **Forks:** if your fork hand-edited `group`, `version`, or the `jvmToolchain(17)` line in `build.gradle.kts`, move those edits to `gradle.properties` (group/version) or `gradle/libs.versions.toml` (jvm) when you pull this in. If your tooling invoked `make versioncheck`, switch it to `make versions`. If you copied the `codeSnippet { lineOffSet = … }` pattern from the sample deck, rename it to `lineOffset`.
 
 ---
 
