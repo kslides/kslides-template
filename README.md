@@ -1,7 +1,7 @@
 # kslides Template
 
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/kslides/kslides-template)
-[![Kotlin version](https://img.shields.io/badge/kotlin-2.3.21-red?logo=kotlin)](http://kotlinlang.org)
+[![Kotlin version](https://img.shields.io/badge/kotlin-2.4.0-red?logo=kotlin)](http://kotlinlang.org)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/ed16ddd9-ab47-4e9d-8e37-807edded7a6e/deploy-status)](https://app.netlify.com/sites/kslides-template/deploys)
 
 A template repo for authoring [kslides](https://github.com/kslides/kslides) presentation.
@@ -40,7 +40,6 @@ describes the various _kslides_ blocks.
 - `gradle/libs.versions.toml` — kslides, Kotlin, plugin, JVM, and Gradle versions.
 - `gradle.properties` — `group` and `version` (see _Customizing Your Fork_ below).
 - `build.gradle.kts` — `mainName` (see _Customizing Your Fork_ below).
-- `detekt.yml` — overrides for the bundled detekt config (see _Static Analysis_ below).
 
 ### Output Modes
 
@@ -89,16 +88,6 @@ make sync-revealjs        # or: ./gradlew syncRevealJs
 
 Commit the refreshed `docs/revealjs/` along with the version bump so deployed decks load
 matching reveal.js assets.
-
-### Static Analysis
-
-[detekt](https://detekt.dev) static analysis is wired in (currently 2.0.0-alpha.3, plugin id `dev.detekt`). Run it with:
-
-```
-make detekt        # or: ./gradlew detekt
-```
-
-It is **not** wired into `make build`, so you opt in. The bundled defaults apply via `buildUponDefaultConfig = true`, with three rules disabled in `detekt.yml` (`LongMethod`, `MagicNumber`, `WildcardImport`) because they fight the kslides DSL idioms used in `Slides.kt`. Re-enable any of them once your `Slides.kt` has grown beyond the template sample.
 
 ### Customizing Your Fork
 
@@ -154,6 +143,6 @@ In `build.gradle.kts`:
 ## Updating kslides
 
 - Bump library, plugin, JVM, and Gradle versions in `gradle/libs.versions.toml` (not in `build.gradle.kts` or the `Makefile`).
-- After bumping `gradle` in `libs.versions.toml`, run `make upgrade-wrapper` to re-pin `gradle/wrapper/gradle-wrapper.properties`.
+- After bumping `gradle-wrapper` in `libs.versions.toml`, run `make upgrade-wrapper` to re-pin `gradle/wrapper/gradle-wrapper.properties`.
 - After bumping `kslides-core`, run `make sync-revealjs` (or `./gradlew syncRevealJs`) to refresh `docs/revealjs/` from the new core JAR — otherwise statically-published decks will load stale reveal.js assets.
-- `make versioncheck` lists out-of-date dependencies.
+- `make versions` lists out-of-date dependencies.

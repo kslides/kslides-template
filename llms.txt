@@ -1,0 +1,29 @@
+# kslides-template
+
+> A GitHub template for authoring [kslides](https://github.com/kslides/kslides) presentations. Hit "Use this template" to fork it, edit `src/main/kotlin/Slides.kt` to author your deck in the kslides Kotlin DSL, and publish the generated slides to GitHub Pages, Netlify, or Heroku.
+
+The primary author workflow is running `fun main()` in `Slides.kt` from IntelliJ (green-arrow run) to generate HTML — not a Gradle task. Two output modes are set per-presentation in the `output {}` block: `enableFileSystem = true` writes static HTML into `/docs` (for GitHub Pages / Netlify) and `enableHttp = true` runs an embedded HTTP server (for Heroku). Both can be enabled at once. Static assets live in `docs/` for filesystem output and `src/main/resources/public/` for HTTP output. The template is meant to be forked and kept minimal; downstream forks track `CHANGELOG.md` and `RELEASE_NOTES.md` for changes to pull in.
+
+## Getting started
+
+- [README](https://github.com/kslides/kslides-template/blob/master/README.md): Prerequisites, project structure, output modes, static content, and deployment to GitHub Pages / Netlify / Heroku.
+- [Slides.kt](https://github.com/kslides/kslides-template/blob/master/src/main/kotlin/Slides.kt): The sample deck — the only file most users edit.
+- [kslides](https://github.com/kslides/kslides): The upstream library, DSL, and block reference.
+
+## Build & configuration
+
+- [Makefile](https://github.com/kslides/kslides-template/blob/master/Makefile): Thin wrapper over `./gradlew`. `make help` lists all targets; common ones are `make build`, `make uber`, `make stage`, `make sync-revealjs`, `make versions`, and `make upgrade-wrapper`.
+- [build.gradle.kts](https://github.com/kslides/kslides-template/blob/master/build.gradle.kts): Kotlin DSL build. `mainName` selects the HTTP entrypoint; `shadowJar` produces the `build/libs/kslides.jar` uberjar.
+- [gradle/libs.versions.toml](https://github.com/kslides/kslides-template/blob/master/gradle/libs.versions.toml): Version catalog — kslides, Kotlin, Shadow, the JVM toolchain, and the Gradle wrapper. Bump versions here, not in the build script or Makefile.
+- [CLAUDE.md](https://github.com/kslides/kslides-template/blob/master/CLAUDE.md): Repository guidance for contributors and AI assistants.
+
+## Deployment
+
+- [netlify.toml](https://github.com/kslides/kslides-template/blob/master/netlify.toml): Points Netlify at `docs/` as the publish base.
+- [Procfile](https://github.com/kslides/kslides-template/blob/master/Procfile): Heroku process definition; the `web` dyno runs the uberjar.
+- [app.json](https://github.com/kslides/kslides-template/blob/master/app.json): Heroku app metadata.
+
+## History
+
+- [CHANGELOG.md](https://github.com/kslides/kslides-template/blob/master/CHANGELOG.md): Structured per-version diff (Keep a Changelog format).
+- [RELEASE_NOTES.md](https://github.com/kslides/kslides-template/blob/master/RELEASE_NOTES.md): Narrative highlights per release.

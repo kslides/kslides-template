@@ -12,6 +12,7 @@
     <link href="revealjs/dist/theme/solarized.css" id="theme" rel="stylesheet">
     <link href="revealjs/plugin/highlight/monokai.css" id="highlight-theme" rel="stylesheet">
     <link href="revealjs/plugin/copycode/copycode.css" rel="stylesheet">
+    <link href="revealjs/plugin/copycode/copycode-button-fix.css" rel="stylesheet">
     
     <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
     <link href="/favicon.ico" rel="icon" type="image/x-icon">
@@ -55,16 +56,16 @@
 		</style>
     
     <style media="screen" type="text/css">
-			#githubCorner path { 
-			  fill: #258BD2; 
+			#githubCorner path {
+			  fill: #258BD2;
 			}
 			
 			#ghsrc {
 			  font-size: 30px;
 			  text-decoration: underline;
-			}  
-			img[alt=revealjs-image] { 
-			  width: 1000px; 
+			}
+			img[alt=revealjs-image] {
+			  width: 1000px;
 			}
 			
 		</style>
@@ -86,7 +87,7 @@
         <section data-markdown="" data-transition="zoom">
           <script type="text/template">
 # Markdown Slide
-## 🍒   
+## 🍒
 Press ESC to see presentation overview.
 </script>
         </section>
@@ -106,7 +107,7 @@ Press ESC to see presentation overview.
         <section>
           <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
             <script type="text/template">
-## Code with a markdownSlide     
+## Code with a markdownSlide
 ```kotlin [1,5|2,4|3]
 fun main() {
   for (i in (0..5)) {
@@ -119,13 +120,13 @@ fun main() {
           
           <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
             <script type="text/template">
-## Slide Definition    
+## Slide Definition
 ```kotlin []
 markdownSlide {
   val src = "kslides-examples/src/main/kotlin/content/HelloWorldK.kt"
   content {
     """
-    ## Code with a markdownSlide     
+    ## Code with a markdownSlide
     ```kotlin [1,5|2,4|3]
     ${include(githubRawUrl("kslides", "kslides", src), "[3-7]")}
     ```
@@ -247,7 +248,7 @@ dslSlide {
           
           <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
             <script type="text/template">
-## Slide Definition    
+## Slide Definition
 ```kotlin []
 for (lines in "[8-12|3-12|2-13|]".toLinePatterns()) {
   dslSlide {
@@ -346,7 +347,7 @@ for (lines in "[8-12|3-12|2-13|]".toLinePatterns()) {
           
           <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
             <script type="text/template">
-## Slide Definition    
+## Slide Definition
 ```kotlin []
 for (lines in "[8-12|3-12|2-13|]".toLinePatterns().zip(listOf(3, 3, 2, 1))) {
   dslSlide {
@@ -360,7 +361,7 @@ for (lines in "[8-12|3-12|2-13|]".toLinePatterns().zip(listOf(3, 3, 2, 1))) {
       codeSnippet {
         dataId = "code-animation"
         language = "json"
-        lineOffSet = lines.second
+        lineOffset = lines.second
         +include(file, linePattern = lines.first)
       }
     }
@@ -376,22 +377,22 @@ for (lines in "[8-12|3-12|2-13|]".toLinePatterns().zip(listOf(3, 3, 2, 1))) {
         <section>
           <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
             <script type="text/template">
-## Images 
-   
+## Images
+
 ![revealjs-image](images/revealjs.png)
 </script>
           </section>
           
           <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
             <script type="text/template">
-## Slide Definition    
+## Slide Definition
 ```kotlin []
 markdownSlide {
   // Image size is controlled by css above
   content {
     """
-    ## Images 
-       
+    ## Images
+
     ![revealjs-image](images/revealjs.png)
     """
   }
@@ -406,34 +407,34 @@ markdownSlide {
         <section>
           <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="" id="otherslides">
             <script type="text/template">
-## Other Presentations Defined In Slides.kt   
+## Other Presentations Defined In Slides.kt
 <span style="text-align: left; text-indent: 25%;">
 
-[&#128038; greattalk1/ Slides](/greattalk1) 
+[&#128038; greattalk1/ Slides](/greattalk1)
 
-[&#128038; greattalk1/other.html Slides](/greattalk1/other.html) 
+[&#128038; greattalk1/other.html Slides](/greattalk1/other.html)
 
-[&#128038; greattalk2.html Slides](/greattalk2.html) 
+[&#128038; greattalk2.html Slides](/greattalk2.html)
 </span>
 </script>
           </section>
           
           <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
             <script type="text/template">
-## Slide Definition    
+## Slide Definition
 ```kotlin
 markdownSlide {
   id = "otherslides"
   content {
     """
-    ## Other Presentations Defined In Slides.kt   
+    ## Other Presentations Defined In Slides.kt
     <span style="text-align: left; text-indent: 25%;">
 
-    [🐦 greattalk1/ Slides](/greattalk1) 
+    [🐦 greattalk1/ Slides](/greattalk1)
 
-    [🐦 greattalk1/other.html Slides](/greattalk1/other.html) 
+    [🐦 greattalk1/other.html Slides](/greattalk1/other.html)
 
-    [🐦 greattalk2.html Slides](/greattalk2.html) 
+    [🐦 greattalk2.html Slides](/greattalk2.html)
     </span>
     """
   }

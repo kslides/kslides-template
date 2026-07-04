@@ -10,21 +10,20 @@ A GitHub template for authoring [kslides](https://github.com/kslides/kslides) pr
 
 The Makefile is a thin wrapper over `./gradlew`:
 
-- `make` (no args) defaults to `versioncheck`
-- `make build` — `./gradlew clean build -xtest` (tests are intentionally skipped here)
+- `make` (no args) defaults to `help` (prints the colorized target list generated from the `##` comments)
+- `make build` — `./gradlew clean build -x test` (tests are intentionally skipped here)
 - `make build-all` — alias for `make stage`; the Gradle `stage` task already declares `dependsOn("clean", "shadowJar")`
 - `make uberjar` — invokes `./gradlew shadowJar`, which produces `build/libs/kslides.jar` directly with the custom manifest (there is no separate `uberjar` Gradle task — that wrapper was collapsed into `shadowJar` in 1.40.0)
 - `make uber` — build the uberjar and run it (`java -DPORT=$${PORT:-8080} -jar build/libs/kslides.jar`); honours `$PORT` if set, otherwise falls back to 8080
 - `make stage` — `./gradlew stage`; this is what Heroku invokes (see `Procfile`)
 - `make dist` — `./gradlew installDist`
 - `make sync-revealjs` — runs the `syncRevealJs` task (see Architecture)
-- `make detekt` — runs detekt static analysis on `src/main/kotlin/`. Three default rules are disabled in `detekt.yml` because they fight the kslides DSL (LongMethod, MagicNumber, WildcardImport); the rest of the bundled config applies via `buildUponDefaultConfig = true`. Not wired into `make build`.
-- `make versioncheck` — `./gradlew dependencyUpdates` (ben-manes plugin); must use `--no-configuration-cache --no-parallel`
-- `make upgrade-wrapper` — re-pin the Gradle wrapper version (reads `gradle = "..."` from `gradle/libs.versions.toml`; bump that key in lockstep with `gradle/wrapper/gradle-wrapper.properties`)
+- `make versions` — `./gradlew dependencyUpdates` (ben-manes plugin); must use `--no-configuration-cache --no-parallel`
+- `make upgrade-wrapper` — re-pin the Gradle wrapper version (reads `gradle-wrapper = "..."` from `gradle/libs.versions.toml`; bump that key in lockstep with `gradle/wrapper/gradle-wrapper.properties`)
 
 Run `fun main()` in `Slides.kt` directly from IntelliJ (green arrow) to generate slides — that's the primary author workflow, not a Gradle task.
 
-There are no tests in this template. `make build` passes `-xtest` deliberately.
+There are no tests in this template. `make build` passes `-x test` deliberately.
 
 ## Architecture
 
@@ -50,13 +49,12 @@ This is the single most surprising thing about the project — the same logical 
 ## Build configuration
 
 - Kotlin DSL (`build.gradle.kts`, `settings.gradle.kts`).
-- Version catalog in `gradle/libs.versions.toml` — bump kslides/kotlin/shadow/detekt/jvm/gradle there, not in `build.gradle.kts` or the `Makefile`. The `jvm` key drives `jvmToolchain(...)`; the `gradle` key drives `make upgrade-wrapper` (extracted via `awk` in the `Makefile`).
-- detekt's plugin id is `dev.detekt` (renamed from `io.gitlab.arturbosch.detekt` in 2.0). The marker artifact lives on the Gradle Plugin Portal; detekt 2.x is **not** on Maven Central under the old coordinate.
+- Version catalog in `gradle/libs.versions.toml` — bump kslides/kotlin/shadow/jvm/gradle-wrapper there, not in `build.gradle.kts` or the `Makefile`. The `jvm` key drives `jvmToolchain(...)`; the `gradle-wrapper` key drives `make upgrade-wrapper` (extracted via `sed` in the `Makefile`).
 - JVM toolchain: pulled from `libs.versions.jvm` (currently `17`; foojay resolver convention; users without a local JDK get one auto-provisioned).
 - `group` and `version` live in `gradle.properties` (Gradle auto-binds them to `Project.group` / `Project.version`). `version` is the *template* version, not the kslides library version (which lives in `libs.versions.toml`). Keep them distinct.
 - `mainName` in `build.gradle.kts` (currently `"SlidesKt"`) must match the Kotlin file users want to serve over HTTP. The comment above it is the documented extension point for forks.
 - `shadowJar` is configured directly (no `Jar`-typed wrapper task) — it sets `archiveFileName = "kslides.jar"` and the `Implementation-*` / `Main-Class` manifest attributes itself. To customize the uberjar, edit the `tasks.named<ShadowJar>(shadowJarTask) { … }` block.
-- Configuration cache is on (`org.gradle.configuration-cache=true` in `gradle.properties`). New tasks must be CC-compatible; ben-manes' `dependencyUpdates` is the only known incompatible task and `make versioncheck` opts out for it.
+- Configuration cache is on (`org.gradle.configuration-cache=true` in `gradle.properties`). New tasks must be CC-compatible; ben-manes' `dependencyUpdates` is the only known incompatible task and `make versions` opts out for it.
 - Repositories are locked down: `settings.gradle.kts` uses `FAIL_ON_PROJECT_REPOS` and resolves only from `mavenCentral()` (no `mavenLocal()` — local snapshots can't be picked up without temporarily editing the file).
 
 ## Conventions for edits to this template
