@@ -1,5 +1,5 @@
-.PHONY: default help build-all clean build uberjar uber dist stage sync-revealjs detekt \
-        versions upgrade-wrapper
+.PHONY: default help build-all clean build uberjar uber dist stage clean-docs sync-revealjs \
+        versions upgrade-wrapper _require-gradle-version
 
 # Versions are sourced from gradle/libs.versions.toml so there is one source of truth.
 GRADLE_VERSION := $(shell sed -n 's/^gradle-wrapper = "\(.*\)"/\1/p' gradle/libs.versions.toml)
@@ -32,14 +32,11 @@ dist: ## Build a runnable distribution (./gradlew installDist)
 stage: ## Heroku stage build (clean + shadowJar)
 	./gradlew stage
 
-#clean-docs:
-#	rm -rf docs/playground docs/letplot
+clean-docs:
+	rm -rf docs/playground
 
 sync-revealjs: ## Sync reveal.js assets from kslides-core into docs/revealjs
 	./gradlew syncRevealJs
-
-detekt: ## Run detekt static analysis
-	./gradlew detekt
 
 versions: ## Check for dependency updates
 	./gradlew dependencyUpdates --no-configuration-cache --no-parallel

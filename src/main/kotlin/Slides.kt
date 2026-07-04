@@ -31,8 +31,8 @@ fun main() {
     // CSS values assigned here are applied to all the presentations
     css +=
       """
-      #githubCorner path { 
-        fill: #258BD2; 
+      #githubCorner path {
+        fill: #258BD2;
       }
       """
 
@@ -75,9 +75,9 @@ fun main() {
         #ghsrc {
           font-size: 30px;
           text-decoration: underline;
-        }  
-        img[alt=revealjs-image] { 
-          width: 1000px; 
+        }
+        img[alt=revealjs-image] {
+          width: 1000px;
         }
         """
 
@@ -98,7 +98,7 @@ fun main() {
         content {
           """
           # Markdown Slide
-          ## 🍒   
+          ## 🍒
           Press ESC to see presentation overview.
           """
         }
@@ -126,7 +126,7 @@ fun main() {
           val src = "kslides-examples/src/main/kotlin/content/HelloWorldK.kt"
           content {
             """
-            ## Code with a markdownSlide     
+            ## Code with a markdownSlide
             ```kotlin [1,5|2,4|3]
             ${include(githubRawUrl("kslides", "kslides", src), "[3-7]")}
             ```
@@ -137,8 +137,8 @@ fun main() {
 
         markdownSlide {
           content {
-            """            
-            ## Slide Definition    
+            """
+            ## Slide Definition
             ```kotlin []
             ${include(slides, beginToken = "code1 begin", endToken = "code1 end")}
             ```
@@ -206,8 +206,8 @@ fun main() {
 
         markdownSlide {
           content {
-            """            
-            ## Slide Definition    
+            """
+            ## Slide Definition
             ```kotlin []
             ${include(slides, beginToken = "code3 begin", endToken = "code3 end")}
             ```
@@ -231,7 +231,7 @@ fun main() {
               codeSnippet {
                 dataId = "code-animation"
                 language = "json"
-                lineOffSet = lines.second
+                lineOffset = lines.second
                 +include(file, linePattern = lines.first)
               }
             }
@@ -241,8 +241,8 @@ fun main() {
 
         markdownSlide {
           content {
-            """            
-            ## Slide Definition    
+            """
+            ## Slide Definition
             ```kotlin []
             ${include(slides, beginToken = "code4 begin", endToken = "code4 end")}
             ```
@@ -258,8 +258,8 @@ fun main() {
           // Image size is controlled by css above
           content {
             """
-            ## Images 
-               
+            ## Images
+
             ![revealjs-image](images/revealjs.png)
             """
           }
@@ -268,8 +268,8 @@ fun main() {
 
         markdownSlide {
           content {
-            """            
-            ## Slide Definition    
+            """
+            ## Slide Definition
             ```kotlin []
             ${include(slides, beginToken = "image begin", endToken = "image end")}
             ```
@@ -285,14 +285,14 @@ fun main() {
           id = "otherslides"
           content {
             """
-            ## Other Presentations Defined In Slides.kt   
+            ## Other Presentations Defined In Slides.kt
             <span style="text-align: left; text-indent: 25%;">
 
-            [🐦 greattalk1/ Slides](/greattalk1) 
+            [🐦 greattalk1/ Slides](/greattalk1)
 
-            [🐦 greattalk1/other.html Slides](/greattalk1/other.html) 
+            [🐦 greattalk1/other.html Slides](/greattalk1/other.html)
 
-            [🐦 greattalk2.html Slides](/greattalk2.html) 
+            [🐦 greattalk2.html Slides](/greattalk2.html)
             </span>
             """
           }
@@ -302,7 +302,7 @@ fun main() {
         markdownSlide {
           content {
             """
-            ## Slide Definition    
+            ## Slide Definition
             ```kotlin
             ${include(slides, beginToken = "others begin", endToken = "others end")}
             ```
