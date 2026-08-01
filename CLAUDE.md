@@ -18,6 +18,7 @@ The Makefile is a thin wrapper over `./gradlew`:
 - `make stage` — `./gradlew stage`; this is what Heroku invokes (see `Procfile`)
 - `make dist` — `./gradlew installDist`
 - `make sync-revealjs` — runs the `syncRevealJs` task (see Architecture)
+- `make clean-docs` — deletes the generated decks (`docs/greattalk1`, `docs/greattalk2.html`, `docs/index.html`). It deliberately carries no `##` comment, so it stays out of `make help`; it hard-codes the sample deck's output paths and must be updated whenever a presentation is renamed or added.
 - `make versions` — `./gradlew dependencyUpdates` (ben-manes plugin); must use `--no-configuration-cache --no-parallel`
 - `make upgrade-wrapper` — re-pin the Gradle wrapper version (reads `gradle-wrapper = "..."` from `gradle/libs.versions.toml`; bump that key in lockstep with `gradle/wrapper/gradle-wrapper.properties`)
 
@@ -39,7 +40,11 @@ Both can be enabled simultaneously.
 
 This is the single most surprising thing about the project — the same logical asset lives in two different locations depending on output mode. Run `./gradlew clean build` after editing `src/main/resources/public/`.
 
-**reveal.js asset sync.** The reveal.js distribution is the single source of truth in the `kslides-core` JAR (at classpath `revealjs/**`). The `syncRevealJs` Gradle task unpacks those into `docs/revealjs/` so static-output decks deployed to GitHub Pages / Netlify have working JS/CSS references. Re-run `make sync-revealjs` after a `kslides-core` upgrade.
+**reveal.js asset sync.** The reveal.js distribution is the single source of truth in the `kslides-core` JAR (at classpath `revealjs/**`). The `syncRevealJs` Gradle task unpacks those into `docs/revealjs/` so static-output decks deployed to GitHub Pages / Netlify have working JS/CSS references. Re-run `make sync-revealjs` after a `kslides-core` upgrade — a core bump can add whole plugin directories (1.2.0 added `plugin/mermaid/`), and the new files have to be committed or statically-published decks break.
+
+**Config nesting in `Slides.kt`.** `kslides { presentationConfig { … } }` sets defaults for *all* presentations; `presentation { presentationConfig { … } }` configures one. `copyCodeConfig { }` and `menuConfig { }` exist only on `PresentationConfig`, so they can appear in either place — but as of 1.2.0 the sample deck sets copy-code per presentation, and its `button` / `display` enums (`CopyCodeButton`, `CopyCodeDisplay`) are imported from `com.kslides.config`, not the root `com.kslides` package.
+
+**Slide-level CSS.** Deck CSS is accumulated with `css += """…"""` — at the `kslides { }` level for all presentations, at the `presentation { }` level for one. Individual slides opt into a rule via `classes += "name"`, which lands as a class on the generated `<section>`. The sample uses this for `smallcode`; a two-class selector like `.reveal .smallcode pre` outranks the global `.reveal pre` on specificity, so per-slide overrides work without worrying about declaration order.
 
 **Deployment artifacts already wired in:**
 - `netlify.toml` — points Netlify at `docs/` as the publish base

@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.42.0] - 2026-08-01
+
+### Changed
+- Upgraded kslides to 1.2.0, Kotlin to 2.4.10, the Shadow plugin to 9.6.1, and the ben-manes versions plugin to 0.57.0.
+- The ben-manes versions plugin id moved from `com.github.ben-manes.versions` to `io.github.ben-manes.versions`; `gradle/libs.versions.toml` uses the new id.
+- Moved `copyCodeConfig { }` in the sample `Slides.kt` out of the global `presentationConfig { }` defaults block and into the per-presentation `presentationConfig { }` block. In kslides 1.2.0 the block also takes `button` (`CopyCodeButton.ALWAYS` / `HOVER` / `FALSE`) and `display` (`CopyCodeDisplay.TEXT` / `ICONS` / `BOTH`) alongside the existing `copy` / `copied` / `timeout` settings; the sample uses `ALWAYS` + `ICONS`.
+- Replaced the wildcard imports in `Slides.kt` (`com.kslides.*`, `kotlinx.html.*`) with explicit imports. The copy-code enums live in `com.kslides.config`.
+- `make clean-docs` now removes the decks this template actually generates (`docs/greattalk1`, `docs/greattalk2.html`, `docs/index.html`) instead of the stale `docs/playground` path, which no longer exists.
+- Regenerated `/docs`. kslides 1.2.0 emits `<style media="screen">` without the obsolete `type="text/css"` attribute, and only emits a reveal.js `copycode` option block for presentations that configure one.
+
+### Added
+- Code-block sizing CSS in the sample deck: `.reveal pre { font-size: 0.60em; }` with `white-space: pre-wrap` so an occasional over-long line wraps instead of overflowing the slide horizontally.
+- A `smallcode` slide class (`.reveal .smallcode pre { font-size: 0.45em; }`) applied via `classes += "smallcode"` to the slide-definition slides, whose code is wider than the rest of the deck.
+- `docs/revealjs/plugin/mermaid/mermaid.min.js`, picked up by `make sync-revealjs` from the kslides-core 1.2.0 JAR — 1.2.0 adds a mermaid diagram DSL and ships the plugin with the reveal.js distribution.
+
 ## [1.41.0] - 2026-07-03
 
 ### Added
@@ -206,7 +221,8 @@ released tag (1.2.1).
 ### 2021-02-15 — Initial commit
 - Repository created.
 
-[Unreleased]: https://github.com/kslides/kslides-template/compare/1.41.0...HEAD
+[Unreleased]: https://github.com/kslides/kslides-template/compare/1.42.0...HEAD
+[1.42.0]: https://github.com/kslides/kslides-template/compare/1.41.0...1.42.0
 [1.41.0]: https://github.com/kslides/kslides-template/compare/1.40.0...1.41.0
 [1.40.0]: https://github.com/kslides/kslides-template/compare/1.32.0...1.40.0
 [1.32.0]: https://github.com/kslides/kslides-template/compare/1.30.0...1.32.0
