@@ -1,6 +1,19 @@
-import com.kslides.*
+import com.kslides.PresentationTheme
+import com.kslides.Speed
+import com.kslides.Transition
+import com.kslides.codeSnippet
+import com.kslides.config.CopyCodeButton
+import com.kslides.config.CopyCodeDisplay
+import com.kslides.githubRawUrl
+import com.kslides.include
+import com.kslides.kslides
+import com.kslides.toLinePatterns
 import com.pambrose.srcref.Api.srcrefUrl
-import kotlinx.html.*
+import kotlinx.html.a
+import kotlinx.html.h1
+import kotlinx.html.h2
+import kotlinx.html.id
+import kotlinx.html.p
 
 fun main() {
 
@@ -19,7 +32,6 @@ fun main() {
     )
 
   kslides {
-
     output {
       // Write the presentation's html files to /docs for GitHub Pages or netlify.com
       enableFileSystem = true
@@ -56,12 +68,6 @@ fun main() {
         numbers = true
       }
 
-      copyCodeConfig {
-        timeout = 2000
-        copy = "Copy"
-        copied = "Copied!"
-      }
-
       slideConfig {
         // Assign slide config defaults for all presentations
         // backgroundColor = "blue"
@@ -69,7 +75,6 @@ fun main() {
     }
 
     presentation {
-
       css +=
         """
         #ghsrc {
@@ -81,8 +86,31 @@ fun main() {
         }
         """
 
+      // Shrink code blocks so long lines fit the slide window (reveal's default is 0.55em). This
+      // fits the ~85-92 char lines of the slideDefinition slides; the rare extra-long line (e.g. a
+      // full URL) wraps instead of overflowing horizontally rather than forcing an unreadable size.
+      css += """
+      .reveal pre { font-size: 0.60em; }
+      .reveal pre code { white-space: pre-wrap; word-break: break-word; }
+      """
+
+      // Per-slide override: the "highlighted code" slideDefinitions (classes = "smallcode") render their
+      // code smaller than the global 0.60em. ".reveal .smallcode pre" (two classes) outranks ".reveal pre"
+      // on specificity, so it wins regardless of order; long lines still wrap via the global pre-wrap rule.
+      css += """
+      .reveal .smallcode pre { font-size: 0.45em; }
+      """
+
       presentationConfig {
         transition = Transition.CONCAVE
+
+        copyCodeConfig {
+          button = CopyCodeButton.ALWAYS
+          display = CopyCodeDisplay.ICONS
+          copy = "Copy"
+          copied = "Copied!"
+          timeout = 2000
+        }
 
         slideConfig {
           // Assign slide config defaults for all slides in this presentation
@@ -136,6 +164,8 @@ fun main() {
         // code1 end
 
         markdownSlide {
+          // Use the smaller font for this code
+          classes += "smallcode"
           content {
             """
             ## Slide Definition
@@ -166,6 +196,7 @@ fun main() {
         // code2 end
 
         dslSlide {
+          classes += "smallcode"
           content {
             h2 { +"Slide Definition" }
             codeSnippet {
@@ -205,6 +236,7 @@ fun main() {
         // code3 end
 
         markdownSlide {
+          classes += "smallcode"
           content {
             """
             ## Slide Definition
@@ -240,6 +272,7 @@ fun main() {
         // code4 end
 
         markdownSlide {
+          classes += "smallcode"
           content {
             """
             ## Slide Definition
@@ -267,6 +300,7 @@ fun main() {
         // image end
 
         markdownSlide {
+          classes += "smallcode"
           content {
             """
             ## Slide Definition
@@ -300,6 +334,7 @@ fun main() {
         // others end
 
         markdownSlide {
+          classes += "smallcode"
           content {
             """
             ## Slide Definition

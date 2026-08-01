@@ -17,7 +17,7 @@
     <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
     <link href="/favicon.ico" rel="icon" type="image/x-icon">
     
-    <style media="screen" type="text/css">
+    <style media="screen">
 			/* These CSS settings are embedded directly in the presentation html */
 		
 			/* This prevents auto-capitalization of headers */
@@ -55,7 +55,7 @@
 		
 		</style>
     
-    <style media="screen" type="text/css">
+    <style media="screen">
 			#githubCorner path {
 			  fill: #258BD2;
 			}
@@ -67,6 +67,9 @@
 			img[alt=revealjs-image] {
 			  width: 1000px;
 			}
+			.reveal pre { font-size: 0.60em; }
+			.reveal pre code { white-space: pre-wrap; word-break: break-word; }
+			.reveal .smallcode pre { font-size: 0.45em; }
 			
 		</style>
     
@@ -118,7 +121,7 @@ fun main() {
 </script>
           </section>
           
-          <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
+          <section class="smallcode" data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
             <script type="text/template">
 ## Slide Definition
 ```kotlin []
@@ -153,7 +156,7 @@ fun main() {
             </pre>
           </section>
           
-          <section>
+          <section class="smallcode">
             <h2>Slide Definition</h2>
             <pre><code class="kotlin" data-line-numbers="" data-noescape="" data-trim="">
 dslSlide {
@@ -246,7 +249,7 @@ dslSlide {
             </pre>
           </section>
           
-          <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
+          <section class="smallcode" data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
             <script type="text/template">
 ## Slide Definition
 ```kotlin []
@@ -345,7 +348,7 @@ for (lines in "[8-12|3-12|2-13|]".toLinePatterns()) {
             </pre>
           </section>
           
-          <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
+          <section class="smallcode" data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
             <script type="text/template">
 ## Slide Definition
 ```kotlin []
@@ -383,7 +386,7 @@ for (lines in "[8-12|3-12|2-13|]".toLinePatterns().zip(listOf(3, 3, 2, 1))) {
 </script>
           </section>
           
-          <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
+          <section class="smallcode" data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
             <script type="text/template">
 ## Slide Definition
 ```kotlin []
@@ -419,7 +422,7 @@ markdownSlide {
 </script>
           </section>
           
-          <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
+          <section class="smallcode" data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
             <script type="text/template">
 ## Slide Definition
 ```kotlin
@@ -479,11 +482,14 @@ markdownSlide {
 			},
 			
 			copycode: {
-				timeout: 2000,
-				copy: 'Copy',
-				copied: 'Copied!'
+			    "button": "always",
+			    "display": "icons",
+			    "text": {
+			        "copy": "Copy",
+			        "copied": "Copied!"
+			    },
+			    "timeout": 2000
 			},
-			
 			plugins: [ RevealZoom, RevealSearch, RevealMarkdown, RevealHighlight, RevealMenu, CopyCode ]
 		});
 

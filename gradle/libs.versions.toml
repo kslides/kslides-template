@@ -1,16 +1,16 @@
 [versions]
-ben-manes-versions = "0.54.0"
+ben-manes-versions = "0.57.0"
 gradle-wrapper = "9.6.1"
 jvm = "17"
-kotlin = "2.4.0"
-kslides = "1.1.0"
-shadow = "9.4.3"
+kotlin = "2.4.10"
+kslides = "1.2.0"
+shadow = "9.6.1"
 
 [libraries]
 kslides-core = { module = "com.kslides:kslides-core", version.ref = "kslides" }
 kslides-letsplot = { module = "com.kslides:kslides-letsplot", version.ref = "kslides" }
 
 [plugins]
-ben-manes-versions = { id = "com.github.ben-manes.versions", version.ref = "ben-manes-versions" }
+ben-manes-versions = { id = "io.github.ben-manes.versions", version.ref = "ben-manes-versions" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }
