@@ -33,7 +33,7 @@ stage: ## Heroku stage build (clean + shadowJar)
 	./gradlew stage
 
 clean-docs:
-	rm -rf docs/playground
+	rm -rf docs/greattalk1 docs/greattalk2.html docs/index.html
 
 sync-revealjs: ## Sync reveal.js assets from kslides-core into docs/revealjs
 	./gradlew syncRevealJs
