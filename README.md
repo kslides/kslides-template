@@ -1,7 +1,7 @@
 # kslides Template
 
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/kslides/kslides-template)
-[![Kotlin version](https://img.shields.io/badge/kotlin-2.4.0-red?logo=kotlin)](http://kotlinlang.org)
+[![Kotlin version](https://img.shields.io/badge/kotlin-2.4.10-red?logo=kotlin)](http://kotlinlang.org)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/ed16ddd9-ab47-4e9d-8e37-807edded7a6e/deploy-status)](https://app.netlify.com/sites/kslides-template/deploys)
 
 A template repo for authoring [kslides](https://github.com/kslides/kslides) presentation.
@@ -49,6 +49,49 @@ Configured per-presentation in `Slides.kt` via the `output {}` block:
 - `enableHttp = true` — run an embedded HTTP server (used by Heroku and for local preview).
 
 Both can be enabled at the same time.
+
+### Styling Slides
+
+Deck CSS is accumulated with `css += """…"""`. Adding it inside the `kslides { }` block styles
+every presentation; adding it inside a `presentation { }` block styles just that one.
+
+An individual slide opts into a rule with `classes += "name"`, which becomes a class on the
+generated `<section>`. The sample deck uses this to shrink the code on its wider slides:
+
+```kotlin
+presentation {
+  css += """
+  .reveal pre { font-size: 0.60em; }
+  .reveal pre code { white-space: pre-wrap; word-break: break-word; }
+  .reveal .smallcode pre { font-size: 0.45em; }
+  """
+
+  markdownSlide {
+    classes += "smallcode"
+    ...
+  }
+}
+```
+
+`.reveal .smallcode pre` matches on two classes, so it outranks the deck-wide `.reveal pre`
+rule on specificity no matter which is declared first.
+
+### Copy-Code Button
+
+`copyCodeConfig { }` goes inside a `presentationConfig { }` block — either the one in
+`kslides { }` (defaults for every presentation) or the one inside a `presentation { }`:
+
+```kotlin
+copyCodeConfig {
+  button = CopyCodeButton.ALWAYS   // ALWAYS, HOVER, or FALSE
+  display = CopyCodeDisplay.ICONS  // TEXT, ICONS, or BOTH
+  copy = "Copy"
+  copied = "Copied!"
+  timeout = 2000
+}
+```
+
+Both enums are imported from `com.kslides.config`.
 
 ### Static Content
 
@@ -144,5 +187,5 @@ In `build.gradle.kts`:
 
 - Bump library, plugin, JVM, and Gradle versions in `gradle/libs.versions.toml` (not in `build.gradle.kts` or the `Makefile`).
 - After bumping `gradle-wrapper` in `libs.versions.toml`, run `make upgrade-wrapper` to re-pin `gradle/wrapper/gradle-wrapper.properties`.
-- After bumping `kslides-core`, run `make sync-revealjs` (or `./gradlew syncRevealJs`) to refresh `docs/revealjs/` from the new core JAR — otherwise statically-published decks will load stale reveal.js assets.
+- After bumping `kslides-core`, run `make sync-revealjs` (or `./gradlew syncRevealJs`) to refresh `docs/revealjs/` from the new core JAR — otherwise statically-published decks will load stale reveal.js assets. A core bump can add entire plugin directories (kslides 1.2.0 added `docs/revealjs/plugin/mermaid/`), so check `git status` for new files and commit them too.
 - `make versions` lists out-of-date dependencies.

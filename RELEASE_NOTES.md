@@ -5,6 +5,34 @@ structured per-version diff, see [CHANGELOG.md](CHANGELOG.md).
 
 ---
 
+## v1.42.0 — 2026-08-01
+
+**Dependency bumps.** kslides **1.2.0**, Kotlin **2.4.10**, the Shadow plugin **9.6.1**, and the ben-manes versions plugin **0.57.0**. That last one also changed plugin id — it is published as `io.github.ben-manes.versions` now, not `com.github.ben-manes.versions` — so `gradle/libs.versions.toml` points at the new coordinate.
+
+**Copy-code configuration is per-presentation.** The sample deck's `copyCodeConfig { }` block moved out of the global `presentationConfig { }` defaults and into the presentation's own `presentationConfig { }` block. kslides 1.2.0 also widens what the block accepts: `button` chooses when the button appears (`CopyCodeButton.ALWAYS`, `HOVER`, or `FALSE`) and `display` chooses what it renders (`CopyCodeDisplay.TEXT`, `ICONS`, or `BOTH`). The sample now asks for an always-visible icon button:
+
+```kotlin
+copyCodeConfig {
+  button = CopyCodeButton.ALWAYS
+  display = CopyCodeDisplay.ICONS
+  copy = "Copy"
+  copied = "Copied!"
+  timeout = 2000
+}
+```
+
+Both enums live in `com.kslides.config`. The generated HTML changed to match: only presentations that configure copy-code emit a `copycode` reveal.js option block, and kslides 1.2.0 no longer writes the obsolete `type="text/css"` attribute on embedded `<style>` tags.
+
+**Code blocks that fit the slide.** The sample deck now sets `.reveal pre { font-size: 0.60em; }` and lets long lines wrap (`white-space: pre-wrap`) rather than run off the side of the slide. The slide-definition slides — the ones showing the wider Kotlin source behind each example — carry a `smallcode` class (`classes += "smallcode"`) that drops them to `0.45em`. Because `.reveal .smallcode pre` matches on two classes, it outranks the global rule on specificity regardless of declaration order, which makes it a convenient per-slide override to copy.
+
+**Sample deck cleanup.** `Slides.kt` uses explicit imports instead of `com.kslides.*` / `kotlinx.html.*`, so it is obvious where each DSL entry point comes from.
+
+**Housekeeping.** `make clean-docs` deleted `docs/playground`, a path this template has not generated for some time; it now removes the decks it actually produces (`docs/greattalk1`, `docs/greattalk2.html`, `docs/index.html`). Running `make sync-revealjs` against kslides-core 1.2.0 also brings down a new `docs/revealjs/plugin/mermaid/mermaid.min.js` — 1.2.0 adds a mermaid diagram DSL and ships the plugin with its reveal.js distribution.
+
+> **Forks:** run `make sync-revealjs` after pulling this in and commit the resulting `docs/revealjs/plugin/mermaid/` so statically-published decks match the new core JAR. If your deck sets `copyCodeConfig { }` in the global `presentationConfig { }` defaults block, move it into the presentation's own `presentationConfig { }` block. If you invoke the ben-manes plugin by id anywhere outside the version catalog, switch to `io.github.ben-manes.versions`. And if you renamed the sample presentations, update the `clean-docs` target in the `Makefile` to match.
+
+---
+
 ## v1.41.0 — 2026-07-03
 
 **Dependency and toolchain bumps.** Kotlin **2.4.0**, kslides **1.1.0**, the Shadow plugin **9.4.3**, and the Gradle wrapper **9.6.1**.
