@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- The sample deck's default `topRightHref` is now `"./"` instead of `"/"`, so the 🏠 home link resolves relative to the deck rather than to the domain root. On GitHub Pages, where a fork is published under `https://username.github.io/repo_name/`, the absolute form sent visitors to the account root instead of back to the first slide. Regenerated `docs/index.html` to match; the other decks override `topRightHref` and are unaffected.
+
 ## [1.43.0] - 2026-08-02
 
 ### Added

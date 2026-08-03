@@ -77,7 +77,7 @@ fun templateSlides(): KSlides.() -> Unit =
       topLeftHref = "https://github.com/kslides/kslides-template/" // Assign to "" to turn this off
       topLeftTitle = "View presentation source on Github"
 
-      topRightHref = "/"  // Assign to "" to turn this off
+      topRightHref = "./"  // Assign to "" to turn this off
       topRightTitle = "Go to 1st Slide"
       topRightText = "🏠"
 
