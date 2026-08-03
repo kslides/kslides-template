@@ -343,11 +343,11 @@ fun templateSlides(): KSlides.() -> Unit =
             ## Other Presentations Defined In Slides.kt
             <span style="text-align: left; text-indent: 25%;">
 
-            [🐦 greattalk1/ Slides](/greattalk1)
+            [🐦 greattalk1/ Slides](./greattalk1)
 
-            [🐦 greattalk1/other.html Slides](/greattalk1/other.html)
+            [🐦 greattalk1/other.html Slides](./greattalk1/other.html)
 
-            [🐦 greattalk2.html Slides](/greattalk2.html)
+            [🐦 greattalk2.html Slides](./greattalk2.html)
             </span>
             """
           }
@@ -373,7 +373,8 @@ fun templateSlides(): KSlides.() -> Unit =
       path = "greattalk1"
 
       presentationConfig {
-        topRightHref = "/#/otherslides"
+        // Relative to this deck's directory: one level up lands on the root presentation.
+        topRightHref = "../#/otherslides"
         topRightTitle = "Go back to main presentation"
         topRightText = "🔙"
       }
@@ -389,7 +390,7 @@ fun templateSlides(): KSlides.() -> Unit =
       path = "greattalk1/other.html"
 
       presentationConfig {
-        topRightHref = "/#/otherslides"
+        topRightHref = "../#/otherslides"
         topRightTitle = "Go back to main presentation"
         topRightText = "🔙"
       }
@@ -405,7 +406,8 @@ fun templateSlides(): KSlides.() -> Unit =
       path = "greattalk2.html"
 
       presentationConfig {
-        topRightHref = "/#/otherslides"
+        // This deck sits at the root, so no ../ here — unlike the greattalk1 decks above.
+        topRightHref = "./#/otherslides"
         topRightTitle = "Go back to main presentation"
         topRightText = "🔙"
       }

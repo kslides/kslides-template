@@ -8,7 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Fixed
-- The sample deck's default `topRightHref` is now `"./"` instead of `"/"`, so the 🏠 home link resolves relative to the deck rather than to the domain root. On GitHub Pages, where a fork is published under `https://username.github.io/repo_name/`, the absolute form sent visitors to the account root instead of back to the first slide. Regenerated `docs/index.html` to match; the other decks override `topRightHref` and are unaffected.
+- Every inter-deck link in the sample deck is now relative, so the decks work when published under a subpath. On GitHub Pages a fork lives at `https://username.github.io/repo_name/`, where the previous root-absolute links (`/`, `/#/otherslides`, `/greattalk1`) all resolved to the *account* root rather than to the deck. Changed: the default `topRightHref` (`"/"` → `"./"`), the 🔙 link in each of the three `greattalk` presentations, and the three cross-deck links on the "Other Presentations" slide.
+- Note that the 🔙 prefix differs by deck depth — `"../#/otherslides"` for the two decks under `greattalk1/`, `"./#/otherslides"` for `greattalk2.html`, which sits at the root. Copying one value into all three would break the other. Regenerated `/docs` to match.
 
 ## [1.43.0] - 2026-08-02
 
