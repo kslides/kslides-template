@@ -35,6 +35,7 @@ describes the various _kslides_ blocks.
 ### Project Structure
 
 - `src/main/kotlin/Slides.kt` — your deck (the only file most users touch).
+- `src/export/kotlin/Export.kt` — PDF-export entry point (see _Exporting to PDF_ below).
 - `src/main/resources/public/` — static assets when serving over HTTP.
 - `docs/` — generated HTML and static assets when publishing to GitHub Pages or Netlify.
 - `gradle/libs.versions.toml` — kslides, Kotlin, plugin, JVM, and Gradle versions.
@@ -49,6 +50,19 @@ Configured per-presentation in `Slides.kt` via the `output {}` block:
 - `enableHttp = true` — run an embedded HTTP server (used by Heroku and for local preview).
 
 Both can be enabled at the same time.
+
+### Follow-Along Presenting
+
+`followAlong = true` in the `output {}` block (HTTP mode only) lets an audience track the
+presenter live: open the deck with `?present=<token>` and every other browser viewing it follows
+your slide and fragment position. A viewer who navigates on their own breaks away and gets a
+one-click rejoin; late joiners land on the current position.
+
+The presenter URLs, token included, are logged at server startup. Add `presenterToken = "…"`
+next to `followAlong` for a stable URL instead of a random per-launch one — but note the token
+travels in the URL, so it is demo-grade access control, not a secret.
+
+This has no effect on filesystem output; nothing is injected into the static HTML in `/docs`.
 
 ### Styling Slides
 
@@ -132,6 +146,45 @@ make sync-revealjs        # or: ./gradlew syncRevealJs
 Commit the refreshed `docs/revealjs/` along with the version bump so deployed decks load
 matching reveal.js assets.
 
+### Exporting to PDF
+
+Every presentation can be printed to PDF via headless Chromium:
+
+```
+make pdf                     # all decks -> build/pdf
+make pdf DECK=greattalk1     # just one deck
+make clean-pdf               # remove build/pdf
+```
+
+`make pdf` wraps `./gradlew exportPdf` (`-Pdeck=<name>` for the single-deck form). The decks are
+served from a temporary HTTP server on an ephemeral port and loaded with reveal.js'
+`?print-pdf` mode, so this works whether or not your `output {}` block enables HTTP.
+
+Settings live in a `pdf {}` block inside `output {}` in `Slides.kt` — all optional:
+
+```kotlin
+output {
+  enableFileSystem = true
+  enableHttp = true
+
+  pdf {
+    outputDir = "build/pdf"      // where the PDFs are written
+    previewPng = true            // also save a PNG of each deck's first slide
+    browserChannel = "chrome"    // use an installed browser instead of downloading Chromium
+    exclude("greattalk2.html")   // skip a deck (an explicit DECK=<name> overrides this)
+  }
+}
+```
+
+The first run downloads Playwright's bundled Chromium (cached per user, so it happens once).
+Setting `browserChannel` to `"chrome"` or `"msedge"` skips that download entirely.
+
+The entry point is `src/export/kotlin/Export.kt`, which calls `exportPdf(deck, templateSlides())`.
+It sits in its own `export` source set on purpose: that keeps the Playwright dependency out of
+`build/libs/kslides.jar`, which would otherwise grow by tens of megabytes for a feature Heroku
+never runs. This is also why `Slides.kt` exposes its deck as `fun templateSlides(): KSlides.() -> Unit`
+rather than building it inline in `main()` — both entry points run the same block.
+
 ### Customizing Your Fork
 
 In `gradle.properties`:
@@ -142,6 +195,32 @@ In `gradle.properties`:
 In `build.gradle.kts`:
 
 - `mainName = "SlidesKt"` — only change if you rename `Slides.kt`. Required for HTTP-served decks.
+- The `shadowJar` block builds `build/libs/kslides.jar`. If you add to it, leave the two
+  `duplicatesStrategy` lines in place — see _The Uberjar_ below.
+
+### The Uberjar
+
+`make uberjar` (or `./gradlew shadowJar`) packs your deck and all of its dependencies into
+`build/libs/kslides.jar`, which is what Heroku runs. `make uber` builds and runs it locally on
+`$PORT`, defaulting to 8080.
+
+The task's duplicate handling is worth understanding before you edit it:
+
+```kotlin
+duplicatesStrategy = DuplicatesStrategy.INCLUDE
+filesMatching(listOf("public/**", "META-INF/LICENSE*", "META-INF/NOTICE*")) {
+  duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+mergeServiceFiles()
+```
+
+Gradle applies the duplicate strategy *before* Shadow's resource transformers run, so the
+default `EXCLUDE` would drop the extra copies of `META-INF/services/*` and `*.kotlin_module`
+that `mergeServiceFiles()` is supposed to merge — Shadow 9.6.1 warns about this at length.
+`INCLUDE` lets the transformers do their job; the `filesMatching` block keeps first-copy-wins
+for the ordinary resources that have no transformer, so they aren't duplicated in the jar.
+Your own `src/main/resources/public/` files are packed ahead of kslides-core's, which is why
+replacing `favicon.ico` there overrides the stock one.
 
 ## Deployment Options
 

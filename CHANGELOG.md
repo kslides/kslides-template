@@ -7,6 +7,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.43.0] - 2026-08-02
+
+### Added
+- PDF export, ported from the kslides repo. `make pdf` writes one PDF per presentation to `build/pdf`; `make pdf DECK=<name>` (forwarded as `-Pdeck=<name>`) exports a single deck, and `make clean-pdf` removes the output. The decks are served from an ephemeral-port HTTP server and printed through Playwright's headless Chromium by the new `com.kslides:kslides-export` artifact, so export works regardless of which `output {}` modes the deck enables.
+- An `export` source set (`src/export/kotlin/Export.kt`) with its own `exportImplementation` / `exportRuntimeOnly` configurations, plus an `exportPdf` `JavaExec` task. Keeping the entry point out of `src/main/kotlin` is what stops the Playwright dependency from reaching `build/libs/kslides.jar`.
+- A `check` → `exportClasses` dependency, so `./gradlew build` compiles the export source set. Gradle does not wire custom source sets into `check` on its own, which would otherwise let a broken `Export.kt` survive a green build until someone ran `make pdf`.
+- `followAlong = true` in the sample deck's `output { }` block, enabling kslides 1.3.0's follow-along presenting. The presenter opens a deck with `?present=<token>` and every other visitor's browser tracks the presenter's slide and fragment live; a viewer who navigates away breaks off and can rejoin with one click, and late joiners land on the current position. The presenter URLs, token included, are logged at server startup. HTTP-only — it has no effect on the static `/docs` output, so nothing is injected into published decks. Set `presenterToken` alongside it if you need a stable URL instead of the random per-launch one; the token travels in the URL, so treat it as demo-grade auth rather than a secret.
+- A commented `pdf { }` block inside `output { }` in the sample `Slides.kt` documenting `outputDir`, `previewPng`, `browserChannel`, and `exclude(...)`.
+- An _Exporting to PDF_ section in `README.md`.
+
+### Changed
+- Upgraded kslides to 1.3.0 and the ben-manes versions plugin to 0.58.0. kslides-core 1.3.0 ships the same reveal.js distribution as 1.2.0, so `make sync-revealjs` produces no changes under `docs/revealjs/`.
+- The sample `Slides.kt` now exposes its deck as `fun templateSlides(): KSlides.() -> Unit`, with `main()` reduced to `kslides(templateSlides())`. Both the normal run and the PDF exporter consume that one block. The deck's contents are otherwise unchanged.
+- Regenerated `/docs`. The only difference is that kslides 1.3.0 emits embedded `<style>` blocks without the `media="screen"` attribute, so deck CSS now applies when printing. Previously all custom styling silently dropped out of reveal.js' `?print-pdf` view — unstyled corner links rendered full-width and pushed every deck down a page, yielding a blank leading PDF page. This affects readers who print a *published* deck from the browser; `make pdf` renders from an in-memory server rather than from `/docs`, so its output is unaffected by whether these files are regenerated.
+
+### Fixed
+- Shadow's resource transformers now actually merge. `shadowJar` sets `duplicatesStrategy = DuplicatesStrategy.INCLUDE`; Gradle applies the strategy before the transformers run, so the default `EXCLUDE` had been dropping duplicate copies of `META-INF/services/*` and `*.kotlin_module` and silently reducing `mergeServiceFiles()` and the built-in `KotlinModuleMetadataTransformer` to first-copy-wins. Shadow 9.6.1 surfaced this as roughly forty warnings during `make build`.
+- Narrowed that strategy back to `EXCLUDE` for `public/**`, `META-INF/LICENSE*`, and `META-INF/NOTICE*` via `filesMatching`. Those paths have no transformer to merge them, so `INCLUDE` alone left genuinely duplicated entries in the uberjar (`public/favicon.ico` twice, `META-INF/LICENSE.txt` three times). The template's own `src/main/resources/public/` assets are packed ahead of kslides-core's, so a fork's `favicon.ico` still wins.
+
+### Documentation
+- Added a _The Uberjar_ section to `README.md` covering `make uberjar` / `make uber` and the rationale behind the two `duplicatesStrategy` lines, so forks that extend the `shadowJar` block know not to drop them.
+- Documented the PDF-export wiring in `CLAUDE.md` and `llms.txt`, including the two things that surprise: custom source sets need an explicit `check` dependency to be compiled by a normal build, and `templateSlides()` exists so both entry points share one deck definition.
+- Documented the same two-tiered duplicate handling in `CLAUDE.md`, including the two verification gotchas: `filesMatching` actions are not tracked as Gradle task inputs (so a plain `make build` can return a stale cached jar — use `./gradlew shadowJar --rerun-tasks`), and Shadow prints `Duplicate entries found in the shadowed JAR` separately from the transformer warnings.
+- Extended the `build.gradle.kts` entry in `llms.txt` with the duplicate-strategy summary.
+
 ## [1.42.0] - 2026-08-01
 
 ### Changed
@@ -221,7 +246,8 @@ released tag (1.2.1).
 ### 2021-02-15 — Initial commit
 - Repository created.
 
-[Unreleased]: https://github.com/kslides/kslides-template/compare/1.42.0...HEAD
+[Unreleased]: https://github.com/kslides/kslides-template/compare/1.43.0...HEAD
+[1.43.0]: https://github.com/kslides/kslides-template/compare/1.42.0...1.43.0
 [1.42.0]: https://github.com/kslides/kslides-template/compare/1.41.0...1.42.0
 [1.41.0]: https://github.com/kslides/kslides-template/compare/1.40.0...1.41.0
 [1.40.0]: https://github.com/kslides/kslides-template/compare/1.32.0...1.40.0

@@ -19,9 +19,26 @@ val shadowJarTask = "shadowJar"
 val jarName = "kslides.jar"
 val revealJsPath = "revealjs"
 val docsRevealJsDir = "docs/$revealJsPath"
+val exportSourceSet = "export"
+val exportMainName = "ExportKt"
 
 application {
   mainClass = mainName
+}
+
+// The PDF-export entry point (src/export/kotlin/Export.kt) lives in its own source set so the
+// Playwright dependency it pulls in never reaches the uberjar — shadowJar bundles only the main
+// source set's runtime classpath, and "exportImplementation" extends "implementation" one way.
+sourceSets {
+  create(exportSourceSet) {
+    compileClasspath += sourceSets.main.get().output
+    runtimeClasspath += sourceSets.main.get().output
+  }
+}
+
+configurations {
+  named("${exportSourceSet}Implementation") { extendsFrom(configurations.implementation.get()) }
+  named("${exportSourceSet}RuntimeOnly") { extendsFrom(configurations.runtimeOnly.get()) }
 }
 
 dependencies {
@@ -29,6 +46,9 @@ dependencies {
 
   // Include this dependency if you use lets-plot
   // implementation(libs.kslides.letsplot)
+
+  // Headless-Chromium PDF export; used only by the export source set (see exportPdf task below)
+  "${exportSourceSet}Implementation"(libs.kslides.export)
 }
 
 tasks.register<DefaultTask>("stage") {
@@ -40,6 +60,7 @@ tasks.register<DefaultTask>("stage") {
 configureKotlin()
 configureShadowJar()
 configureRevealSync()
+configurePdfExport()
 configureVersions()
 
 fun Project.configureKotlin() {
@@ -63,6 +84,18 @@ fun Project.configureShadowJar() {
   tasks.named<ShadowJar>(shadowJarTask) {
     mustRunAfter(cleanTask)
     isZip64 = true
+    // Shadow's transformers (mergeServiceFiles() and the built-in Kotlin module metadata
+    // transformer) only see duplicate entries if Gradle doesn't drop them first. The default
+    // EXCLUDE keeps just the first copy of each META-INF/services/* and *.kotlin_module path,
+    // which silently defeats the merge; INCLUDE hands every copy to the transformers.
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    // Plain resources that several jars happen to ship are not transformer-managed, so
+    // including every copy would only bloat the jar. Keep first-wins for those: the
+    // template's own public/ assets are packed ahead of kslides-core's, so a fork's
+    // favicon still overrides the stock one.
+    filesMatching(listOf("public/**", "META-INF/LICENSE*", "META-INF/NOTICE*")) {
+      duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    }
     mergeServiceFiles()
     exclude("META-INF/*.SF")
     exclude("META-INF/*.DSA")
@@ -106,6 +139,27 @@ fun Project.configureRevealSync() {
     from(rootProject.layout.projectDirectory.dir("docs/images")) {
       into("public/images")
     }
+  }
+}
+
+fun Project.configurePdfExport() {
+  // Prints each presentation to PDF via headless Chromium. The decks are served from an
+  // ephemeral-port HTTP server, so this works regardless of the output {} modes the deck enables.
+  // Playwright downloads its own Chromium on first run; set browserChannel in the deck's
+  // `output { pdf { } }` block to reuse an installed browser instead.
+  tasks.register<JavaExec>("exportPdf") {
+    group = "distribution"
+    description = "Print the presentations to PDF via headless Chromium (-Pdeck=<name> for one deck)"
+    mainClass = exportMainName
+    classpath = sourceSets[exportSourceSet].runtimeClasspath
+    providers.gradleProperty("deck").orNull?.let { systemProperty("kslides.export.deck", it) }
+  }
+
+  // Custom source sets are not wired into `check`, so without this a broken Export.kt would stay
+  // invisible until someone ran `make pdf`. Compiling it as part of the normal build costs a
+  // fraction of a second and keeps `Slides.kt` and the export entry point honest about each other.
+  tasks.named("check") {
+    dependsOn(sourceSets[exportSourceSet].classesTaskName)
   }
 }
 
