@@ -49,8 +49,7 @@ fun templateSlides(): KSlides.() -> Unit =
       // Run locally or on Heroku
       enableHttp = true
 
-      // Turn on followAlong mode for the live-reload dev server. This is a convenience for development; it is not needed for production.
-      // It is not compatible with the PDF export task, which runs in a separate process
+      // Audience browsers follow the presenter; presenter URL logged at startup
       followAlong = true
 
       // PDF export settings, used by `make pdf` / `./gradlew exportPdf`. All optional.
