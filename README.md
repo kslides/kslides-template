@@ -51,6 +51,19 @@ Configured per-presentation in `Slides.kt` via the `output {}` block:
 
 Both can be enabled at the same time.
 
+### Follow-Along Presenting
+
+`followAlong = true` in the `output {}` block (HTTP mode only) lets an audience track the
+presenter live: open the deck with `?present=<token>` and every other browser viewing it follows
+your slide and fragment position. A viewer who navigates on their own breaks away and gets a
+one-click rejoin; late joiners land on the current position.
+
+The presenter URLs, token included, are logged at server startup. Add `presenterToken = "…"`
+next to `followAlong` for a stable URL instead of a random per-launch one — but note the token
+travels in the URL, so it is demo-grade access control, not a secret.
+
+This has no effect on filesystem output; nothing is injected into the static HTML in `/docs`.
+
 ### Styling Slides
 
 Deck CSS is accumulated with `css += """…"""`. Adding it inside the `kslides { }` block styles

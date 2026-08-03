@@ -9,6 +9,18 @@ structured per-version diff, see [CHANGELOG.md](CHANGELOG.md).
 
 **Dependency bumps.** kslides **1.3.0** and the ben-manes versions plugin **0.58.0**. kslides-core 1.3.0 ships a byte-for-byte identical reveal.js distribution to 1.2.0, so unlike the last release there is nothing new to pick up under `docs/revealjs/`.
 
+**Follow-along presenting.** The sample deck now sets `followAlong = true` in its `output { }` block, turning on the other headline kslides 1.3.0 feature. You open a deck with `?present=<token>` and every other browser viewing it tracks your slide and fragment position live. A viewer who clicks ahead on their own breaks away and gets a one-click rejoin; someone arriving late lands on wherever you are.
+
+```kotlin
+output {
+  enableHttp = true
+  followAlong = true
+  // presenterToken = "…"   // optional: a stable presenter URL instead of a random per-launch token
+}
+```
+
+The presenter URLs — token and all — are logged when the server starts, so you can copy one at launch. Two things worth knowing: this is HTTP-only, so nothing is injected into the static `/docs` output and published decks are untouched; and the token rides in the URL, which makes it demo-grade access control rather than a secret. It also composes fine with PDF export — `make pdf` runs its own server and exports all four decks with `followAlong` left on.
+
 **Export your decks to PDF.** kslides 1.3.0 publishes a new `com.kslides:kslides-export` artifact, and this template now wires it up:
 
 ```
@@ -65,7 +77,7 @@ One Gradle wrinkle worth knowing if you tweak this further: `filesMatching` acti
 
 **Docs.** The README gained a _The Uberjar_ section — what `make uberjar` and `make uber` produce, and why those two `duplicatesStrategy` lines are there — so the block is not mistaken for boilerplate by anyone extending it. `CLAUDE.md` and `llms.txt` carry the same explanation for contributors and tooling.
 
-> **Forks:** re-run `fun main()` in your `Slides.kt` and commit the regenerated `/docs` so published decks pick up the `media="screen"` print fix. To pick up PDF export, copy `src/export/kotlin/Export.kt`, the `export` source set / `configurePdfExport()` wiring in `build.gradle.kts`, the `kslides-export` entry in `gradle/libs.versions.toml`, and the `pdf` / `clean-pdf` targets in the `Makefile` — then wrap your own deck in a `fun …Slides(): KSlides.() -> Unit` and point `Export.kt` at it. If your fork customized the `shadowJar` block, also copy the two `duplicatesStrategy` lines across to clear the Shadow warnings.
+> **Forks:** re-run `fun main()` in your `Slides.kt` and commit the regenerated `/docs` so published decks pick up the `media="screen"` print fix. Follow-along presenting is opt-in — add `followAlong = true` to your own `output { }` block if you want it. To pick up PDF export, copy `src/export/kotlin/Export.kt`, the `export` source set / `configurePdfExport()` wiring in `build.gradle.kts`, the `kslides-export` entry in `gradle/libs.versions.toml`, and the `pdf` / `clean-pdf` targets in the `Makefile` — then wrap your own deck in a `fun …Slides(): KSlides.() -> Unit` and point `Export.kt` at it. If your fork customized the `shadowJar` block, also copy the two `duplicatesStrategy` lines across to clear the Shadow warnings.
 
 ---
 
