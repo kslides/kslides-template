@@ -1,3 +1,4 @@
+import com.kslides.KSlides
 import com.kslides.PresentationTheme
 import com.kslides.Speed
 import com.kslides.Transition
@@ -15,29 +16,50 @@ import kotlinx.html.h2
 import kotlinx.html.id
 import kotlinx.html.p
 
+// Click the green arrow here in IntelliJ to generate the slides.
 fun main() {
+  kslides(templateSlides())
+}
 
-  val slides = "src/main/kotlin/Slides.kt"
+/**
+ * The deck definition, kept in one place so it can be reused. [main] runs it for filesystem and
+ * HTTP output; the PDF-export entry point (`src/export/kotlin/Export.kt`, run via
+ * `./gradlew exportPdf` or `make pdf`) runs the same block through headless Chromium.
+ */
+fun templateSlides(): KSlides.() -> Unit =
+  {
+    val slides = "src/main/kotlin/Slides.kt"
 
-  fun srcrefLink(token: String, escapeHtml4: Boolean = false) =
-    srcrefUrl(
-      account = "kslides",
-      repo = "kslides-template",
-      path = slides,
-      beginRegex = "\\s+// $token begin",
-      beginOffset = 1,
-      endRegex = "\\s+// $token end",
-      endOffset = -1,
-      escapeHtml4 = escapeHtml4,
-    )
+    fun srcrefLink(token: String, escapeHtml4: Boolean = false) =
+      srcrefUrl(
+        account = "kslides",
+        repo = "kslides-template",
+        path = slides,
+        beginRegex = "\\s+// $token begin",
+        beginOffset = 1,
+        endRegex = "\\s+// $token end",
+        endOffset = -1,
+        escapeHtml4 = escapeHtml4,
+      )
 
-  kslides {
     output {
       // Write the presentation's html files to /docs for GitHub Pages or netlify.com
       enableFileSystem = true
 
       // Run locally or on Heroku
       enableHttp = true
+
+      // Turn on followAlong mode for the live-reload dev server. This is a convenience for development; it is not needed for production.
+      // It is not compatible with the PDF export task, which runs in a separate process
+      followAlong = true
+
+      // PDF export settings, used by `make pdf` / `./gradlew exportPdf`. All optional.
+      pdf {
+        // outputDir = "build/pdf"      // Where the PDFs are written
+        // previewPng = true            // Also save a PNG of each deck's first slide
+        // browserChannel = "chrome"    // Use an installed browser instead of downloading Chromium
+        // exclude("greattalk2.html")   // Skip a deck (an explicit -Pdeck=<name> overrides this)
+      }
     }
 
     // CSS values assigned here are applied to all the presentations
@@ -396,4 +418,3 @@ fun main() {
       }
     }
   }
-}

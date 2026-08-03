@@ -18,6 +18,8 @@ The Makefile is a thin wrapper over `./gradlew`:
 - `make stage` — `./gradlew stage`; this is what Heroku invokes (see `Procfile`)
 - `make dist` — `./gradlew installDist`
 - `make sync-revealjs` — runs the `syncRevealJs` task (see Architecture)
+- `make pdf` — runs `./gradlew exportPdf`; `make pdf DECK=<name>` forwards `-Pdeck=<name>` to export a single deck. Writes to `build/pdf`
+- `make clean-pdf` — `rm -rf build/pdf`
 - `make clean-docs` — deletes the generated decks (`docs/greattalk1`, `docs/greattalk2.html`, `docs/index.html`). It deliberately carries no `##` comment, so it stays out of `make help`; it hard-codes the sample deck's output paths and must be updated whenever a presentation is renamed or added.
 - `make versions` — `./gradlew dependencyUpdates` (ben-manes plugin); must use `--no-configuration-cache --no-parallel`
 - `make upgrade-wrapper` — re-pin the Gradle wrapper version (reads `gradle-wrapper = "..."` from `gradle/libs.versions.toml`; bump that key in lockstep with `gradle/wrapper/gradle-wrapper.properties`)
@@ -42,6 +44,19 @@ This is the single most surprising thing about the project — the same logical 
 
 **reveal.js asset sync.** The reveal.js distribution is the single source of truth in the `kslides-core` JAR (at classpath `revealjs/**`). The `syncRevealJs` Gradle task unpacks those into `docs/revealjs/` so static-output decks deployed to GitHub Pages / Netlify have working JS/CSS references. Re-run `make sync-revealjs` after a `kslides-core` upgrade — a core bump can add whole plugin directories (1.2.0 added `plugin/mermaid/`), and the new files have to be committed or statically-published decks break.
 
+**PDF export lives in a separate source set.** `src/export/kotlin/Export.kt` calls
+`exportPdf(deck, templateSlides())` from the `com.kslides:kslides-export` artifact (new in kslides
+1.3.0), which serves the decks from an ephemeral-port HTTP server and prints them through
+Playwright's headless Chromium. The `export` source set exists solely to keep the Playwright
+dependency off the main runtime classpath — `shadowJar` bundles only main, and
+`exportImplementation` extends `implementation` one-way, so the uberjar stays Playwright-free
+(verify with `unzip -l build/libs/kslides.jar | grep -c playwright` → `0`). Two consequences worth
+remembering: Gradle does not wire custom source sets into `check`, so `configurePdfExport()` adds
+`check → exportClasses` explicitly — without that a broken `Export.kt` stays invisible until
+someone runs `make pdf`; and `Slides.kt` exposes the deck as
+`fun templateSlides(): KSlides.() -> Unit` rather than inlining it in `main()` precisely so both
+entry points share one definition — don't "simplify" that back into `main()`.
+
 **Config nesting in `Slides.kt`.** `kslides { presentationConfig { … } }` sets defaults for *all* presentations; `presentation { presentationConfig { … } }` configures one. `copyCodeConfig { }` and `menuConfig { }` exist only on `PresentationConfig`, so they can appear in either place — but as of 1.2.0 the sample deck sets copy-code per presentation, and its `button` / `display` enums (`CopyCodeButton`, `CopyCodeDisplay`) are imported from `com.kslides.config`, not the root `com.kslides` package.
 
 **Slide-level CSS.** Deck CSS is accumulated with `css += """…"""` — at the `kslides { }` level for all presentations, at the `presentation { }` level for one. Individual slides opt into a rule via `classes += "name"`, which lands as a class on the generated `<section>`. The sample uses this for `smallcode`; a two-class selector like `.reveal .smallcode pre` outranks the global `.reveal pre` on specificity, so per-slide overrides work without worrying about declaration order.
@@ -59,6 +74,8 @@ This is the single most surprising thing about the project — the same logical 
 - `group` and `version` live in `gradle.properties` (Gradle auto-binds them to `Project.group` / `Project.version`). `version` is the *template* version, not the kslides library version (which lives in `libs.versions.toml`). Keep them distinct.
 - `mainName` in `build.gradle.kts` (currently `"SlidesKt"`) must match the Kotlin file users want to serve over HTTP. The comment above it is the documented extension point for forks.
 - `shadowJar` is configured directly (no `Jar`-typed wrapper task) — it sets `archiveFileName = "kslides.jar"` and the `Implementation-*` / `Main-Class` manifest attributes itself. To customize the uberjar, edit the `tasks.named<ShadowJar>(shadowJarTask) { … }` block.
+- **`shadowJar` duplicate handling is deliberately two-tiered.** The task sets `duplicatesStrategy = DuplicatesStrategy.INCLUDE`, then narrows it back to `EXCLUDE` for `public/**`, `META-INF/LICENSE*`, and `META-INF/NOTICE*` via `filesMatching`. The reason: Gradle applies the strategy *before* Shadow's transformers run, so the default `EXCLUDE` silently reduces `mergeServiceFiles()` and the built-in `KotlinModuleMetadataTransformer` to first-copy-wins — Shadow 9.6.1 emits ~40 warnings about exactly this. `INCLUDE` alone fixes the merge but leaves genuinely duplicated entries for the non-transformer paths (`public/favicon.ico` twice, `META-INF/LICENSE.txt` three times), hence the narrowing. Order matters for `public/**`: the template's own `src/main/resources/public/` is packed ahead of kslides-core's, so a fork's `favicon.ico` wins. Two gotchas when editing this: `filesMatching` actions are **not** tracked as task inputs, so a changed block can still hit the build cache — verify with `./gradlew shadowJar --rerun-tasks`, not a plain `make build`; and confirm a fix by grepping the build output for `Duplicate entries found in the shadowed JAR`, which Shadow prints separately from the transformer warnings.
+- The `export` source set, its `exportImplementation`/`exportRuntimeOnly` configurations, and the `exportPdf` `JavaExec` task are wired in `configurePdfExport()`. `exportPdf` reads the optional `-Pdeck=<name>` Gradle property and forwards it as the `kslides.export.deck` system property; `JavaExec`'s working directory defaults to the project dir, which is what the deck's relative paths (`src/main/kotlin/Slides.kt`, `src/main/resources/json-example.json`) resolve against. The same function makes `check` depend on the source set's `classesTaskName` (`exportClasses`), derived rather than hardcoded so renaming `exportSourceSet` stays a one-line change.
 - Configuration cache is on (`org.gradle.configuration-cache=true` in `gradle.properties`). New tasks must be CC-compatible; ben-manes' `dependencyUpdates` is the only known incompatible task and `make versions` opts out for it.
 - Repositories are locked down: `settings.gradle.kts` uses `FAIL_ON_PROJECT_REPOS` and resolves only from `mavenCentral()` (no `mavenLocal()` — local snapshots can't be picked up without temporarily editing the file).
 

@@ -1,5 +1,5 @@
 .PHONY: default help build-all clean build uberjar uber dist stage clean-docs sync-revealjs \
-        versions upgrade-wrapper _require-gradle-version
+        pdf clean-pdf versions upgrade-wrapper _require-gradle-version
 
 # Versions are sourced from gradle/libs.versions.toml so there is one source of truth.
 GRADLE_VERSION := $(shell sed -n 's/^gradle-wrapper = "\(.*\)"/\1/p' gradle/libs.versions.toml)
@@ -37,6 +37,14 @@ clean-docs:
 
 sync-revealjs: ## Sync reveal.js assets from kslides-core into docs/revealjs
 	./gradlew syncRevealJs
+
+# The first run downloads Playwright's Chromium; set browserChannel in the deck's
+# output { pdf { } } block to use an already-installed browser instead.
+pdf:  ## Export the presentations to PDF in build/pdf (optionally DECK=<name>)
+	./gradlew exportPdf $(if $(DECK),-Pdeck=$(DECK))
+
+clean-pdf:  ## Remove the exported PDFs
+	rm -rf build/pdf
 
 versions: ## Check for dependency updates
 	./gradlew dependencyUpdates --no-configuration-cache --no-parallel
