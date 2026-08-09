@@ -72,7 +72,20 @@
 			.reveal .kslides-code-1 pre code { white-space: pre-wrap; word-break: break-word; }
 			.reveal .kslides-code-2 pre { font-size: 0.45em; }
 			.reveal .kslides-code-2 pre code { white-space: pre-wrap; word-break: break-word; }
+			.reveal .kslides-code-3 pre { font-size: 0.35em; }
+			.reveal .kslides-code-3 pre code { white-space: pre-wrap; word-break: break-word; }
 			.reveal pre code .hljs-ln-numbers { white-space: nowrap; word-break: normal; }
+		</style>
+    <style type="text/css">
+			.reveal pre.mermaid {
+			  width: auto;
+			  text-align: center;
+			  box-shadow: none;
+			  background: transparent;
+			}
+			.reveal pre.mermaid:not([data-processed]) {
+			  visibility: hidden;
+			}
 		</style>
   </head>
   <body>
@@ -93,6 +106,8 @@
 # Markdown Slide
 ## 🍒
 Press ESC to see presentation overview.
+
+Notes: Press S for the presenter view, which shows these notes 📝
 </script>
         </section>
         
@@ -138,7 +153,7 @@ markdownSlide {
   }
 }
 ```
-<a href="https://www.srcref.com/github?account=kslides&amp;repo=kslides-template&amp;branch=master&amp;path=src%2Fmain%2Fkotlin%2FSlides.kt&amp;bregex=%5Cs%2B%2F%2F+code1+begin&amp;boccur=1&amp;boffset=1&amp;btopd=true&amp;eregex=%5Cs%2B%2F%2F+code1+end&amp;eoccur=1&amp;eoffset=-1&amp;etopd=true" id="ghsrc" target="_blank">GitHub Source</a>
+<a id="ghsrc" href="https://www.srcref.com/github?account=kslides&amp;repo=kslides-template&amp;branch=master&amp;path=src%2Fmain%2Fkotlin%2FSlides.kt&amp;bregex=%5Cs%2B%2F%2F+code1+begin&amp;boccur=1&amp;boffset=1&amp;btopd=true&amp;eregex=%5Cs%2B%2F%2F+code1+end&amp;eoccur=1&amp;eoffset=-1&amp;etopd=true" target="_blank">GitHub Source</a>
 </script>
           </section>
           
@@ -273,7 +288,7 @@ for (lines in "[8-12|3-12|2-13|]".toLinePatterns()) {
   }
 }
 ```
-<a href="https://www.srcref.com/github?account=kslides&amp;repo=kslides-template&amp;branch=master&amp;path=src%2Fmain%2Fkotlin%2FSlides.kt&amp;bregex=%5Cs%2B%2F%2F+code3+begin&amp;boccur=1&amp;boffset=1&amp;btopd=true&amp;eregex=%5Cs%2B%2F%2F+code3+end&amp;eoccur=1&amp;eoffset=-1&amp;etopd=true" id="ghsrc" target="_blank">GitHub Source</a>
+<a id="ghsrc" href="https://www.srcref.com/github?account=kslides&amp;repo=kslides-template&amp;branch=master&amp;path=src%2Fmain%2Fkotlin%2FSlides.kt&amp;bregex=%5Cs%2B%2F%2F+code3+begin&amp;boccur=1&amp;boffset=1&amp;btopd=true&amp;eregex=%5Cs%2B%2F%2F+code3+end&amp;eoccur=1&amp;eoffset=-1&amp;etopd=true" target="_blank">GitHub Source</a>
 </script>
           </section>
           
@@ -372,7 +387,7 @@ for (lines in "[8-12|3-12|2-13|]".toLinePatterns().zip(listOf(3, 3, 2, 1))) {
   }
 }
 ```
-<a href="https://www.srcref.com/github?account=kslides&amp;repo=kslides-template&amp;branch=master&amp;path=src%2Fmain%2Fkotlin%2FSlides.kt&amp;bregex=%5Cs%2B%2F%2F+code4+begin&amp;boccur=1&amp;boffset=1&amp;btopd=true&amp;eregex=%5Cs%2B%2F%2F+code4+end&amp;eoccur=1&amp;eoffset=-1&amp;etopd=true" id="ghsrc" target="_blank">GitHub Source</a>
+<a id="ghsrc" href="https://www.srcref.com/github?account=kslides&amp;repo=kslides-template&amp;branch=master&amp;path=src%2Fmain%2Fkotlin%2FSlides.kt&amp;bregex=%5Cs%2B%2F%2F+code4+begin&amp;boccur=1&amp;boffset=1&amp;btopd=true&amp;eregex=%5Cs%2B%2F%2F+code4+end&amp;eoccur=1&amp;eoffset=-1&amp;etopd=true" target="_blank">GitHub Source</a>
 </script>
           </section>
           
@@ -402,7 +417,498 @@ markdownSlide {
   }
 }
 ```
-<a href="https://www.srcref.com/github?account=kslides&amp;repo=kslides-template&amp;branch=master&amp;path=src%2Fmain%2Fkotlin%2FSlides.kt&amp;bregex=%5Cs%2B%2F%2F+image+begin&amp;boccur=1&amp;boffset=1&amp;btopd=true&amp;eregex=%5Cs%2B%2F%2F+image+end&amp;eoccur=1&amp;eoffset=-1&amp;etopd=true" id="ghsrc" target="_blank">GitHub Source</a>
+<a id="ghsrc" href="https://www.srcref.com/github?account=kslides&amp;repo=kslides-template&amp;branch=master&amp;path=src%2Fmain%2Fkotlin%2FSlides.kt&amp;bregex=%5Cs%2B%2F%2F+image+begin&amp;boccur=1&amp;boffset=1&amp;btopd=true&amp;eregex=%5Cs%2B%2F%2F+image+end&amp;eoccur=1&amp;eoffset=-1&amp;etopd=true" target="_blank">GitHub Source</a>
+</script>
+          </section>
+          
+        </section>
+        
+        <section>
+          <section class="kslides-code-1" data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
+            <script type="text/template">
+## Fragments
+
+Reveal a line at a time: press the arrow key again. <!-- .element: class="fragment" -->
+
+This one fades up. <!-- .element: class="fragment fade-up" -->
+
+This one fades in from the left. <!-- .element: class="fragment fade-left" -->
+
+And this one grows once it is reached. <!-- .element: class="fragment grow" -->
+
+Notes: Fragments advance with the same arrow keys as slides, so a fragmented
+slide takes several presses to get through 📝
+</script>
+          </section>
+          
+          <section class="kslides-code-3" data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
+            <script type="text/template">
+## Slide Definition
+```kotlin []
+markdownSlide {
+  // Keep fragment lines free of inline code spans and other inline markup. The
+  // reveal.js comment that fragment() emits attaches to the last element on the line,
+  // so a trailing backtick span would swallow the class and only the code would animate.
+  content {
+    """
+    ## Fragments
+
+    Reveal a line at a time: press the arrow key again. ${fragment()}
+
+    This one fades up. ${fragment(Effect.FADE_UP)}
+
+    This one fades in from the left. ${fragment(Effect.FADE_LEFT)}
+
+    And this one grows once it is reached. ${fragment(Effect.GROW)}
+
+    Notes: Fragments advance with the same arrow keys as slides, so a fragmented
+    slide takes several presses to get through 📝
+    """
+  }
+}
+```
+<a id="ghsrc" href="https://www.srcref.com/github?account=kslides&amp;repo=kslides-template&amp;branch=master&amp;path=src%2Fmain%2Fkotlin%2FSlides.kt&amp;bregex=%5Cs%2B%2F%2F+fragments+begin&amp;boccur=1&amp;boffset=1&amp;btopd=true&amp;eregex=%5Cs%2B%2F%2F+fragments+end&amp;eoccur=1&amp;eoffset=-1&amp;etopd=true" target="_blank">GitHub Source</a>
+</script>
+          </section>
+          
+        </section>
+        
+        <section>
+          <section class="kslides-code-1" data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
+            <script type="text/template">
+## Speaker Notes
+
+Press <kbd>S</kbd> to open the presenter view. This slide has a note waiting there.
+
+Any line starting with `Notes:` becomes a speaker note rather than slide content.
+The presentations in this template already declare the separator that makes it work,
+so no extra configuration is needed.
+
+Notes: This is the note. The presenter view shows it beside a timer, the current
+slide, and a preview of the next one 📝
+</script>
+          </section>
+          
+          <section class="kslides-code-3" data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
+            <script type="text/template">
+## Slide Definition
+```kotlin []
+markdownSlide {
+  content {
+    """
+    ## Speaker Notes
+
+    Press <kbd>S</kbd> to open the presenter view. This slide has a note waiting there.
+
+    Any line starting with `Notes:` becomes a speaker note rather than slide content.
+    The presentations in this template already declare the separator that makes it work,
+    so no extra configuration is needed.
+
+    Notes: This is the note. The presenter view shows it beside a timer, the current
+    slide, and a preview of the next one 📝
+    """
+  }
+}
+```
+<a id="ghsrc" href="https://www.srcref.com/github?account=kslides&amp;repo=kslides-template&amp;branch=master&amp;path=src%2Fmain%2Fkotlin%2FSlides.kt&amp;bregex=%5Cs%2B%2F%2F+notes+begin&amp;boccur=1&amp;boffset=1&amp;btopd=true&amp;eregex=%5Cs%2B%2F%2F+notes+end&amp;eoccur=1&amp;eoffset=-1&amp;etopd=true" target="_blank">GitHub Source</a>
+</script>
+          </section>
+          
+        </section>
+        
+        <section>
+          <section class="kslides-code-1" data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
+            <script type="text/template">
+## Slide Backgrounds
+
+<!-- .slide: data-background="#2d5f7c" -->
+
+A markdown slide has no `slideConfig { }` of its own for this, so `slideBackground()`
+emits the reveal.js comment instead. Put it on its own line anywhere in the content.
+
+Notes: dslSlide and htmlSlide use slideConfig { backgroundColor } directly 📝
+</script>
+          </section>
+          
+          <section class="kslides-code-1" data-background-image="images/revealjs.png" data-background-opacity="0.4" data-background-position="bottom right" data-background-repeat="no-repeat" data-background-size="30%">
+            <h2>A Background Image</h2>
+            <p>backgroundSize and backgroundPosition keep it clear of the text.</p>
+          </section>
+          
+          <section class="kslides-code-3" data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
+            <script type="text/template">
+## Slide Definition
+```kotlin []
+markdownSlide {
+  content {
+    """
+    ## Slide Backgrounds
+
+    ${slideBackground("#2d5f7c")}
+
+    A markdown slide has no `slideConfig { }` of its own for this, so `slideBackground()`
+    emits the reveal.js comment instead. Put it on its own line anywhere in the content.
+
+    Notes: dslSlide and htmlSlide use slideConfig { backgroundColor } directly 📝
+    """
+  }
+}
+
+dslSlide {
+  slideConfig {
+    // Relative asset paths resolve against the output root, so this one value works
+    // from a deck at any depth (kslides 1.4.0 and later).
+    backgroundImage = "images/revealjs.png"
+    backgroundSize = "30%"
+    backgroundPosition = "bottom right"
+    backgroundRepeat = "no-repeat"
+    backgroundOpacity = 0.4
+  }
+
+  content {
+    h2 { +"A Background Image" }
+    p { +"backgroundSize and backgroundPosition keep it clear of the text." }
+  }
+}
+```
+<a id="ghsrc" href="https://www.srcref.com/github?account=kslides&amp;repo=kslides-template&amp;branch=master&amp;path=src%2Fmain%2Fkotlin%2FSlides.kt&amp;bregex=%5Cs%2B%2F%2F+background+begin&amp;boccur=1&amp;boffset=1&amp;btopd=true&amp;eregex=%5Cs%2B%2F%2F+background+end&amp;eoccur=1&amp;eoffset=-1&amp;etopd=true" target="_blank">GitHub Source</a>
+</script>
+          </section>
+          
+        </section>
+        
+        <section>
+          <section class="kslides-code-1" data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="" style="font-size: 0.7em;">
+            <script type="text/template">
+## Slide Font Size
+
+This slide sets `fontSize = "0.7em"`, so everything on it renders smaller than the
+deck default, useful for the one slide with more text than the rest.
+
+Set it deck-wide in `presentationConfig { slideConfig { } }` and override it here,
+exactly like `codeFontSize`. Reach for these rather than hand-writing CSS: they
+cascade global to presentation to slide, and kslides generates the rules for you.
+
+Notes: fontSize is emitted as an inline style on the slide's section 📝
+</script>
+          </section>
+          
+          <section class="kslides-code-3" data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
+            <script type="text/template">
+## Slide Definition
+```kotlin []
+markdownSlide {
+  slideConfig {
+    // The non-code sibling of codeFontSize: an inline font-size on this slide's <section>.
+    fontSize = "0.7em"
+  }
+
+  content {
+    """
+    ## Slide Font Size
+
+    This slide sets `fontSize = "0.7em"`, so everything on it renders smaller than the
+    deck default, useful for the one slide with more text than the rest.
+
+    Set it deck-wide in `presentationConfig { slideConfig { } }` and override it here,
+    exactly like `codeFontSize`. Reach for these rather than hand-writing CSS: they
+    cascade global to presentation to slide, and kslides generates the rules for you.
+
+    Notes: fontSize is emitted as an inline style on the slide's section 📝
+    """
+  }
+}
+```
+<a id="ghsrc" href="https://www.srcref.com/github?account=kslides&amp;repo=kslides-template&amp;branch=master&amp;path=src%2Fmain%2Fkotlin%2FSlides.kt&amp;bregex=%5Cs%2B%2F%2F+fontsize+begin&amp;boccur=1&amp;boffset=1&amp;btopd=true&amp;eregex=%5Cs%2B%2F%2F+fontsize+end&amp;eoccur=1&amp;eoffset=-1&amp;etopd=true" target="_blank">GitHub Source</a>
+</script>
+          </section>
+          
+        </section>
+        
+        <section>
+          <section class="kslides-code-1">
+            <h2>Lists</h2>
+            <div>
+              <ul>
+                <li>Unordered items</li>
+                <li>Written as varargs</li>
+                <li>One li per string</li>
+              </ul>
+            </div>
+            <div>
+              <ol>
+                <li>Ordered items</li>
+                <li>Numbered automatically</li>
+              </ol>
+            </div>
+            <div>
+              <ul>
+                <li>
+                  <a href="#/otherslides">A list item that is a link</a>
+                </li>
+                <li>
+                  <a href="https://github.com/kslides/kslides">kslides on GitHub</a>
+                </li>
+              </ul>
+            </div>
+          </section>
+          
+          <section class="kslides-code-3" data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
+            <script type="text/template">
+## Slide Definition
+```kotlin []
+dslSlide {
+  content {
+    h2 { +"Lists" }
+    // Every reveal.js theme sets `.reveal ol, .reveal ul { display: inline-block }` so a
+    // lone list centers on the slide. That makes sibling lists flow inline, side by side
+    // like words. Wrapping each in a block-level div puts them back on their own lines.
+    div { unorderedList("Unordered items", "Written as varargs", "One li per string") }
+    div { orderedList("Ordered items", "Numbered automatically") }
+    div {
+      unorderedList(
+        { listHref("#/otherslides", "A list item that is a link") },
+        { listHref("https://github.com/kslides/kslides", "kslides on GitHub") },
+      )
+    }
+  }
+}
+```
+<a id="ghsrc" href="https://www.srcref.com/github?account=kslides&amp;repo=kslides-template&amp;branch=master&amp;path=src%2Fmain%2Fkotlin%2FSlides.kt&amp;bregex=%5Cs%2B%2F%2F+lists+begin&amp;boccur=1&amp;boffset=1&amp;btopd=true&amp;eregex=%5Cs%2B%2F%2F+lists+end&amp;eoccur=1&amp;eoffset=-1&amp;etopd=true" target="_blank">GitHub Source</a>
+</script>
+          </section>
+          
+        </section>
+        
+        <section>
+          <section class="kslides-code-1">
+            <h2>Tables</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Deck</th><th>Path</th><th>Slides</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Main</td><td>index.html</td><td>many</td>
+                </tr>
+                <tr>
+                  <td>Great Talk 1</td><td>greattalk1/</td><td>2</td>
+                </tr>
+                <tr>
+                  <td>Great Talk 2</td><td>greattalk2.html</td><td>2</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          
+          <section class="kslides-code-2" data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
+            <script type="text/template">
+## Slide Definition
+```kotlin []
+dslSlide {
+  content {
+    h2 { +"Tables" }
+    table {
+      thead {
+        headRow("Deck", "Path", "Slides")
+      }
+      tbody {
+        bodyRow("Main", "index.html", "many")
+        bodyRow("Great Talk 1", "greattalk1/", "2")
+        bodyRow("Great Talk 2", "greattalk2.html", "2")
+      }
+    }
+  }
+}
+```
+<a id="ghsrc" href="https://www.srcref.com/github?account=kslides&amp;repo=kslides-template&amp;branch=master&amp;path=src%2Fmain%2Fkotlin%2FSlides.kt&amp;bregex=%5Cs%2B%2F%2F+tables+begin&amp;boccur=1&amp;boffset=1&amp;btopd=true&amp;eregex=%5Cs%2B%2F%2F+tables+end&amp;eoccur=1&amp;eoffset=-1&amp;etopd=true" target="_blank">GitHub Source</a>
+</script>
+          </section>
+          
+        </section>
+        
+        <section>
+          <section class="kslides-code-1">
+            <h2>Mermaid Diagrams</h2>
+            <pre class="mermaid">flowchart LR
+  A[Slides.kt] --&gt; B[kslides]
+  B --&gt; C[docs/]
+  B --&gt; D[HTTP server]</pre>
+          </section>
+          
+          <section class="kslides-code-1" data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="" style="font-size: 0.65em;">
+            <script type="text/template">
+## Slide Definition
+```kotlin []
+dslSlide {
+  content {
+    h2 { +"Mermaid Diagrams" }
+    mermaid(
+      """
+      flowchart LR
+        A[Slides.kt] --> B[kslides]
+        B --> C[docs/]
+        B --> D[HTTP server]
+      """,
+    )
+  }
+}
+```
+Rendered client-side from a runtime bundled with kslides, so it works offline.
+
+<a id="ghsrc" href="https://www.srcref.com/github?account=kslides&amp;repo=kslides-template&amp;branch=master&amp;path=src%2Fmain%2Fkotlin%2FSlides.kt&amp;bregex=%5Cs%2B%2F%2F+mermaid+begin&amp;boccur=1&amp;boffset=1&amp;btopd=true&amp;eregex=%5Cs%2B%2F%2F+mermaid+end&amp;eoccur=1&amp;eoffset=-1&amp;etopd=true" target="_blank">GitHub Source</a>
+</script>
+          </section>
+          
+        </section>
+        
+        <section>
+          <section class="kslides-code-1">
+            <h2>Kotlin Playground</h2>
+            <iframe height="400px" src="playground/slide-31-1.html" width="100%"></iframe>
+          </section>
+          
+          <section class="kslides-code-1" data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="" style="font-size: 0.65em;">
+            <script type="text/template">
+## Slide Definition
+```kotlin []
+dslSlide {
+  content {
+    h2 { +"Kotlin Playground" }
+    // Path is relative to the repo root, like the include() calls above.
+    playground("src/main/kotlin/playground/HelloWorld.kt") {
+      args = "Kotlin kslides"
+      height = "400px"
+    }
+  }
+}
+```
+Editable and runnable in the browser. Size the code with
+`playgroundConfig { fontSize }`, set above for this presentation.
+
+<a id="ghsrc" href="https://www.srcref.com/github?account=kslides&amp;repo=kslides-template&amp;branch=master&amp;path=src%2Fmain%2Fkotlin%2FSlides.kt&amp;bregex=%5Cs%2B%2F%2F+playground+begin&amp;boccur=1&amp;boffset=1&amp;btopd=true&amp;eregex=%5Cs%2B%2F%2F+playground+end&amp;eoccur=1&amp;eoffset=-1&amp;etopd=true" target="_blank">GitHub Source</a>
+</script>
+          </section>
+          
+        </section>
+        
+        <section>
+          <section class="kslides-code-1">
+            <h2>A Lets-Plot Figure</h2>
+            <iframe height="415px" src="letsPlot/slide-33-1.html" style="width: 85%; border: 2px solid #586E75;" width="100%"></iframe>
+          </section>
+          
+          <section class="kslides-code-1" data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="" style="font-size: 0.65em;">
+            <script type="text/template">
+## Slide Definition
+```kotlin []
+dslSlide {
+  content {
+    h2 { +"A Lets-Plot Figure" }
+    letsPlot(
+      dimensions = 801 by 400,
+      configBlock = {
+        style = "width: 85%; border: 2px solid #586E75;"
+        height = "415px"
+      },
+    ) {
+      val xs = (0..400).toList()
+      val data = mapOf("x" to xs, "y" to xs.map { Random.nextDouble(10.0) })
+      letsPlot(data) +
+        geomPoint { x = "x"; y = "y" } +
+        labs(title = "A Simple Random Plot", x = "x Axis Title", y = "y Axis Title")
+    }
+  }
+}
+```
+Requires the `kslides-letsplot` dependency, enabled in `build.gradle.kts`.
+
+<a id="ghsrc" href="https://www.srcref.com/github?account=kslides&amp;repo=kslides-template&amp;branch=master&amp;path=src%2Fmain%2Fkotlin%2FSlides.kt&amp;bregex=%5Cs%2B%2F%2F+letsplot+begin&amp;boccur=1&amp;boffset=1&amp;btopd=true&amp;eregex=%5Cs%2B%2F%2F+letsplot+end&amp;eoccur=1&amp;eoffset=-1&amp;etopd=true" target="_blank">GitHub Source</a>
+</script>
+          </section>
+          
+        </section>
+        
+        <section>
+          <section class="kslides-code-1">
+            <h2>Kroki Diagrams</h2>
+            <div>
+              <img src="kroki/slide-35-1.svg" style="zoom: 1.5">
+            </div>
+          </section>
+          
+          <section class="kslides-code-1" data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="" style="font-size: 0.65em;">
+            <script type="text/template">
+## Slide Definition
+```kotlin []
+dslSlide {
+  content {
+    h2 { +"Kroki Diagrams" }
+    diagram("graphviz") {
+      outputType = DiagramOutputType.SVG
+      style = "zoom: 1.5"
+      options =
+        mapOf(
+          "graph-attribute-label" to "Rendered by Kroki",
+          "edge-attribute-color" to "#268BD2",
+        )
+      source = "digraph G {Slides->Kroki->SVG}"
+    }
+  }
+}
+```
+Covers the formats Mermaid does not: PlantUML, GraphViz, D2. Unlike `mermaid()`,
+this calls kroki.io while the slides are generated, so it needs network access.
+
+<a id="ghsrc" href="https://www.srcref.com/github?account=kslides&amp;repo=kslides-template&amp;branch=master&amp;path=src%2Fmain%2Fkotlin%2FSlides.kt&amp;bregex=%5Cs%2B%2F%2F+kroki+begin&amp;boccur=1&amp;boffset=1&amp;btopd=true&amp;eregex=%5Cs%2B%2F%2F+kroki+end&amp;eoccur=1&amp;eoffset=-1&amp;etopd=true" target="_blank">GitHub Source</a>
+</script>
+          </section>
+          
+        </section>
+        
+        <section>
+          <section class="kslides-code-1" data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="" style="font-size: 0.95em;">
+            <script type="text/template">
+## Custom Themes
+
+`customTheme { }` restyles one of the stock reveal.js themes (brand colors, fonts,
+and a corner logo) without hand-writing CSS.
+
+It is a presentation-level block, so it is applied to
+[greattalk2.html](./greattalk2.html) rather than to this deck, letting you compare
+the two. Press the down arrow for the definition 👇
+
+Notes: baseTheme picks the reveal.js theme the overrides are layered onto 📝
+</script>
+          </section>
+          
+          <section class="kslides-code-3" data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
+            <script type="text/template">
+## Slide Definition
+```kotlin []
+// Restyles a stock reveal.js theme without hand-writing CSS. Applied here rather than to
+// the main deck so the two looks can be compared side by side.
+customTheme {
+  baseTheme = PresentationTheme.WHITE
+  backgroundColor = Color("#f8f5ef")
+  mainColor = Color("#1a1a2e")
+  headingColor = Color("#0f4c81")
+  headingTextTransform = TextTransform.none
+  linkColor = Color("#b3550f")
+  codeFont = "Menlo, Consolas, monospace"
+  customProperty("--r-heading-letter-spacing", "0.02em")
+  logo(
+    // Resolves against the output root, so the same value works from any deck depth.
+    "images/revealjs.png",
+    position = LogoPosition.BOTTOM_RIGHT,
+    size = 90.px,
+    opacity = 0.6,
+  )
+}
+```
+<a id="ghsrc" href="https://www.srcref.com/github?account=kslides&amp;repo=kslides-template&amp;branch=master&amp;path=src%2Fmain%2Fkotlin%2FSlides.kt&amp;bregex=%5Cs%2B%2F%2F+customtheme+begin&amp;boccur=1&amp;boffset=1&amp;btopd=true&amp;eregex=%5Cs%2B%2F%2F+customtheme+end&amp;eoccur=1&amp;eoffset=-1&amp;etopd=true" target="_blank">GitHub Source</a>
 </script>
           </section>
           
@@ -414,11 +920,11 @@ markdownSlide {
 ## Other Presentations Defined In Slides.kt
 <span style="text-align: left; text-indent: 25%;">
 
-[&#128038; greattalk1/ Slides](./greattalk1)
+[🐦 greattalk1/ Slides](./greattalk1)
 
-[&#128038; greattalk1/other.html Slides](./greattalk1/other.html)
+[🐦 greattalk1/other.html Slides](./greattalk1/other.html)
 
-[&#128038; greattalk2.html Slides](./greattalk2.html)
+[🐦 greattalk2.html Slides](./greattalk2.html)
 </span>
 </script>
           </section>
@@ -444,7 +950,7 @@ markdownSlide {
   }
 }
 ```
-<a href="https://www.srcref.com/github?account=kslides&amp;repo=kslides-template&amp;branch=master&amp;path=src%2Fmain%2Fkotlin%2FSlides.kt&amp;bregex=%5Cs%2B%2F%2F+others+begin&amp;boccur=1&amp;boffset=1&amp;btopd=true&amp;eregex=%5Cs%2B%2F%2F+others+end&amp;eoccur=1&amp;eoffset=-1&amp;etopd=true" id="ghsrc" target="_blank">GitHub Source</a>
+<a id="ghsrc" href="https://www.srcref.com/github?account=kslides&amp;repo=kslides-template&amp;branch=master&amp;path=src%2Fmain%2Fkotlin%2FSlides.kt&amp;bregex=%5Cs%2B%2F%2F+others+begin&amp;boccur=1&amp;boffset=1&amp;btopd=true&amp;eregex=%5Cs%2B%2F%2F+others+end&amp;eoccur=1&amp;eoffset=-1&amp;etopd=true" target="_blank">GitHub Source</a>
 </script>
           </section>
           
@@ -495,6 +1001,23 @@ markdownSlide {
 		});
 
 </script>
+	<script src="revealjs/plugin/mermaid/mermaid.min.js"></script>
+	<script>
+		mermaid.initialize({ startOnLoad: false, theme: 'default' });
+		function kslidesMermaidRun(root) {
+		  var nodes = root.querySelectorAll('pre.mermaid:not([data-processed])');
+		  if (nodes.length > 0) mermaid.run({ nodes: nodes });
+		}
+		function kslidesMermaidSync() {
+		  if (Reveal.isPrintView()) kslidesMermaidRun(document);
+		  else if (Reveal.getCurrentSlide()) kslidesMermaidRun(Reveal.getCurrentSlide());
+		}
+		Reveal.on('ready', kslidesMermaidSync);
+		Reveal.on('slidechanged', kslidesMermaidSync);
+		Reveal.on('pdf-ready', kslidesMermaidSync);
+		if (Reveal.isReady()) kslidesMermaidSync();
+	</script>
+
   </body>
 </html>
 

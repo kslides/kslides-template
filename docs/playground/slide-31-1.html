@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script data-selector=".playground-code" src="https://unpkg.com/kotlin-playground@1"></script>
+
+    <style>
+			.CodeMirror { font-size: 20px; }
+			.code-output { font-size: 20px; }
+			
+		</style>
+    
+  </head>
+  <body>
+    <code args="Kotlin kslides" class="playground-code">
+package playground
+
+// Source for the playground{} slide in Slides.kt.
+// Keep lines short: they show up verbatim in the slide.
+fun main(args: Array&lt;String&gt;) {
+  val names = if (args.isEmpty()) arrayOf("World") else args
+  names.forEach { println("Hello, $it!") }
+}
+</code>
+  </body>
+</html>

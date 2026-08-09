@@ -7,7 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Ten feature demonstrations in the sample deck, each following the existing pattern of a demo slide plus a "Slide Definition" companion that includes its own source:
+  - **Fragments** — `fragment()` with `Effect.FADE_UP` / `FADE_LEFT` / `GROW`, revealing a line per keypress.
+  - **Speaker notes** — a `Notes:` line, plus one on the opening Markdown slide. The presentations already declared `data-separator-notes="^Notes?:"`, so this was configured but never shown.
+  - **Slide backgrounds** — `slideBackground()` for a markdown slide, and `slideConfig { backgroundImage / backgroundSize / backgroundPosition / backgroundOpacity }` for a dslSlide.
+  - **Slide-level `fontSize`** — the non-code sibling of `codeFontSize`.
+  - **Lists** — `unorderedList`, `orderedList`, and `listHref`.
+  - **Tables** — `headRow` / `bodyRow`.
+  - **Mermaid diagrams** — `mermaid()`, rendered client-side from the bundled runtime. `docs/revealjs/plugin/mermaid/mermaid.min.js` has shipped since 1.42.0 with no deck referencing it.
+  - **Kotlin Playground** — `playground()` over the new `src/main/kotlin/playground/HelloWorld.kt`, sized by a `playgroundConfig { fontSize = "20px" }` block (kslides 1.4.0).
+  - **Lets-Plot** — a scatter plot via `letsPlot { }`.
+  - **Kroki diagrams** — `diagram("graphviz")` with `DiagramOutputType.SVG` and edge options.
+- `customTheme { }` on the `greattalk2.html` presentation (base theme, background/heading/link colors, code font, a custom CSS property, and a corner `logo()`), with a demo and definition slide in the main deck pointing at it. Applied to a secondary deck so the two looks can be compared.
+- `src/main/kotlin/playground/HelloWorld.kt` — the source the Playground slide loads and runs in the browser.
+- Generated output for the new slides: `docs/playground/`, `docs/letsPlot/`, and `docs/kroki/`.
+
 ### Changed
+- Enabled the `kslides-letsplot` dependency in `build.gradle.kts`; it was present but commented out. **This grows `build/libs/kslides.jar` by roughly 17 MB** (to ~31 MB), which matters for the Heroku dyno. Remove the dependency and the Lets-Plot slide together if you do not want the weight.
+- `make pdf` and `fun main()` now require network access on a clean run: `diagram()` calls kroki.io while the slides are generated and caches the result into `docs/kroki/`. `mermaid()` does not — it renders in the browser from the bundled runtime.
+
 - The sample deck sizes its code blocks through `slideConfig { }` instead of hand-written CSS. kslides 1.2.0 added `fontSize` / `codeFontSize` / `codeWrap` specifically to replace the raw-CSS approach, and this template kept the CSS. The two `css += """…"""` blocks (`.reveal pre { font-size: 0.60em; }`, the `pre-wrap` / `break-word` rule, and `.reveal .smallcode pre { font-size: 0.45em; }`) are gone; the presentation-level `slideConfig { }` now sets `codeFontSize = "0.60em"` and `codeWrap = true`, and the six slide-definition slides carry their own `slideConfig { codeFontSize = "0.45em" }`. The `classes += "smallcode"` opt-in is removed along with the rule it selected.
 
 ### Fixed
@@ -16,6 +35,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Documentation
 - Replaced the _Styling Slides_ CSS example in `README.md` with a _Font Sizes_ section documenting the three `slideConfig` properties, the generated-class mechanism, and the caveat that they resolve per-slide (so a `verticalSlides { slideConfig { } }` block does nothing with them). _Styling Slides_ now covers only what the config blocks don't.
 - Recorded the same rule in `CLAUDE.md` and `llms.txt`, including the gutter pairing as the concrete reason not to hand-roll the CSS.
+- Added a _What the Sample Deck Demonstrates_ section to `README.md` mapping each feature to the API it uses and flagging the two that cost something (Lets-Plot's jar weight, Kroki's build-time network call).
+- Documented two markdown-slide constraints found while building these slides, in `CLAUDE.md` and as code comments beside the slides they affect: markdown content must avoid em dashes, because the renderer emits `&mdash;` and the XML parse step then fails on the undeclared entity; and a `fragment()` line must not contain inline code spans or other inline markup, because the emitted reveal.js comment attaches to the last element on the line and the span swallows the class.
 
 ## [1.44.0] - 2026-08-08
 

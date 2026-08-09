@@ -7,10 +7,35 @@
     
     <link href="revealjs/dist/reveal.css" rel="stylesheet">
     <link href="revealjs/dist/reset.css" rel="stylesheet">
-    <link href="revealjs/dist/theme/solarized.css" id="theme" rel="stylesheet">
+    <link href="revealjs/dist/theme/white.css" id="theme" rel="stylesheet">
     <link href="revealjs/plugin/highlight/monokai.css" id="highlight-theme" rel="stylesheet">
     <link href="revealjs/plugin/copycode/copycode.css" rel="stylesheet">
     <link href="revealjs/plugin/copycode/copycode-button-fix.css" rel="stylesheet">
+    
+    <style id="custom-theme">
+			:root {
+			  --r-background-color: #f8f5ef;
+			  --r-main-color: #1a1a2e;
+			  --r-heading-color: #0f4c81;
+			  --r-heading-text-transform: none;
+			  --r-link-color: #b3550f;
+			  --r-code-font: Menlo, Consolas, monospace;
+			  --r-heading-letter-spacing: 0.02em;
+			}
+			.kslides-logo {
+			  position: fixed;
+			  bottom: 16px;
+			  right: 16px;
+			  width: 90px;
+			  z-index: 5;
+			  opacity: 0.6;
+			  pointer-events: none;
+			}
+			.kslides-logo img {
+			  width: 100%;
+			  display: block;
+			}
+		</style>
     
     <link href="favicon.ico" rel="icon" type="image/x-icon">
     
@@ -72,10 +97,12 @@
         </svg>
               </a>
 			<a class="top-right" href="./#/otherslides" target="_self" title="Go back to main presentation">&#128281;</a>
+			<img class="kslides-logo" src="images/revealjs.png">
 
       <div class="slides">
         <section>
           <h2>greattalk2.html slides</h2>
+          <p>This deck is restyled with a customTheme{} block.</p>
         </section>
         
       </div>
