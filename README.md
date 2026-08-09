@@ -32,9 +32,48 @@ the `src/main/kotlin/Slides.kt` file. The [kslides](https://github.com/kslides/k
 [README.md](https://github.com/kslides/kslides/blob/master/README.md)
 describes the various _kslides_ blocks.
 
+### What the Sample Deck Demonstrates
+
+`Slides.kt` is a tour of the kslides DSL. Each feature gets a demo slide plus a "Slide
+Definition" slide that shows its own source, so you can read the code beside the result and
+delete whatever you don't want.
+
+| Slide | API |
+| --- | --- |
+| Markdown / HTML / DSL slides | `markdownSlide`, `htmlSlide`, `dslSlide` |
+| Code with highlighting and animation | `codeSnippet`, `include()`, `toLinePatterns()` |
+| Fragments | `fragment(Effect.…)` |
+| Speaker notes | a `Notes:` line in markdown content |
+| Slide backgrounds | `slideBackground()`, `slideConfig { backgroundImage … }` |
+| Font sizes | `slideConfig { fontSize / codeFontSize / codeWrap }` |
+| Lists and tables | `unorderedList`, `orderedList`, `listHref`, `headRow`, `bodyRow` |
+| Mermaid diagrams | `mermaid()` |
+| Kotlin Playground | `playground()`, `playgroundConfig { fontSize }` |
+| Lets-Plot figures | `letsPlot { }` |
+| Kroki diagrams | `diagram("graphviz")` |
+| Custom themes | `customTheme { }` — on `greattalk2.html`, not the main deck |
+
+Two of these cost something, so remove them if you don't need them:
+
+- **Lets-Plot** requires the `kslides-letsplot` dependency, which adds roughly 17 MB to
+  `build/libs/kslides.jar` (~31 MB total). Drop the dependency and the slide together.
+- **Kroki** calls `kroki.io` while the slides are generated and caches the result under
+  `docs/kroki/`, so a clean build needs network access. `mermaid()` has no such requirement —
+  it renders in the browser from a runtime bundled with kslides.
+
+Two constraints on `markdownSlide` content are worth knowing before you edit it:
+
+- **No em dashes.** The markdown renderer emits `&mdash;`, and the XML parse step that follows
+  fails on the undeclared entity. Use a comma, colon, or parentheses instead. Kotlin comments
+  are unaffected.
+- **No inline markup on a `fragment()` line.** The reveal.js comment that `fragment()` emits
+  attaches to the last element on the line, so a trailing backtick span takes the fragment class
+  and only the code animates. Keep those lines plain text.
+
 ### Project Structure
 
 - `src/main/kotlin/Slides.kt` — your deck (the only file most users touch).
+- `src/main/kotlin/playground/HelloWorld.kt` — source loaded by the Kotlin Playground slide.
 - `src/export/kotlin/Export.kt` — PDF-export entry point (see _Exporting to PDF_ below).
 - `src/main/resources/public/` — static assets when serving over HTTP.
 - `docs/` — generated HTML and static assets when publishing to GitHub Pages or Netlify.

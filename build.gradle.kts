@@ -44,8 +44,8 @@ configurations {
 dependencies {
   implementation(libs.kslides.core)
 
-  // Include this dependency if you use lets-plot
-  // implementation(libs.kslides.letsplot)
+  // Required by the letsPlot{} slide in Slides.kt — drop this if you remove that slide
+  implementation(libs.kslides.letsplot)
 
   // Headless-Chromium PDF export; used only by the export source set (see exportPdf task below)
   "${exportSourceSet}Implementation"(libs.kslides.export)
