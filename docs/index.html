@@ -64,12 +64,16 @@
 			img[alt=revealjs-image] {
 			  width: 1000px;
 			}
-			.reveal pre { font-size: 0.60em; }
-			.reveal pre code { white-space: pre-wrap; word-break: break-word; }
-			.reveal .smallcode pre { font-size: 0.45em; }
 			
 		</style>
     
+    <style type="text/css">
+			.reveal .kslides-code-1 pre { font-size: 0.60em; }
+			.reveal .kslides-code-1 pre code { white-space: pre-wrap; word-break: break-word; }
+			.reveal .kslides-code-2 pre { font-size: 0.45em; }
+			.reveal .kslides-code-2 pre code { white-space: pre-wrap; word-break: break-word; }
+			.reveal pre code .hljs-ln-numbers { white-space: nowrap; word-break: normal; }
+		</style>
   </head>
   <body>
     <div class="reveal">
@@ -84,7 +88,7 @@
 			<a class="top-right" href="./" target="_self" title="Go to 1st Slide">&#127968;</a>
 
       <div class="slides">
-        <section data-markdown="" data-transition="zoom">
+        <section class="kslides-code-1" data-markdown="" data-transition="zoom">
           <script type="text/template">
 # Markdown Slide
 ## 🍒
@@ -92,20 +96,20 @@ Press ESC to see presentation overview.
 </script>
         </section>
         
-        <section>
+        <section class="kslides-code-1">
           
           <h1>An HTML Slide &#128038;</h1>
           
           <p>This is some text</p>
         </section>
         
-        <section>
+        <section class="kslides-code-1">
           <h1>A DSL Slide &#128038;</h1>
           <p>This is some text</p>
         </section>
         
         <section>
-          <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
+          <section class="kslides-code-1" data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
             <script type="text/template">
 ## Code with a markdownSlide
 ```kotlin [1,5|2,4|3]
@@ -118,7 +122,7 @@ fun main() {
 </script>
           </section>
           
-          <section class="smallcode" data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
+          <section class="kslides-code-2" data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
             <script type="text/template">
 ## Slide Definition
 ```kotlin []
@@ -141,7 +145,7 @@ markdownSlide {
         </section>
         
         <section>
-          <section>
+          <section class="kslides-code-1">
             <h2>Code with a dslSlide</h2>
             <pre><code class="kotlin" data-line-numbers="1,5|2,4|3" data-noescape="" data-trim="">
 fun main() {
@@ -153,7 +157,7 @@ fun main() {
             </pre>
           </section>
           
-          <section class="smallcode">
+          <section class="kslides-code-2">
             <h2>Slide Definition</h2>
             <pre><code class="kotlin" data-line-numbers="" data-noescape="" data-trim="">
 dslSlide {
@@ -177,7 +181,7 @@ dslSlide {
         </section>
         
         <section>
-          <section data-auto-animate="" data-transition="none">
+          <section class="kslides-code-1" data-auto-animate="" data-transition="none">
             <h2>Animated Code without Line Numbers</h2>
             <pre data-id="code-animation"><code class="json" data-noescape="" data-trim="">
 {
@@ -189,7 +193,7 @@ dslSlide {
             </pre>
           </section>
           
-          <section data-auto-animate="" data-transition="none">
+          <section class="kslides-code-1" data-auto-animate="" data-transition="none">
             <h2>Animated Code without Line Numbers</h2>
             <pre data-id="code-animation"><code class="json" data-noescape="" data-trim="">
 {
@@ -206,7 +210,7 @@ dslSlide {
             </pre>
           </section>
           
-          <section data-auto-animate="" data-transition="none">
+          <section class="kslides-code-1" data-auto-animate="" data-transition="none">
             <h2>Animated Code without Line Numbers</h2>
             <pre data-id="code-animation"><code class="json" data-noescape="" data-trim="">
 "books":[
@@ -225,7 +229,7 @@ dslSlide {
             </pre>
           </section>
           
-          <section data-auto-animate="" data-transition="none">
+          <section class="kslides-code-1" data-auto-animate="" data-transition="none">
             <h2>Animated Code without Line Numbers</h2>
             <pre data-id="code-animation"><code class="json" data-noescape="" data-trim="">
 {
@@ -246,7 +250,7 @@ dslSlide {
             </pre>
           </section>
           
-          <section class="smallcode" data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
+          <section class="kslides-code-2" data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
             <script type="text/template">
 ## Slide Definition
 ```kotlin []
@@ -276,7 +280,7 @@ for (lines in "[8-12|3-12|2-13|]".toLinePatterns()) {
         </section>
         
         <section>
-          <section data-auto-animate="" data-transition="none">
+          <section class="kslides-code-1" data-auto-animate="" data-transition="none">
             <h2>Animated Code with Line Numbers</h2>
             <pre data-id="code-animation"><code class="json" data-line-numbers="" data-ln-start-from="3" data-noescape="" data-trim="">
 {
@@ -288,7 +292,7 @@ for (lines in "[8-12|3-12|2-13|]".toLinePatterns()) {
             </pre>
           </section>
           
-          <section data-auto-animate="" data-transition="none">
+          <section class="kslides-code-1" data-auto-animate="" data-transition="none">
             <h2>Animated Code with Line Numbers</h2>
             <pre data-id="code-animation"><code class="json" data-line-numbers="" data-ln-start-from="3" data-noescape="" data-trim="">
 {
@@ -305,7 +309,7 @@ for (lines in "[8-12|3-12|2-13|]".toLinePatterns()) {
             </pre>
           </section>
           
-          <section data-auto-animate="" data-transition="none">
+          <section class="kslides-code-1" data-auto-animate="" data-transition="none">
             <h2>Animated Code with Line Numbers</h2>
             <pre data-id="code-animation"><code class="json" data-line-numbers="" data-ln-start-from="2" data-noescape="" data-trim="">
 "books":[
@@ -324,7 +328,7 @@ for (lines in "[8-12|3-12|2-13|]".toLinePatterns()) {
             </pre>
           </section>
           
-          <section data-auto-animate="" data-transition="none">
+          <section class="kslides-code-1" data-auto-animate="" data-transition="none">
             <h2>Animated Code with Line Numbers</h2>
             <pre data-id="code-animation"><code class="json" data-line-numbers="" data-ln-start-from="1" data-noescape="" data-trim="">
 {
@@ -345,7 +349,7 @@ for (lines in "[8-12|3-12|2-13|]".toLinePatterns()) {
             </pre>
           </section>
           
-          <section class="smallcode" data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
+          <section class="kslides-code-2" data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
             <script type="text/template">
 ## Slide Definition
 ```kotlin []
@@ -375,7 +379,7 @@ for (lines in "[8-12|3-12|2-13|]".toLinePatterns().zip(listOf(3, 3, 2, 1))) {
         </section>
         
         <section>
-          <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
+          <section class="kslides-code-1" data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
             <script type="text/template">
 ## Images
 
@@ -383,7 +387,7 @@ for (lines in "[8-12|3-12|2-13|]".toLinePatterns().zip(listOf(3, 3, 2, 1))) {
 </script>
           </section>
           
-          <section class="smallcode" data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
+          <section class="kslides-code-2" data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
             <script type="text/template">
 ## Slide Definition
 ```kotlin []
@@ -405,7 +409,7 @@ markdownSlide {
         </section>
         
         <section>
-          <section data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="" id="otherslides">
+          <section class="kslides-code-1" data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="" id="otherslides">
             <script type="text/template">
 ## Other Presentations Defined In Slides.kt
 <span style="text-align: left; text-indent: 25%;">
@@ -419,7 +423,7 @@ markdownSlide {
 </script>
           </section>
           
-          <section class="smallcode" data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
+          <section class="kslides-code-2" data-markdown="" data-separator="" data-separator-notes="^Notes?:" data-separator-vertical="">
             <script type="text/template">
 ## Slide Definition
 ```kotlin

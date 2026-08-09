@@ -121,31 +121,71 @@ kslides ships no icon of its own. For filesystem output, put the file at the roo
 HTTP output, put it in `src/main/resources/public/`. This template supplies `favicon.ico` in both
 places.
 
-### Styling Slides
+### Font Sizes
 
-Deck CSS is accumulated with `css += """…"""`. Adding it inside the `kslides { }` block styles
-every presentation; adding it inside a `presentation { }` block styles just that one.
+Don't hand-write CSS for this. `slideConfig { }` carries three font properties that cascade
+global → presentation → slide:
 
-An individual slide opts into a rule with `classes += "name"`, which becomes a class on the
-generated `<section>`. The sample deck uses this to shrink the code on its wider slides:
+| Property | Effect |
+| --- | --- |
+| `fontSize` | Inline `font-size` on the slide's `<section>` — any CSS length |
+| `codeFontSize` | Font size for `<pre>` code blocks on the slide |
+| `codeWrap` | Wrap long code lines instead of letting them overflow |
+
+The sample deck sets a deck-wide default and overrides it on the slides whose code is wider:
 
 ```kotlin
 presentation {
-  css += """
-  .reveal pre { font-size: 0.60em; }
-  .reveal pre code { white-space: pre-wrap; word-break: break-word; }
-  .reveal .smallcode pre { font-size: 0.45em; }
-  """
+  presentationConfig {
+    slideConfig {
+      codeFontSize = "0.60em"   // reveal.js' own default is 0.55em
+      codeWrap = true
+    }
+  }
 
   markdownSlide {
-    classes += "smallcode"
+    slideConfig {
+      codeFontSize = "0.45em"   // codeWrap is inherited
+    }
     ...
   }
 }
 ```
 
-`.reveal .smallcode pre` matches on two classes, so it outranks the deck-wide `.reveal pre`
-rule on specificity no matter which is declared first.
+kslides generates a class per distinct `(codeFontSize, codeWrap)` pair and emits the matching
+rules into the head, so slides sharing a size share a class. It also pins the highlight plugin's
+line-number gutter to `white-space: nowrap` whenever wrapping is on — without that, `break-word`
+inherits into the gutter and breaks two-digit line numbers across two lines. Hand-rolled CSS
+misses that pairing, which is the main reason to prefer the config.
+
+One caveat: the font properties resolve per-slide, so setting them in a
+`verticalSlides { slideConfig { } }` block has no effect. Set them on each child slide, or
+deck-wide in the presentation-level `slideConfig { }`.
+
+### Styling Slides
+
+For anything the config blocks don't cover, deck CSS is accumulated with `css += """…"""`. Adding
+it inside the `kslides { }` block styles every presentation; adding it inside a `presentation { }`
+block styles just that one.
+
+An individual slide opts into a rule with `classes += "name"`, which becomes a class on the
+generated `<section>`:
+
+```kotlin
+presentation {
+  css += """
+  .reveal .callout { border-left: 4px solid #258BD2; padding-left: 0.5em; }
+  """
+
+  markdownSlide {
+    classes += "callout"
+    ...
+  }
+}
+```
+
+Reach for this when there is no config property for what you want — reserve it for genuinely
+custom styling rather than font sizes.
 
 ### Copy-Code Button
 
