@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- The sample deck sizes its code blocks through `slideConfig { }` instead of hand-written CSS. kslides 1.2.0 added `fontSize` / `codeFontSize` / `codeWrap` specifically to replace the raw-CSS approach, and this template kept the CSS. The two `css += """…"""` blocks (`.reveal pre { font-size: 0.60em; }`, the `pre-wrap` / `break-word` rule, and `.reveal .smallcode pre { font-size: 0.45em; }`) are gone; the presentation-level `slideConfig { }` now sets `codeFontSize = "0.60em"` and `codeWrap = true`, and the six slide-definition slides carry their own `slideConfig { codeFontSize = "0.45em" }`. The `classes += "smallcode"` opt-in is removed along with the rule it selected.
+
+### Fixed
+- Wrapped code blocks no longer break two-digit line numbers across rows. The hand-written `word-break: break-word` inherited into the highlight plugin's line-number gutter, which let the table squeeze `10` onto two lines. kslides pairs its generated wrap rule with `.reveal pre code .hljs-ln-numbers { white-space: nowrap; word-break: normal; }` — mirroring reveal.js' own print CSS — so moving to `codeWrap` picks the pinning up. Visible in the regenerated `docs/index.html`, which previously carried the wrap rule with no gutter rule beside it.
+
+### Documentation
+- Replaced the _Styling Slides_ CSS example in `README.md` with a _Font Sizes_ section documenting the three `slideConfig` properties, the generated-class mechanism, and the caveat that they resolve per-slide (so a `verticalSlides { slideConfig { } }` block does nothing with them). _Styling Slides_ now covers only what the config blocks don't.
+- Recorded the same rule in `CLAUDE.md` and `llms.txt`, including the gutter pairing as the concrete reason not to hand-roll the CSS.
+
 ## [1.44.0] - 2026-08-08
 
 A path-resolution release: everything the decks link to now resolves from wherever the deck sits, so a fork published under a GitHub Pages subpath works the same as one at a domain root.

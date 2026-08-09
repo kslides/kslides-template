@@ -107,21 +107,6 @@ fun templateSlides(): KSlides.() -> Unit =
         }
         """
 
-      // Shrink code blocks so long lines fit the slide window (reveal's default is 0.55em). This
-      // fits the ~85-92 char lines of the slideDefinition slides; the rare extra-long line (e.g. a
-      // full URL) wraps instead of overflowing horizontally rather than forcing an unreadable size.
-      css += """
-      .reveal pre { font-size: 0.60em; }
-      .reveal pre code { white-space: pre-wrap; word-break: break-word; }
-      """
-
-      // Per-slide override: the "highlighted code" slideDefinitions (classes = "smallcode") render their
-      // code smaller than the global 0.60em. ".reveal .smallcode pre" (two classes) outranks ".reveal pre"
-      // on specificity, so it wins regardless of order; long lines still wrap via the global pre-wrap rule.
-      css += """
-      .reveal .smallcode pre { font-size: 0.45em; }
-      """
-
       presentationConfig {
         transition = Transition.CONCAVE
 
@@ -136,6 +121,14 @@ fun templateSlides(): KSlides.() -> Unit =
         slideConfig {
           // Assign slide config defaults for all slides in this presentation
           //backgroundColor = "red"
+
+          // Shrink code blocks so long lines fit the slide window (reveal's default is 0.55em). This
+          // fits the ~85-92 char lines of the slide-definition slides; codeWrap makes the rare
+          // extra-long line (e.g. a full URL) wrap instead of overflowing horizontally, rather than
+          // forcing an unreadably small size on every slide. An individual slide overrides either
+          // value with its own slideConfig{} — see the slide-definition slides below.
+          codeFontSize = "0.60em"
+          codeWrap = true
         }
       }
 
@@ -185,8 +178,12 @@ fun templateSlides(): KSlides.() -> Unit =
         // code1 end
 
         markdownSlide {
-          // Use the smaller font for this code
-          classes += "smallcode"
+          // This slide's code is wider than the rest of the deck, so drop below the deck-wide
+          // codeFontSize set in presentationConfig{}. codeWrap is inherited.
+          slideConfig {
+            codeFontSize = "0.45em"
+          }
+
           content {
             """
             ## Slide Definition
@@ -217,7 +214,10 @@ fun templateSlides(): KSlides.() -> Unit =
         // code2 end
 
         dslSlide {
-          classes += "smallcode"
+          slideConfig {
+            codeFontSize = "0.45em"
+          }
+
           content {
             h2 { +"Slide Definition" }
             codeSnippet {
@@ -257,7 +257,10 @@ fun templateSlides(): KSlides.() -> Unit =
         // code3 end
 
         markdownSlide {
-          classes += "smallcode"
+          slideConfig {
+            codeFontSize = "0.45em"
+          }
+
           content {
             """
             ## Slide Definition
@@ -293,7 +296,10 @@ fun templateSlides(): KSlides.() -> Unit =
         // code4 end
 
         markdownSlide {
-          classes += "smallcode"
+          slideConfig {
+            codeFontSize = "0.45em"
+          }
+
           content {
             """
             ## Slide Definition
@@ -321,7 +327,10 @@ fun templateSlides(): KSlides.() -> Unit =
         // image end
 
         markdownSlide {
-          classes += "smallcode"
+          slideConfig {
+            codeFontSize = "0.45em"
+          }
+
           content {
             """
             ## Slide Definition
@@ -355,7 +364,10 @@ fun templateSlides(): KSlides.() -> Unit =
         // others end
 
         markdownSlide {
-          classes += "smallcode"
+          slideConfig {
+            codeFontSize = "0.45em"
+          }
+
           content {
             """
             ## Slide Definition
