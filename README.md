@@ -64,6 +64,63 @@ travels in the URL, so it is demo-grade access control, not a secret.
 
 This has no effect on filesystem output; nothing is injected into the static HTML in `/docs`.
 
+### Publishing Under a Subpath
+
+On GitHub Pages your fork is served from `https://username.github.io/repo_name/`, not from a
+domain root. Any path beginning with `/` therefore resolves against your **account** root and
+misses — the single most common way a deck that works locally breaks once published.
+
+As of kslides 1.4.0 the library resolves these for you, against the output root, from a deck at
+any depth — write them relative to `/docs`, not to the deck:
+
+- `customTheme { logo(...) }`, `topLeftSvgSrc`, `topRightSvgSrc`
+- `slideConfig`'s `backgroundImage`, `backgroundIframe`, `backgroundVideo`
+- `presentationConfig { favicon = ... }`
+- `playground { }`, `letsPlot { }`, and `diagram { }` iframes and images
+
+You still write these yourself, relative to the **deck**:
+
+- Corner **links** — `topLeftHref`, `topRightHref`, and `logo(href = ...)` — which are navigation
+  targets rather than assets, so kslides emits them verbatim
+- Image and link paths inside Markdown or HTML slide content, which are handed to reveal.js unparsed
+- `menuConfig { themesPath }`, passed straight to the menu plugin
+
+That means a deck below the output root needs its own `../`. The sample deck's 🔙 link shows both
+cases:
+
+```kotlin
+presentation {
+  path = "greattalk1"                                        // a directory one level down
+  presentationConfig { topRightHref = "../#/otherslides" }
+}
+
+presentation {
+  path = "greattalk2.html"                                   // sits at the output root
+  presentationConfig { topRightHref = "./#/otherslides" }
+}
+```
+
+Use `"./"` rather than `"/"` for a link meant to reach the deck's own root; it behaves identically
+in HTTP mode, where the deck is already served from the root.
+
+If your fork hand-compensated an *asset* path with a `../` before kslides 1.4.0, remove it — the
+library now adds the prefix itself and the two would compound.
+
+### Favicon
+
+`presentationConfig { favicon = ... }` sets the browser tab icon. A relative value resolves against
+the output root, so one path works from a deck at any depth:
+
+```kotlin
+presentationConfig {
+  favicon = "images/icon.png"   // default is "favicon.ico"; "" omits the <link> entirely
+}
+```
+
+kslides ships no icon of its own. For filesystem output, put the file at the root of `/docs`; for
+HTTP output, put it in `src/main/resources/public/`. This template supplies `favicon.ico` in both
+places.
+
 ### Styling Slides
 
 Deck CSS is accumulated with `css += """…"""`. Adding it inside the `kslides { }` block styles
