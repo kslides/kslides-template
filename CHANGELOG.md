@@ -7,9 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.44.0] - 2026-08-08
+
+A path-resolution release: everything the decks link to now resolves from wherever the deck sits, so a fork published under a GitHub Pages subpath works the same as one at a domain root.
+
+### Changed
+- Upgraded kslides to 1.4.0, the Gradle wrapper to 9.7.0, and the ben-manes versions plugin to 0.60.0. kslides-core 1.4.0 ships the same reveal.js distribution as 1.3.0, so `make sync-revealjs` produces no changes under `docs/revealjs/`.
+- kslides 1.4.0 is source-compatible but **not binary-compatible** — `CssFile` and `JsFile` gained an `origin` parameter, which moves their constructor, `copy()`, and `componentN()` signatures. Recompile rather than swapping the jar.
+- Regenerated `/docs`. Three differences, all from kslides 1.4.0: the favicon `<link>` is relative (`favicon.ico` at the root, `../favicon.ico` under `greattalk1/`) instead of the root-absolute `/favicon.ico`; the duplicate `rel="shortcut icon"` link is gone; and the viewport meta is now `width=device-width, initial-scale=1.0`, dropping `maximum-scale=1.0, user-scalable=no` (which blocked pinch-zoom and failed WCAG 2.1 SC 1.4.4) along with the two inert `apple-mobile-web-app-*` metas.
+
 ### Fixed
+- `docs/greattalk1/other.html` now links its reveal.js assets as `../revealjs/…` instead of the bare `revealjs/…` it emitted before. kslides derived the `../` prefix only for directory-style deck paths, so a deck declared as `greattalk1/other.html` requested `<site>/greattalk1/revealjs/dist/reveal.css` and 404'd — the page rendered unstyled with `Can't find variable: Reveal` in the console. Fixed upstream in kslides 1.4.0; this template picks it up by regenerating. The other three decks are byte-identical in this respect.
 - Every inter-deck link in the sample deck is now relative, so the decks work when published under a subpath. On GitHub Pages a fork lives at `https://username.github.io/repo_name/`, where the previous root-absolute links (`/`, `/#/otherslides`, `/greattalk1`) all resolved to the *account* root rather than to the deck. Changed: the default `topRightHref` (`"/"` → `"./"`), the 🔙 link in each of the three `greattalk` presentations, and the three cross-deck links on the "Other Presentations" slide.
-- Note that the 🔙 prefix differs by deck depth — `"../#/otherslides"` for the two decks under `greattalk1/`, `"./#/otherslides"` for `greattalk2.html`, which sits at the root. Copying one value into all three would break the other. Regenerated `/docs` to match.
+- Note that the 🔙 prefix differs by deck depth — `"../#/otherslides"` for the two decks under `greattalk1/`, `"./#/otherslides"` for `greattalk2.html`, which sits at the root. Copying one value into all three would break the other. Corner links stay verbatim in kslides 1.4.0 (they are navigation targets, not assets), so this hand-written depth compensation is still required — unlike `logo(...)` / `topLeftSvgSrc` / `topRightSvgSrc`, where 1.4.0 now resolves the path for you and a hand-written `../` should be dropped.
+
+### Documentation
+- Added a _Publishing Under a Subpath_ section to `README.md` covering which paths kslides resolves for you as of 1.4.0 and which you still write relative to your deck.
+- Documented the new `favicon` presentation-config knob (including `favicon = ""` to omit the link) in `README.md`.
+- Recorded the deck-depth link convention in `CLAUDE.md` and `llms.txt`, so the three `topRightHref` values are not "simplified" into one.
 
 ## [1.43.0] - 2026-08-02
 
@@ -250,7 +265,8 @@ released tag (1.2.1).
 ### 2021-02-15 — Initial commit
 - Repository created.
 
-[Unreleased]: https://github.com/kslides/kslides-template/compare/1.43.0...HEAD
+[Unreleased]: https://github.com/kslides/kslides-template/compare/1.44.0...HEAD
+[1.44.0]: https://github.com/kslides/kslides-template/compare/1.43.0...1.44.0
 [1.43.0]: https://github.com/kslides/kslides-template/compare/1.42.0...1.43.0
 [1.42.0]: https://github.com/kslides/kslides-template/compare/1.41.0...1.42.0
 [1.41.0]: https://github.com/kslides/kslides-template/compare/1.40.0...1.41.0

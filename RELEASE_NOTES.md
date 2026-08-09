@@ -5,6 +5,55 @@ structured per-version diff, see [CHANGELOG.md](CHANGELOG.md).
 
 ---
 
+## v1.44.0 — 2026-08-08
+
+**Your deck works under a subpath now.** That is the whole release. If you publish to GitHub Pages, your fork lives at `https://username.github.io/repo_name/` — not at a domain root — and this template had links that assumed otherwise. Every one of them is fixed, half in the sample deck and half upstream in kslides **1.4.0**.
+
+**A nested `.html` deck was loading no reveal.js at all.** `docs/greattalk1/other.html` is declared as `path = "greattalk1/other.html"`, and kslides derived its `../` asset prefix only for directory-style paths. So the page asked for `<site>/greattalk1/revealjs/dist/reveal.css`, got a 404, and rendered as unstyled markup with `Can't find variable: Reveal` in the console. kslides 1.4.0 derives the prefix from the deck's own path depth for every path style; regenerating `/docs` picks it up. The other three decks are unaffected — their asset links were already correct.
+
+**Inter-deck links are relative.** Seven of them were root-absolute, which sent visitors to your GitHub *account* root:
+
+```kotlin
+topRightHref = "./"                    // was "/"  — the default 🏠 home link
+[🐦 greattalk1/ Slides](./greattalk1)  // was /greattalk1, and two more like it
+```
+
+The 🔙 link in each `greattalk` deck needs a prefix that matches its own depth, and the sample deck now carries a comment saying so:
+
+```kotlin
+presentation {
+  path = "greattalk1"
+  presentationConfig { topRightHref = "../#/otherslides" }   // one level down
+}
+
+presentation {
+  path = "greattalk2.html"
+  presentationConfig { topRightHref = "./#/otherslides" }    // at the root — no ../
+}
+```
+
+Worth knowing why you still write these by hand: kslides 1.4.0 resolves *asset* paths for you — `customTheme { logo(...) }`, `topLeftSvgSrc` / `topRightSvgSrc`, slide background images and videos, `playground`/`letsPlot`/`diagram` iframes — against the output root, from any depth. Corner **links** are navigation targets rather than assets, so they are deliberately left verbatim. The flip side: if your fork hand-compensated an *asset* path with a `../` for a nested deck, 1.4.0 will now double it. Drop the compensation.
+
+**Regenerated `/docs`, three visible differences.** All three come from kslides 1.4.0:
+
+- The favicon link is relative — `favicon.ico` from the root decks, `../favicon.ico` from the ones under `greattalk1/` — instead of the root-absolute `/favicon.ico`, which missed entirely on a project site.
+- One favicon `<link>` instead of two. The `rel="shortcut icon"` companion was an IE ≤10 alias; every browser since tokenizes `shortcut` to plain `icon`, so it was the same link emitted twice.
+- Viewers can pinch-zoom. The viewport meta dropped `maximum-scale=1.0, user-scalable=no`, which blocked zoom and fails WCAG 2.1 SC 1.4.4 — a deliberate divergence from reveal.js's own template, which still ships it. The two `apple-mobile-web-app-*` metas went with it: reveal.js 3-era carry-over, inert without a web-app manifest.
+
+kslides 1.4.0 also makes the favicon configurable, which the sample deck does not use but your fork might:
+
+```kotlin
+presentationConfig {
+  favicon = "images/icon.png"   // resolves from any deck depth; "" omits the link entirely
+}
+```
+
+**Dependency bumps.** kslides **1.4.0**, the Gradle wrapper **9.7.0**, and the ben-manes versions plugin **0.60.0**. kslides-core 1.4.0 ships the same reveal.js distribution as 1.3.0, so `make sync-revealjs` produces no changes this time. One caveat if you keep a jar around: 1.4.0 is source-compatible but **not binary-compatible** — `CssFile` and `JsFile` are data classes that gained an `origin` parameter, moving their constructor, `copy()`, and `componentN()` signatures. Recompile rather than dropping the jar in.
+
+> **Forks:** re-run `fun main()` and commit the regenerated `/docs` — that is what picks up the favicon, viewport, and nested-deck asset fixes. Then audit your own links: any `href` starting with `/` breaks under a GitHub Pages subpath, and a deck below the output root needs `../` on its corner links. If you previously wrote `../` into a `logo()`, `topLeftSvgSrc` / `topRightSvgSrc`, or a slide background path to work around the old behavior, remove it — kslides 1.4.0 resolves those itself now. `make sync-revealjs` is a no-op for this bump.
+
+---
+
 ## v1.43.0 — 2026-08-02
 
 **Dependency bumps.** kslides **1.3.0** and the ben-manes versions plugin **0.58.0**. kslides-core 1.3.0 ships a byte-for-byte identical reveal.js distribution to 1.2.0, so unlike the last release there is nothing new to pick up under `docs/revealjs/`.
