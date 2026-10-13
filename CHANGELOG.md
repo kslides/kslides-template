@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Documentation
+- README badges: the kslides, Kotlin, and JVM badges now read their versions from `gradle/libs.versions.toml` on `master` (shields.io dynamic TOML badges), so a Dependabot bump updates them with no README edit. Added kslides, JVM, and License badges, and linked the release badge to the releases page.
+
 ## [1.44.1] - 2026-10-13
 
 A sample-deck and upkeep release: the deck demonstrates ten more kslides features and sizes its code through `slideConfig` instead of CSS, kslides moves to 1.5.1, and dependency updates gain Dependabot and a shorter `make versions` report.

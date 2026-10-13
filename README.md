@@ -1,8 +1,11 @@
 # kslides Template
 
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/kslides/kslides-template)
-[![Kotlin version](https://img.shields.io/badge/kotlin-2.4.21-red?logo=kotlin)](http://kotlinlang.org)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/kslides/kslides-template)](https://github.com/kslides/kslides-template/releases)
+[![kslides version](https://img.shields.io/badge/dynamic/toml?url=https%3A%2F%2Fraw.githubusercontent.com%2Fkslides%2Fkslides-template%2Fmaster%2Fgradle%2Flibs.versions.toml&query=%24.versions.kslides&label=kslides&color=2A9EEE)](https://github.com/kslides/kslides)
+[![Kotlin version](https://img.shields.io/badge/dynamic/toml?url=https%3A%2F%2Fraw.githubusercontent.com%2Fkslides%2Fkslides-template%2Fmaster%2Fgradle%2Flibs.versions.toml&query=%24.versions.kotlin&label=kotlin&color=red&logo=kotlin)](https://kotlinlang.org)
+[![JVM](https://img.shields.io/badge/dynamic/toml?url=https%3A%2F%2Fraw.githubusercontent.com%2Fkslides%2Fkslides-template%2Fmaster%2Fgradle%2Flibs.versions.toml&query=%24.versions.jvm&label=JVM&color=007396&logo=openjdk&logoColor=white)](https://adoptium.net/)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/ed16ddd9-ab47-4e9d-8e37-807edded7a6e/deploy-status)](https://app.netlify.com/sites/kslides-template/deploys)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 
 A template repo for authoring [kslides](https://github.com/kslides/kslides) presentation.
 
