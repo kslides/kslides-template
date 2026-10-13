@@ -21,6 +21,7 @@ val revealJsPath = "revealjs"
 val docsRevealJsDir = "docs/$revealJsPath"
 val exportSourceSet = "export"
 val exportMainName = "ExportKt"
+val docsMainName = "DocsKt"
 
 application {
   mainClass = mainName
@@ -61,6 +62,7 @@ configureKotlin()
 configureShadowJar()
 configureRevealSync()
 configurePdfExport()
+configureDocs()
 configureVersions()
 
 fun Project.configureKotlin() {
@@ -160,6 +162,19 @@ fun Project.configurePdfExport() {
   // fraction of a second and keeps `Slides.kt` and the export entry point honest about each other.
   tasks.named("check") {
     dependsOn(sourceSets[exportSourceSet].classesTaskName)
+  }
+}
+
+fun Project.configureDocs() {
+  // Writes the decks to the filesystem (docs/ by default) without starting the HTTP server that
+  // `fun main()` in Slides.kt also runs. The entry point (src/export/kotlin/Docs.kt) sits beside
+  // Export.kt so it stays out of the uberjar. Like exportPdf, it runs from the project directory,
+  // which the deck's relative paths resolve against.
+  tasks.register<JavaExec>("generateDocs") {
+    group = "kslides"
+    description = "Write the presentations to the filesystem (docs/ by default) without starting the HTTP server"
+    mainClass = docsMainName
+    classpath = sourceSets[exportSourceSet].runtimeClasspath
   }
 }
 

@@ -72,6 +72,7 @@ releases failed the whole build on them.
 - `src/main/kotlin/Slides.kt` — your deck (the only file most users touch).
 - `src/main/kotlin/playground/HelloWorld.kt` — source loaded by the Kotlin Playground slide.
 - `src/export/kotlin/Export.kt` — PDF-export entry point (see _Exporting to PDF_ below).
+- `src/export/kotlin/Docs.kt` — `make docs` entry point: writes the decks to `docs/` without the HTTP server.
 - `src/main/resources/public/` — static assets when serving over HTTP.
 - `docs/` — generated HTML and static assets when publishing to GitHub Pages or Netlify.
 - `gradle/libs.versions.toml` — kslides, Kotlin, plugin, and JVM versions. The Gradle version is in
@@ -372,7 +373,7 @@ replacing `favicon.ico` there overrides the stock one.
 3) Under **Source**, choose the _master_ branch and the _/docs_ folder and click on _Save_
 4) Open the _src/main/kotlin/Slides.kt_ file
 5) Ensure the _output{}_ block contains: `enableFileSystem = true` 
-6) Click on the green arrow next to the `fun main()` declaration to run the program and generate the html content in the _/docs_ folder
+6) Click on the green arrow next to the `fun main()` declaration to run the program and generate the html content in the _/docs_ folder (or run `make docs`, which writes the same files without starting the HTTP server)
 7) Add the newly generated html files in the `/docs` folder to git 
 8) Commit and push the changes to GitHub  
 9) Wait a minute or so and your slides will be available at _https://username.github.io/repo_name/_
@@ -387,7 +388,7 @@ replacing `favicon.ico` there overrides the stock one.
 6) Your repo already has a _netlify.toml_ file that will instruct Netlify to use your `/docs` folder as an html source
 7) Open the _src/main/kotlin/Slides.kt_ file
 8) Insure `enableFileSystem = true` is set in the _output{}_ block
-9) Click on the green arrow next to the `fun main()` declaration to run the program and generate the html content in the _/docs_ folder
+9) Click on the green arrow next to the `fun main()` declaration to run the program and generate the html content in the _/docs_ folder (or run `make docs`)
 10) Add the newly generated html files in the `/docs` folder to git
 11) Commit and push the changes to GitHub
 12) Wait a minute or so and your slides will be available at _https://site-name.netlify.app/_

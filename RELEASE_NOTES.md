@@ -11,6 +11,8 @@ structured per-version diff, see [CHANGELOG.md](CHANGELOG.md).
 
 Two of them cost something. Lets-Plot needs the `kslides-letsplot` dependency, now enabled, which adds roughly 17 MB to `build/libs/kslides.jar` (about 35 MB in all), which matters on a Heroku dyno. Kroki calls kroki.io while the slides are generated, so a clean `fun main()` or `make pdf` needs network access. Mermaid renders in the browser and needs neither. If you drop one of those slides, drop its cost with it.
 
+**`make docs` regenerates the static site from the command line.** Running `fun main()` writes `docs/` and then starts the HTTP server, since the sample deck enables both output modes. `make docs` writes the same files and exits, which suits a script or CI job that publishes to GitHub Pages or Netlify. It honors your deck's `outputDir` if you changed it.
+
 **Code is sized through `slideConfig`, not CSS.** The deck's hand-written `font-size` and wrapping rules are gone:
 
 ```kotlin

@@ -20,12 +20,13 @@ The Makefile is a thin wrapper over `./gradlew`:
 - `make sync-revealjs` — runs the `syncRevealJs` task (see Architecture)
 - `make pdf` — runs `./gradlew exportPdf`; `make pdf DECK=<name>` forwards `-Pdeck=<name>` to export a single deck. Writes to `build/pdf`
 - `make clean-pdf` — `rm -rf build/pdf`
+- `make docs` — runs `./gradlew generateDocs`, which writes the decks to the deck's `outputDir` (`docs/` by default) and exits, without the HTTP server `fun main()` also starts. `docs` must stay in `.PHONY`: the `docs/` directory exists, so make would otherwise report the target up to date and do nothing
 - `make clean-docs` — deletes the generated decks (`docs/greattalk1`, `docs/greattalk2.html`, `docs/index.html`). It deliberately carries no `##` comment, so it stays out of `make help`; it hard-codes the sample deck's output paths and must be updated whenever a presentation is renamed or added.
 - `make versions` — `./gradlew dependencyUpdates` (ben-manes plugin); must use `--no-configuration-cache --no-parallel`. Prints only what is behind (plus anything that could not be checked and a pending Gradle upgrade), through the custom `outputFormatter { }` in `configureVersions()`
 - `make versions-all` — the same task with `--output-formatter=plain`, the plugin's full report including every up-to-date dependency. The `--output-formatter` flag needs ben-manes 0.66.0 or later; 0.61.0 had no command-line options
 - `make upgrade-wrapper GRADLE_VERSION=x.y.z` — upgrade the Gradle wrapper. Without `GRADLE_VERSION` it re-pins the current version, read from `distributionUrl` in `gradle/wrapper/gradle-wrapper.properties`, which is the only place the Gradle version is kept (see Dependabot below)
 
-Run `fun main()` in `Slides.kt` directly from IntelliJ (green arrow) to generate slides — that's the primary author workflow, not a Gradle task.
+Run `fun main()` in `Slides.kt` directly from IntelliJ (green arrow) to generate slides — that's the primary author workflow. `make docs` writes the same files from the command line; `main()` also starts the HTTP server, because the sample deck enables both output modes.
 
 There are no tests in this template. `make build` passes `-x test` deliberately.
 
@@ -57,8 +58,17 @@ dependency off the main runtime classpath — `shadowJar` bundles only main, and
 remembering: Gradle does not wire custom source sets into `check`, so `configurePdfExport()` adds
 `check → exportClasses` explicitly — without that a broken `Export.kt` stays invisible until
 someone runs `make pdf`; and `Slides.kt` exposes the deck as
-`fun templateSlides(): KSlides.() -> Unit` rather than inlining it in `main()` precisely so both
-entry points share one definition — don't "simplify" that back into `main()`.
+`fun templateSlides(): KSlides.() -> Unit` rather than inlining it in `main()` precisely so every
+entry point shares one definition — don't "simplify" that back into `main()`.
+
+**`make docs` shares the export source set.** `src/export/kotlin/Docs.kt` (run by the
+`generateDocs` task in `configureDocs()`) sits beside `Export.kt` so it stays out of the uberjar.
+It cannot simply append `output { enableHttp = false }` to the deck: `output { }` *replaces* the
+deck's block rather than merging into it, and the stored block and `writeSlidesToFileSystem` are
+`internal` to kslides. So it evaluates the deck once with `buildKSlides(...)`, which emits nothing,
+reads the public `outputConfig`, and copies the filesystem settings (`outputDir`, `staticRootDir`,
+`playgroundDir`, `letsPlotDir`, `krokiDir`) into its own block with `enableHttp = false`. If a
+kslides release adds another filesystem setting to `OutputConfig`, add it to that copy.
 
 **Config nesting in `Slides.kt`.** `kslides { presentationConfig { … } }` sets defaults for *all* presentations; `presentation { presentationConfig { … } }` configures one. `copyCodeConfig { }` and `menuConfig { }` exist only on `PresentationConfig`, so they can appear in either place — but as of 1.2.0 the sample deck sets copy-code per presentation, and its `button` / `display` enums (`CopyCodeButton`, `CopyCodeDisplay`) are imported from `com.kslides.config`, not the root `com.kslides` package.
 

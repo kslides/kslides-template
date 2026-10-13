@@ -1,4 +1,4 @@
-.PHONY: default help build-all clean build uberjar uber dist stage clean-docs sync-revealjs \
+.PHONY: default help build-all clean build uberjar uber dist stage docs clean-docs sync-revealjs \
         pdf clean-pdf versions versions-all upgrade-wrapper _require-gradle-version
 
 # The wrapper's current Gradle version; `make upgrade-wrapper GRADLE_VERSION=x.y.z` moves to another one.
@@ -33,6 +33,11 @@ dist: ## Build a runnable distribution (./gradlew installDist)
 
 stage: ## Heroku stage build (clean + shadowJar)
 	./gradlew stage
+
+# The same output `fun main()` in Slides.kt writes, without the HTTP server it also starts.
+# docs is phony because the docs/ directory exists: make would otherwise call it up to date.
+docs: ## Generate the presentations into docs/ without starting the HTTP server
+	./gradlew generateDocs
 
 clean-docs:
 	rm -rf docs/greattalk1 docs/greattalk2.html docs/index.html
