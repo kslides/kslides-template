@@ -1,8 +1,10 @@
 .PHONY: default help build-all clean build uberjar uber dist stage clean-docs sync-revealjs \
-        pdf clean-pdf versions upgrade-wrapper _require-gradle-version
+        pdf clean-pdf versions versions-all upgrade-wrapper _require-gradle-version
 
-# Versions are sourced from gradle/libs.versions.toml so there is one source of truth.
-GRADLE_VERSION := $(shell sed -n 's/^gradle-wrapper = "\(.*\)"/\1/p' gradle/libs.versions.toml)
+# The wrapper's current Gradle version; `make upgrade-wrapper GRADLE_VERSION=x.y.z` moves to another one.
+# gradle-wrapper.properties is the one place the version is kept, so Dependabot's wrapper PRs leave
+# nothing else to bump.
+GRADLE_VERSION ?= $(shell sed -n 's/^distributionUrl=.*gradle-\(.*\)-bin\.zip$$/\1/p' gradle/wrapper/gradle-wrapper.properties)
 
 default: help
 
@@ -46,15 +48,24 @@ pdf:  ## Export the presentations to PDF in build/pdf (optionally DECK=<name>)
 clean-pdf:  ## Remove the exported PDFs
 	rm -rf build/pdf
 
-versions: ## Check for dependency updates
+# dependencyUpdates is marked incompatible with the configuration cache (build.gradle.kts), so a
+# run with the cache on builds an entry only to discard it, and says so. --no-configuration-cache
+# skips the cache for this run instead. build.gradle.kts gives the task a formatter that lists only
+# what is behind; versions-all names the plugin's own plain report, which also lists everything up
+# to date.
+versions: ## List the dependencies with newer versions, and any that could not be checked
 	./gradlew dependencyUpdates --no-configuration-cache --no-parallel
+
+versions-all: ## The plugin's full dependency report, up-to-date dependencies included
+	./gradlew dependencyUpdates --no-configuration-cache --no-parallel --output-formatter=plain
 
 # Gradle's documented upgrade procedure: the first run rewrites
 # gradle-wrapper.properties using the *old* wrapper jar; the second run
 # regenerates the wrapper itself with the new version.
-upgrade-wrapper: _require-gradle-version ## Re-pin Gradle wrapper to version from libs.versions.toml
+# Example: make upgrade-wrapper GRADLE_VERSION=9.8.1
+upgrade-wrapper: _require-gradle-version ## Upgrade the Gradle wrapper (GRADLE_VERSION=x.y.z; default: the current one)
 	./gradlew wrapper --gradle-version=$(GRADLE_VERSION) --distribution-type=bin
 	./gradlew wrapper --gradle-version=$(GRADLE_VERSION) --distribution-type=bin
 
 _require-gradle-version:
-	@[ -n "$(GRADLE_VERSION)" ] || { echo "ERROR: Could not determine gradle version from gradle/libs.versions.toml" >&2; exit 1; }
+	@[ -n "$(GRADLE_VERSION)" ] || { echo "ERROR: Could not determine the Gradle version from gradle/wrapper/gradle-wrapper.properties" >&2; exit 1; }

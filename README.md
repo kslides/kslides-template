@@ -1,7 +1,7 @@
 # kslides Template
 
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/kslides/kslides-template)
-[![Kotlin version](https://img.shields.io/badge/kotlin-2.4.10-red?logo=kotlin)](http://kotlinlang.org)
+[![Kotlin version](https://img.shields.io/badge/kotlin-2.4.21-red?logo=kotlin)](http://kotlinlang.org)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/ed16ddd9-ab47-4e9d-8e37-807edded7a6e/deploy-status)](https://app.netlify.com/sites/kslides-template/deploys)
 
 A template repo for authoring [kslides](https://github.com/kslides/kslides) presentation.
@@ -56,19 +56,16 @@ delete whatever you don't want.
 Two of these cost something, so remove them if you don't need them:
 
 - **Lets-Plot** requires the `kslides-letsplot` dependency, which adds roughly 17 MB to
-  `build/libs/kslides.jar` (~31 MB total). Drop the dependency and the slide together.
+  `build/libs/kslides.jar` (~35 MB total). Drop the dependency and the slide together.
 - **Kroki** calls `kroki.io` while the slides are generated and caches the result under
   `docs/kroki/`, so a clean build needs network access. `mermaid()` has no such requirement —
   it renders in the browser from a runtime bundled with kslides.
 
-Two constraints on `markdownSlide` content are worth knowing before you edit it:
-
-- **No em dashes.** The markdown renderer emits `&mdash;`, and the XML parse step that follows
-  fails on the undeclared entity. Use a comma, colon, or parentheses instead. Kotlin comments
-  are unaffected.
-- **No inline markup on a `fragment()` line.** The reveal.js comment that `fragment()` emits
-  attaches to the last element on the line, so a trailing backtick span takes the fragment class
-  and only the code animates. Keep those lines plain text.
+One constraint on `markdownSlide` content is worth knowing before you edit it: keep a
+`fragment()` line plain text. The reveal.js comment that `fragment()` emits attaches to the last
+element on the line, so a trailing backtick span takes the fragment class and only the code
+animates. Em dashes, a bare `<`, and `&` are fine in Markdown as of kslides 1.5.0; earlier
+releases failed the whole build on them.
 
 ### Project Structure
 
@@ -77,7 +74,9 @@ Two constraints on `markdownSlide` content are worth knowing before you edit it:
 - `src/export/kotlin/Export.kt` — PDF-export entry point (see _Exporting to PDF_ below).
 - `src/main/resources/public/` — static assets when serving over HTTP.
 - `docs/` — generated HTML and static assets when publishing to GitHub Pages or Netlify.
-- `gradle/libs.versions.toml` — kslides, Kotlin, plugin, JVM, and Gradle versions.
+- `gradle/libs.versions.toml` — kslides, Kotlin, plugin, and JVM versions. The Gradle version is in
+  `gradle/wrapper/gradle-wrapper.properties`.
+- `.github/dependabot.yml` — weekly dependency-update pull requests (see _Updating kslides_).
 - `gradle.properties` — `group` and `version` (see _Customizing Your Fork_ below).
 - `build.gradle.kts` — `mainName` (see _Customizing Your Fork_ below).
 
@@ -200,6 +199,12 @@ misses that pairing, which is the main reason to prefer the config.
 One caveat: the font properties resolve per-slide, so setting them in a
 `verticalSlides { slideConfig { } }` block has no effect. Set them on each child slide, or
 deck-wide in the presentation-level `slideConfig { }`.
+
+`fontSize` and `codeFontSize` compound. `fontSize` is an inline `font-size` on the slide's
+`<section>`, so an `em` `codeFontSize` resolves against the already-scaled slide: `fontSize =
+"0.65em"` with the deck's `codeFontSize = "0.60em"` renders code at `0.60 × 0.65` of the theme's
+base size. To size code independently of `fontSize`, use an absolute unit such as
+`codeFontSize = "23px"`.
 
 ### Styling Slides
 
@@ -400,7 +405,8 @@ replacing `favicon.ico` there overrides the stock one.
 
 ## Updating kslides
 
-- Bump library, plugin, JVM, and Gradle versions in `gradle/libs.versions.toml` (not in `build.gradle.kts` or the `Makefile`).
-- After bumping `gradle-wrapper` in `libs.versions.toml`, run `make upgrade-wrapper` to re-pin `gradle/wrapper/gradle-wrapper.properties`.
+- Bump library, plugin, and JVM versions in `gradle/libs.versions.toml` (not in `build.gradle.kts` or the `Makefile`).
+- Upgrade Gradle with `make upgrade-wrapper GRADLE_VERSION=x.y.z`. The version lives only in `gradle/wrapper/gradle-wrapper.properties`.
 - After bumping `kslides-core`, run `make sync-revealjs` (or `./gradlew syncRevealJs`) to refresh `docs/revealjs/` from the new core JAR — otherwise statically-published decks will load stale reveal.js assets. A core bump can add entire plugin directories (kslides 1.2.0 added `docs/revealjs/plugin/mermaid/`), so check `git status` for new files and commit them too.
-- `make versions` lists out-of-date dependencies.
+- `make versions` lists only the out-of-date dependencies (and a newer Gradle release, if there is one); `make versions-all` prints the plugin's full report, up-to-date dependencies included.
+- Dependabot (`.github/dependabot.yml`) opens weekly pull requests for the same updates, including the Gradle wrapper, each held back until the release is a week old. A kslides update arrives as one PR for all three `com.kslides` artifacts. Before or right after merging it, run `make sync-revealjs`, regenerate your decks, and commit both, since Dependabot can do neither. Delete the file if you don't want the PRs.

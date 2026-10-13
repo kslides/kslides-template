@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.44.1] - 2026-10-13
+
+A sample-deck and upkeep release: the deck demonstrates ten more kslides features and sizes its code through `slideConfig` instead of CSS, kslides moves to 1.5.1, and dependency updates gain Dependabot and a shorter `make versions` report.
+
 ### Added
 - Ten feature demonstrations in the sample deck, each following the existing pattern of a demo slide plus a "Slide Definition" companion that includes its own source:
   - **Fragments** — `fragment()` with `Effect.FADE_UP` / `FADE_LEFT` / `GROW`, revealing a line per keypress.
@@ -21,22 +25,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - **Kroki diagrams** — `diagram("graphviz")` with `DiagramOutputType.SVG` and edge options.
 - `customTheme { }` on the `greattalk2.html` presentation (base theme, background/heading/link colors, code font, a custom CSS property, and a corner `logo()`), with a demo and definition slide in the main deck pointing at it. Applied to a secondary deck so the two looks can be compared.
 - `src/main/kotlin/playground/HelloWorld.kt` — the source the Playground slide loads and runs in the browser.
+- `make versions-all`, which prints the dependency-updates plugin's full plain report, up-to-date dependencies included.
+- `.github/dependabot.yml`: weekly Gradle version-update PRs for `gradle/libs.versions.toml` and the Gradle wrapper, held back 7 days after each release. `kslides-core`, `kslides-export`, and `kslides-letsplot` are grouped into one PR; other minor and patch updates share a second group. Forks inherit it: delete the file to opt out. Dependabot cannot run `make sync-revealjs` or regenerate the decks, so a kslides PR still needs both done by hand.
 - Generated output for the new slides: `docs/playground/`, `docs/letsPlot/`, and `docs/kroki/`.
 
 ### Changed
-- Enabled the `kslides-letsplot` dependency in `build.gradle.kts`; it was present but commented out. **This grows `build/libs/kslides.jar` by roughly 17 MB** (to ~31 MB), which matters for the Heroku dyno. Remove the dependency and the Lets-Plot slide together if you do not want the weight.
+- Upgraded kslides to 1.5.1 (from 1.4.0), Kotlin to 2.4.21 (from 2.4.10), the Gradle wrapper to 9.8.1 (from 9.7.0), and the ben-manes versions plugin to 0.66.0 (from 0.60.0). kslides-core 1.5.1 ships the same reveal.js distribution as 1.4.0, so `make sync-revealjs` produces no changes under `docs/revealjs/`. `make versions-all` relies on the plugin's `--output-formatter` option, which 0.61.0 did not have.
+- kslides-export 1.5.1 moves to Playwright 1.63.0, which pins a new Chromium build, so the first `make pdf` after upgrading downloads it once. A CI image that pre-installs Chromium needs its install step rerun.
+- Regenerated `/docs` under kslides 1.5.1 to check it: the only difference from the committed output is the Lets-Plot slide's random data, so nothing was committed.
+- kslides 1.5.0 emits Markdown slide content as a text node instead of parsing it as XML, and `include()` no longer turns non-ASCII characters into HTML4 entities. An em dash, a bare `<`, or an `&` in a `markdownSlide`, or in source that a slide-definition slide pulls in with `include()`, now renders as written; before, any one of them aborted generation for every deck at once. It also rejects a `customTheme` value (`customProperty`, `mainFont`, `headingFont`, `codeFont`) containing `;`, `{`, `}`, `<`, or a comment delimiter, since such a value could close the generated rule and inject its own. The sample deck's values are unaffected.
+- Enabled the `kslides-letsplot` dependency in `build.gradle.kts`; it was present but commented out. **This grows `build/libs/kslides.jar` by roughly 17 MB** (to ~35 MB with kslides 1.5.1), which matters for the Heroku dyno. Remove the dependency and the Lets-Plot slide together if you do not want the weight.
+- `make versions` now prints only what is behind: one ` - group:name current -> latest` line per outdated dependency, a ` ? ` line for any that could not be checked, and the Gradle upgrade if one is available, or `All dependencies are up to date`. The plugin's default report, which also listed every dependency already current, moved to `make versions-all`. The formatter is the `outputFormatter { }` block in `configureVersions()` in `build.gradle.kts`.
+- The Gradle version is now kept only in `gradle/wrapper/gradle-wrapper.properties`. The `gradle-wrapper` key is gone from `gradle/libs.versions.toml`: Dependabot's wrapper PRs cannot update it, and a stale value would have made the next `make upgrade-wrapper` downgrade the wrapper. `make upgrade-wrapper` reads the current version from the properties file, and takes the new one as `make upgrade-wrapper GRADLE_VERSION=x.y.z`. **Forks:** if you scripted a bump of the `gradle-wrapper` key, switch to the `GRADLE_VERSION` argument.
 - `make pdf` and `fun main()` now require network access on a clean run: `diagram()` calls kroki.io while the slides are generated and caches the result into `docs/kroki/`. `mermaid()` does not — it renders in the browser from the bundled runtime.
-
 - The sample deck sizes its code blocks through `slideConfig { }` instead of hand-written CSS. kslides 1.2.0 added `fontSize` / `codeFontSize` / `codeWrap` specifically to replace the raw-CSS approach, and this template kept the CSS. The two `css += """…"""` blocks (`.reveal pre { font-size: 0.60em; }`, the `pre-wrap` / `break-word` rule, and `.reveal .smallcode pre { font-size: 0.45em; }`) are gone; the presentation-level `slideConfig { }` now sets `codeFontSize = "0.60em"` and `codeWrap = true`, and the six slide-definition slides carry their own `slideConfig { codeFontSize = "0.45em" }`. The `classes += "smallcode"` opt-in is removed along with the rule it selected.
 
 ### Fixed
+- `.gitattributes`: the `/gradlew` and `*.bat` rules dropped a `binary` keyword that cancelled their `text eol=…` line-ending normalization, so the rules never took effect. `gradlew.bat` is now stored with LF and checked out with CRLF, which is why it shows as a whole-file diff in this release. Same fix as kslides 1.5.1.
 - Wrapped code blocks no longer break two-digit line numbers across rows. The hand-written `word-break: break-word` inherited into the highlight plugin's line-number gutter, which let the table squeeze `10` onto two lines. kslides pairs its generated wrap rule with `.reveal pre code .hljs-ln-numbers { white-space: nowrap; word-break: normal; }` — mirroring reveal.js' own print CSS — so moving to `codeWrap` picks the pinning up. Visible in the regenerated `docs/index.html`, which previously carried the wrap rule with no gutter rule beside it.
 
 ### Documentation
 - Replaced the _Styling Slides_ CSS example in `README.md` with a _Font Sizes_ section documenting the three `slideConfig` properties, the generated-class mechanism, and the caveat that they resolve per-slide (so a `verticalSlides { slideConfig { } }` block does nothing with them). _Styling Slides_ now covers only what the config blocks don't.
 - Recorded the same rule in `CLAUDE.md` and `llms.txt`, including the gutter pairing as the concrete reason not to hand-roll the CSS.
 - Added a _What the Sample Deck Demonstrates_ section to `README.md` mapping each feature to the API it uses and flagging the two that cost something (Lets-Plot's jar weight, Kroki's build-time network call).
-- Documented two markdown-slide constraints found while building these slides, in `CLAUDE.md` and as code comments beside the slides they affect: markdown content must avoid em dashes, because the renderer emits `&mdash;` and the XML parse step then fails on the undeclared entity; and a `fragment()` line must not contain inline code spans or other inline markup, because the emitted reveal.js comment attaches to the last element on the line and the span swallows the class.
+- Documented a markdown-slide constraint found while building these slides, in `README.md`, `CLAUDE.md`, and as a code comment beside the fragments slide: a `fragment()` line must not contain inline code spans or other inline markup, because the emitted reveal.js comment attaches to the last element on the line and the span swallows the class. An em-dash restriction hit at the same time is documented only as lifted, since kslides 1.5.0 removed it.
+- Documented `make versions-all`, Dependabot, and `make upgrade-wrapper GRADLE_VERSION=x.y.z` in `README.md`, `CLAUDE.md`, and `llms.txt`.
+- Documented in `README.md`'s _Font Sizes_ section and `CLAUDE.md` that `fontSize` and `codeFontSize` compound: `fontSize` is an inline `font-size` on the `<section>`, so an `em` `codeFontSize` resolves against the scaled slide. kslides 1.5.1 documents the same rule; the behavior is unchanged. The sample deck's four definition slides that set `fontSize = "0.65em"` render their code at `0.60 × 0.65` of the base size.
+- Updated the README's Kotlin badge to 2.4.21.
 
 ## [1.44.0] - 2026-08-08
 
@@ -296,7 +311,8 @@ released tag (1.2.1).
 ### 2021-02-15 — Initial commit
 - Repository created.
 
-[Unreleased]: https://github.com/kslides/kslides-template/compare/1.44.0...HEAD
+[Unreleased]: https://github.com/kslides/kslides-template/compare/1.44.1...HEAD
+[1.44.1]: https://github.com/kslides/kslides-template/compare/1.44.0...1.44.1
 [1.44.0]: https://github.com/kslides/kslides-template/compare/1.43.0...1.44.0
 [1.43.0]: https://github.com/kslides/kslides-template/compare/1.42.0...1.43.0
 [1.42.0]: https://github.com/kslides/kslides-template/compare/1.41.0...1.42.0
