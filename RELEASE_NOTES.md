@@ -5,6 +5,44 @@ structured per-version diff, see [CHANGELOG.md](CHANGELOG.md).
 
 ---
 
+## v1.44.1 — 2026-10-13
+
+**The sample deck tours far more of kslides.** Ten new features, each a demo slide plus a "Slide Definition" slide that shows its own source: fragments, speaker notes, slide backgrounds, slide-level `fontSize`, lists, tables, Mermaid diagrams, the Kotlin Playground, Lets-Plot, and Kroki diagrams. `greattalk2.html` also gains a `customTheme { }`, so you can compare a themed deck with the stock look. The README's new _What the Sample Deck Demonstrates_ section maps each slide to the API it uses.
+
+Two of them cost something. Lets-Plot needs the `kslides-letsplot` dependency, now enabled, which adds roughly 17 MB to `build/libs/kslides.jar` (about 35 MB in all), which matters on a Heroku dyno. Kroki calls kroki.io while the slides are generated, so a clean `fun main()` or `make pdf` needs network access. Mermaid renders in the browser and needs neither. If you drop one of those slides, drop its cost with it.
+
+**`make docs` regenerates the static site from the command line.** Running `fun main()` writes `docs/` and then starts the HTTP server, since the sample deck enables both output modes. `make docs` writes the same files and exits, which suits a script or CI job that publishes to GitHub Pages or Netlify. It honors your deck's `outputDir` if you changed it.
+
+**Code is sized through `slideConfig`, not CSS.** The deck's hand-written `font-size` and wrapping rules are gone:
+
+```kotlin
+presentationConfig {
+  slideConfig {
+    codeFontSize = "0.60em"   // a slide that needs smaller code overrides this
+    codeWrap = true
+  }
+}
+```
+
+Besides being shorter, this fixes a bug the CSS had: its `word-break: break-word` leaked into the line-number gutter and split two-digit line numbers across rows. kslides pairs its wrap rule with a gutter rule that prevents it. One thing to know: `fontSize` and `codeFontSize` compound. `fontSize` scales the slide's whole `<section>`, so an `em` code size on a slide with `fontSize = "0.65em"` comes out at 0.65 of its usual size. Use an absolute unit such as `"23px"` when code must not scale with the slide.
+
+**kslides 1.5.1.** The big change came in 1.5.0: Markdown no longer passes through an XML parser on its way into the page, so an em dash, a bare `<` (as in `List<String>`), or an `&` in a `markdownSlide` renders as written. Before, any one of them, including one in source that a slide-definition slide pulled in with `include()`, aborted generation for every deck at once. `slideBackground()` can now go anywhere in a slide's content, and a `customTheme` value carrying `;`, `{`, `}`, `<`, or a comment delimiter is rejected, since it could break out of the generated stylesheet. 1.5.1 itself changes no API, but kslides-export moves to Playwright 1.63.0, so your first `make pdf` after upgrading downloads a new Chromium. Kotlin is now 2.4.21 and Gradle 9.8.1. reveal.js is unchanged, so `make sync-revealjs` is a no-op, and regenerating `/docs` changes nothing but the Lets-Plot slide's random data.
+
+**Dependency updates come to you.** `.github/dependabot.yml` opens a weekly pull request for Gradle dependency and wrapper updates, each held back until the release is a week old. The three kslides artifacts share one version, so they arrive as one PR. Dependabot cannot run `make sync-revealjs` or regenerate your decks, so do both before or right after you merge a kslides PR.
+
+`make versions` now prints only what is out of date, for example:
+
+```
+ - org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin 2.4.10 -> 2.4.21
+ - Gradle 9.7.0 -> 9.8.1
+```
+
+`make versions-all` prints the plugin's full report, up-to-date dependencies included. And the Gradle version now lives in one place, `gradle/wrapper/gradle-wrapper.properties`. Dependabot's wrapper PRs could not update the old `gradle-wrapper` key in `libs.versions.toml`, and the stale copy would have made the next `make upgrade-wrapper` downgrade the wrapper. To upgrade by hand, run `make upgrade-wrapper GRADLE_VERSION=x.y.z`.
+
+> **Forks:** delete `.github/dependabot.yml` if you don't want the weekly PRs. If you scripted a bump of the `gradle-wrapper` key in `libs.versions.toml`, pass `GRADLE_VERSION` to `make upgrade-wrapper` instead. If you hand-sized code with CSS the way the old sample deck did, `slideConfig { codeFontSize / codeWrap }` replaces it and fixes the gutter; and on any slide that sets `fontSize`, check whether an `em` `codeFontSize` should be absolute. Any workaround you wrote for em dashes, `<`, or `&` in Markdown can go. A `customTheme` value containing `;` or `{` now fails at generation time. If you remove the Lets-Plot slide, remove `kslides-letsplot` with it. If your `.gitattributes` still has `binary` on the `/gradlew` or `*.bat` line, drop it: the keyword cancels the line-ending rule beside it. `make sync-revealjs` is a no-op for this bump.
+
+---
+
 ## v1.44.0 — 2026-08-08
 
 **Your deck works under a subpath now.** That is the whole release. If you publish to GitHub Pages, your fork lives at `https://username.github.io/repo_name/` — not at a domain root — and this template had links that assumed otherwise. Every one of them is fixed, half in the sample deck and half upstream in kslides **1.4.0**.

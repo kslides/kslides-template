@@ -21,6 +21,7 @@ val revealJsPath = "revealjs"
 val docsRevealJsDir = "docs/$revealJsPath"
 val exportSourceSet = "export"
 val exportMainName = "ExportKt"
+val docsMainName = "DocsKt"
 
 application {
   mainClass = mainName
@@ -61,6 +62,7 @@ configureKotlin()
 configureShadowJar()
 configureRevealSync()
 configurePdfExport()
+configureDocs()
 configureVersions()
 
 fun Project.configureKotlin() {
@@ -163,6 +165,19 @@ fun Project.configurePdfExport() {
   }
 }
 
+fun Project.configureDocs() {
+  // Writes the decks to the filesystem (docs/ by default) without starting the HTTP server that
+  // `fun main()` in Slides.kt also runs. The entry point (src/export/kotlin/Docs.kt) sits beside
+  // Export.kt so it stays out of the uberjar. Like exportPdf, it runs from the project directory,
+  // which the deck's relative paths resolve against.
+  tasks.register<JavaExec>("generateDocs") {
+    group = "kslides"
+    description = "Write the presentations to the filesystem (docs/ by default) without starting the HTTP server"
+    mainClass = docsMainName
+    classpath = sourceSets[exportSourceSet].runtimeClasspath
+  }
+}
+
 fun Project.configureVersions() {
   // A pre-release qualifier is a `.` or `-` delimiter followed by a known unstable
   // keyword. `m\d` matches milestones (`-M1`/`.M2`) without catching stable classifiers
@@ -180,6 +195,24 @@ fun Project.configureVersions() {
     // alpha), newer pre-releases are still surfaced as available updates.
     rejectVersionIf {
       isNonStable(candidate.version) && !isNonStable(currentVersion)
+    }
+
+    // Prints only what is behind, and what could not be checked. The plugin's own report, which
+    // `make versions-all` asks for with --output-formatter=plain, also lists every dependency
+    // already up to date.
+    outputFormatter {
+      val behind = outdated.dependencies.sortedBy { "${it.group}:${it.name}" }
+      if (behind.isEmpty()) println("All dependencies are up to date")
+      behind.forEach { d ->
+        val latest = with(d.available) { release ?: milestone ?: integration }
+        println(" - ${d.group}:${d.name} ${d.version} -> $latest")
+      }
+      unresolved.dependencies.sortedBy { "${it.group}:${it.name}" }.forEach {
+        println(" ? ${it.group}:${it.name}:${it.version} could not be checked")
+      }
+      if (gradle.current.isUpdateAvailable) {
+        println(" - Gradle ${gradle.running.version} -> ${gradle.current.version}")
+      }
     }
   }
 }

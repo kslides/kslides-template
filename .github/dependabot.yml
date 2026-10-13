@@ -1,0 +1,27 @@
+# Weekly version-update pull requests. Security updates also need Dependabot alerts turned on in the
+# repository's settings. Forks created from this template inherit this file; delete it to opt out.
+#
+# Every update waits 7 days after a release before it is proposed (`cooldown`), so a release that is
+# pulled, or found to be compromised, in its first week never arrives as a pull request. Security
+# updates are not held back.
+version: 2
+updates:
+  # gradle/libs.versions.toml and the Gradle wrapper (gradle-wrapper.properties, gradlew, gradlew.bat
+  # and gradle-wrapper.jar). gradle-wrapper.properties is the only place the Gradle version is kept,
+  # so a wrapper PR leaves nothing else to bump.
+  - package-ecosystem: gradle
+    directory: /
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 7
+    open-pull-requests-limit: 10
+    groups:
+      # kslides-core, kslides-export and kslides-letsplot share one version.ref, so they move in one PR,
+      # majors included. A kslides PR is not finished when it merges: run `make sync-revealjs` and commit
+      # any new docs/revealjs/ files, then regenerate the decks, or statically published decks load
+      # stale reveal.js assets.
+      kslides:
+        patterns: [ "com.kslides:*" ]
+      gradle-minor-and-patch:
+        update-types: [ "minor", "patch" ]
