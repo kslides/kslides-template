@@ -67,7 +67,7 @@ versions-all: ## The plugin's full dependency report, up-to-date dependencies in
 # Gradle's documented upgrade procedure: the first run rewrites
 # gradle-wrapper.properties using the *old* wrapper jar; the second run
 # regenerates the wrapper itself with the new version.
-# Example: make upgrade-wrapper GRADLE_VERSION=9.8.1
+# Example: make upgrade-wrapper GRADLE_VERSION=9.9.1
 upgrade-wrapper: _require-gradle-version ## Upgrade the Gradle wrapper (GRADLE_VERSION=x.y.z; default: the current one)
 	./gradlew wrapper --gradle-version=$(GRADLE_VERSION) --distribution-type=bin
 	./gradlew wrapper --gradle-version=$(GRADLE_VERSION) --distribution-type=bin
