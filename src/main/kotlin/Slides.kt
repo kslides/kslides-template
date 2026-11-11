@@ -72,7 +72,7 @@ fun templateSlides(): KSlides.() -> Unit =
       // Write the presentation's html files to /docs for GitHub Pages or netlify.com
       enableFileSystem = true
 
-      // Run locally or on Heroku
+      // Also serve the presentations over HTTP
       enableHttp = true
 
       // Audience browsers follow the presenter; presenter URL logged at startup

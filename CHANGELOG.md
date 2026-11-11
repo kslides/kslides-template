@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed
+- Heroku support: `Procfile`, `system.properties`, `app.json`, the Gradle `stage` task, and the `make stage` / `make build-all` targets, along with the README's "Deploy to Heroku" section. `make uber` still honours `$PORT`, so the uberjar runs on any host that sets it.
+
 ### Documentation
 - README badges: the kslides, Kotlin, and JVM badges now read their versions from `gradle/libs.versions.toml` on `master` (shields.io dynamic TOML badges), so a Dependabot bump updates them with no README edit. Added kslides, JVM, and License badges, and linked the release badge to the releases page.
 

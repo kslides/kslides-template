@@ -1,4 +1,4 @@
-.PHONY: default help build-all clean build uberjar uber dist stage docs clean-docs sync-revealjs \
+.PHONY: default help clean build uberjar uber dist docs clean-docs sync-revealjs \
         pdf clean-pdf versions versions-all upgrade-wrapper _require-gradle-version
 
 # The wrapper's current Gradle version; `make upgrade-wrapper GRADLE_VERSION=x.y.z` moves to another one.
@@ -12,9 +12,6 @@ help:  ## Show this help (list of targets)
 	@awk 'BEGIN {FS = ":.*?## "; printf "Usage: make <target>\n\nTargets:\n"} \
 		/^[a-zA-Z0-9_-]+:.*?## / {printf "  \033[36m%-22s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
-# stage already depends on clean in Gradle (see build.gradle.kts).
-build-all: stage ## Alias for stage
-
 clean: ## Run ./gradlew clean
 	./gradlew clean
 
@@ -24,15 +21,12 @@ build: clean ## Clean build, skipping tests
 uberjar: ## Build the shaded uberjar (build/libs/kslides.jar)
 	./gradlew shadowJar
 
-# Matches Procfile (-DPORT=$PORT); falls back to 8080 for local runs.
+# Honours $PORT if set; falls back to 8080.
 uber: uberjar ## Build and run the uberjar (honours $PORT, defaults to 8080)
 	java -DPORT=$${PORT:-8080} -jar build/libs/kslides.jar
 
 dist: ## Build a runnable distribution (./gradlew installDist)
 	./gradlew installDist
-
-stage: ## Heroku stage build (clean + shadowJar)
-	./gradlew stage
 
 # The same output `fun main()` in Slides.kt writes, without the HTTP server it also starts.
 # docs is phony because the docs/ directory exists: make would otherwise call it up to date.
