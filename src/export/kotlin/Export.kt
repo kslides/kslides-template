@@ -6,7 +6,7 @@ import com.kslides.export.exportPdf
  * single deck with `make pdf DECK=greattalk1` / `-Pdeck=greattalk1`.
  *
  * This lives in the `export` source set rather than `src/main/kotlin` so the Playwright dependency
- * stays out of the uberjar that Heroku runs. Configure the output via the `pdf { }` block inside
+ * stays out of the uberjar. Configure the output via the `pdf { }` block inside
  * `output { }` in `Slides.kt`.
  */
 fun main() {

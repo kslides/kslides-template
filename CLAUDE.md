@@ -12,10 +12,8 @@ The Makefile is a thin wrapper over `./gradlew`:
 
 - `make` (no args) defaults to `help` (prints the colorized target list generated from the `##` comments)
 - `make build` — `./gradlew clean build -x test` (tests are intentionally skipped here)
-- `make build-all` — alias for `make stage`; the Gradle `stage` task already declares `dependsOn("clean", "shadowJar")`
 - `make uberjar` — invokes `./gradlew shadowJar`, which produces `build/libs/kslides.jar` directly with the custom manifest (there is no separate `uberjar` Gradle task — that wrapper was collapsed into `shadowJar` in 1.40.0)
 - `make uber` — build the uberjar and run it (`java -DPORT=$${PORT:-8080} -jar build/libs/kslides.jar`); honours `$PORT` if set, otherwise falls back to 8080
-- `make stage` — `./gradlew stage`; this is what Heroku invokes (see `Procfile`)
 - `make dist` — `./gradlew installDist`
 - `make sync-revealjs` — runs the `syncRevealJs` task (see Architecture)
 - `make pdf` — runs `./gradlew exportPdf`; `make pdf DECK=<name>` forwards `-Pdeck=<name>` to export a single deck. Writes to `build/pdf`
@@ -34,7 +32,7 @@ There are no tests in this template. `make build` passes `-x test` deliberately.
 
 **Two output modes, configured per-presentation in `Slides.kt` via the `output {}` block:**
 - `enableFileSystem = true` — generates static HTML into `/docs/` for GitHub Pages or Netlify.
-- `enableHttp = true` — runs an embedded HTTP server (used for Heroku via the uberjar).
+- `enableHttp = true` — runs an embedded HTTP server (for local preview, or serving the decks from the uberjar).
 
 Both can be enabled simultaneously.
 
@@ -82,7 +80,6 @@ kslides release adds another filesystem setting to `OutputConfig`, add it to tha
 
 **Deployment artifacts already wired in:**
 - `netlify.toml` — points Netlify at `docs/` as the publish base
-- `Procfile` + `system.properties` + `app.json` — Heroku config (Java 17 runtime, `web` dyno runs the uberjar)
 - `.nojekyll` — disables Jekyll on GitHub Pages so reveal.js's `_*` paths aren't filtered
 
 **Dependabot.** `.github/dependabot.yml` opens weekly Gradle version-update PRs (7-day cooldown) for `gradle/libs.versions.toml` and the Gradle wrapper. The three `com.kslides:*` artifacts share one `version.ref`, so they are grouped into one PR whatever the update type; everything else is grouped by minor/patch. Two things follow from it:

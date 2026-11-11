@@ -52,12 +52,6 @@ dependencies {
   "${exportSourceSet}Implementation"(libs.kslides.export)
 }
 
-tasks.register<DefaultTask>("stage") {
-  group = "build"
-  description = "Clean and build $jarName — invoked by Heroku via Procfile."
-  dependsOn(cleanTask, shadowJarTask)
-}
-
 configureKotlin()
 configureShadowJar()
 configureRevealSync()

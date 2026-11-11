@@ -89,7 +89,7 @@ releases failed the whole build on them.
 Configured per-presentation in `Slides.kt` via the `output {}` block:
 
 - `enableFileSystem = true` — write static HTML into `/docs` for GitHub Pages or Netlify.
-- `enableHttp = true` — run an embedded HTTP server (used by Heroku and for local preview).
+- `enableHttp = true` — run an embedded HTTP server (for local preview, or serving the decks from the uberjar).
 
 Both can be enabled at the same time.
 
@@ -326,8 +326,8 @@ Setting `browserChannel` to `"chrome"` or `"msedge"` skips that download entirel
 
 The entry point is `src/export/kotlin/Export.kt`, which calls `exportPdf(deck, templateSlides())`.
 It sits in its own `export` source set on purpose: that keeps the Playwright dependency out of
-`build/libs/kslides.jar`, which would otherwise grow by tens of megabytes for a feature Heroku
-never runs. This is also why `Slides.kt` exposes its deck as `fun templateSlides(): KSlides.() -> Unit`
+`build/libs/kslides.jar`, which would otherwise grow by tens of megabytes for a feature the
+HTTP server never runs. This is also why `Slides.kt` exposes its deck as `fun templateSlides(): KSlides.() -> Unit`
 rather than building it inline in `main()` — both entry points run the same block.
 
 ### Customizing Your Fork
@@ -346,7 +346,7 @@ In `build.gradle.kts`:
 ### The Uberjar
 
 `make uberjar` (or `./gradlew shadowJar`) packs your deck and all of its dependencies into
-`build/libs/kslides.jar`, which is what Heroku runs. `make uber` builds and runs it locally on
+`build/libs/kslides.jar`. `make uber` builds and runs it locally on
 `$PORT`, defaulting to 8080.
 
 The task's duplicate handling is worth understanding before you edit it:
@@ -395,17 +395,6 @@ replacing `favicon.ico` there overrides the stock one.
 10) Add the newly generated html files in the `/docs` folder to git
 11) Commit and push the changes to GitHub
 12) Wait a minute or so and your slides will be available at _https://site-name.netlify.app/_
-
-
-### Deploy to Heroku
-
-1) Create an account on [Heroku](https://www.heroku.com/)
-2) Install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli#install-the-heroku-cli)
-3) Open the _src/main/kotlin/Slides.kt_ file
-4) Ensure the _output{}_ block contains: `enableHttp = true`
-5) Create a new Heroku app with: `heroku create slideshow_name`
-6) Commit and push the changes to Heroku with: `git push heroku master`
-7) Open the app in a browser with: `heroku open`
 
 ## Updating kslides
 
