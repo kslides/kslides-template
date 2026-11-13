@@ -2,7 +2,7 @@
 ben-manes-versions = "0.67.0"
 jvm = "17"
 kotlin = "2.4.21"
-kslides = "1.5.1"
+kslides = "1.5.2"
 shadow = "9.6.1"
 
 [libraries]
