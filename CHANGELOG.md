@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Upgraded kslides to 1.5.2 (from 1.5.1). 1.5.2 changes no API and no behavior; it moves kslides' own dependencies forward (Ktor 3.6.1, kotlin-css 2026.11.1, kotlinx.serialization 1.12.0). kslides-core 1.5.2 ships the same reveal.js distribution as 1.5.1, so `make sync-revealjs` produces no changes under `docs/revealjs/`. Regenerating `/docs` with `make docs` changes only `docs/letsPlot/slide-33-1.html`, and only in its random data and container id, so no generated output was recommitted.
+- kslides-export 1.5.2 moves to Playwright 1.64.0 (from 1.63.0), which pins a new Chromium build, so the first `make pdf` after upgrading downloads it once. A CI image that pre-installs Chromium needs its install step rerun.
+- Upgraded the Gradle wrapper to 9.9.1 (from 9.8.1, by way of 9.8.2) and the ben-manes versions plugin to 0.67.0 (from 0.66.0). The `make upgrade-wrapper` example in the `Makefile` now shows 9.9.1.
+
 ### Removed
 - Heroku support: `Procfile`, `system.properties`, `app.json`, the Gradle `stage` task, and the `make stage` / `make build-all` targets, along with the README's "Deploy to Heroku" section. `make uber` still honours `$PORT`, so the uberjar runs on any host that sets it.
 

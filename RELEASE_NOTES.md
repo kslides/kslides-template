@@ -5,6 +5,16 @@ structured per-version diff, see [CHANGELOG.md](CHANGELOG.md).
 
 ---
 
+## Unreleased
+
+**Heroku support is gone.** `Procfile`, `system.properties`, `app.json`, the Gradle `stage` task, and the `make stage` / `make build-all` targets are removed, along with the README's _Deploy to Heroku_ section. The uberjar is unchanged, and `make uber` still honours `$PORT`, so it runs on any host that sets one.
+
+**kslides 1.5.2.** A maintenance release with no API changes and no change in behavior. It brings kslides' own dependencies up to date (Ktor 3.6.1, kotlinx.serialization 1.12.0). The one thing you will notice is in `make pdf`: kslides-export moves to Playwright 1.64.0, which pins a new Chromium, so your first export after upgrading downloads it once. reveal.js is unchanged, so `make sync-revealjs` is a no-op, and regenerating `/docs` changes nothing but the Lets-Plot slide's random data. Gradle is now 9.9.1.
+
+> **Forks:** if you deploy to Heroku, keep your `Procfile`, `system.properties`, `app.json`, and `stage` task when you pull this in; v1.44.1 has them if you need them back. For the kslides bump, set `kslides = "1.5.2"` in `gradle/libs.versions.toml`, or merge the Dependabot PR that does it. There is nothing to recommit under `docs/`. If a CI image pre-installs Chromium for `make pdf`, rerun its install step.
+
+---
+
 ## v1.44.1 — 2026-10-13
 
 **The sample deck tours far more of kslides.** Ten new features, each a demo slide plus a "Slide Definition" slide that shows its own source: fragments, speaker notes, slide backgrounds, slide-level `fontSize`, lists, tables, Mermaid diagrams, the Kotlin Playground, Lets-Plot, and Kroki diagrams. `greattalk2.html` also gains a `customTheme { }`, so you can compare a themed deck with the stock look. The README's new _What the Sample Deck Demonstrates_ section maps each slide to the API it uses.
